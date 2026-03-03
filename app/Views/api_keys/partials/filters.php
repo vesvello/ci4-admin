@@ -13,9 +13,17 @@
         <?php $active = (string) (request()->getGet('is_active') ?? ''); ?>
         <select name="is_active" class="<?= esc(filter_input_class()) ?>">
             <option value=""><?= lang('ApiKeys.all_statuses') ?></option>
-            <option value="1" <?= $active === '1' ? 'selected' : '' ?>><?= lang('ApiKeys.active') ?></option>
-            <option value="0" <?= $active === '0' ? 'selected' : '' ?>><?= lang('ApiKeys.inactive') ?></option>
+            <?php foreach (($statusOptions ?? []) as $option): ?>
+                <?php
+                $value = (string) ($option['value'] ?? '');
+                if ($value === '') {
+                    continue;
+                }
+                $label = (string) ($option['label'] ?? $value);
+                ?>
+                <option value="<?= esc($value) ?>" <?= $active === $value ? 'selected' : '' ?>><?= esc($label) ?></option>
+            <?php endforeach; ?>
         </select>
     </div>
-    <?= view('layouts/partials/filter_limit') ?>
+    <?= view('layouts/partials/filter_limit', ['limitOptions' => $limitOptions ?? [10, 25, 50, 100]]) ?>
 </div>

@@ -9,8 +9,16 @@
         <select name="status" class="<?= esc(filter_input_class()) ?>">
             <option value=""><?= lang('Users.all_statuses') ?></option>
             <?php $status = (string) request()->getGet('status'); ?>
-            <option value="active" <?= $status === 'active' ? 'selected' : '' ?>><?= lang('App.yes') ?></option>
-            <option value="pending_approval" <?= $status === 'pending_approval' ? 'selected' : '' ?>><?= lang('Users.pending_approval') ?></option>
+            <?php foreach (($statusOptions ?? []) as $option): ?>
+                <?php
+                $value = (string) ($option['value'] ?? '');
+                if ($value === '') {
+                    continue;
+                }
+                $label = (string) ($option['label'] ?? $value);
+                ?>
+                <option value="<?= esc($value) ?>" <?= $status === $value ? 'selected' : '' ?>><?= esc($label) ?></option>
+            <?php endforeach; ?>
         </select>
     </div>
     <div>
@@ -18,10 +26,17 @@
         <select name="role" class="<?= esc(filter_input_class()) ?>">
             <option value=""><?= lang('Users.all_roles') ?></option>
             <?php $role = (string) request()->getGet('role'); ?>
-            <option value="admin" <?= $role === 'admin' ? 'selected' : '' ?>><?= lang('Users.admin_role') ?></option>
-            <option value="superadmin" <?= $role === 'superadmin' ? 'selected' : '' ?>><?= lang('Users.super_admin_role') ?></option>
-            <option value="user" <?= $role === 'user' ? 'selected' : '' ?>><?= lang('Users.user_role') ?></option>
+            <?php foreach (($roleOptions ?? []) as $option): ?>
+                <?php
+                $value = (string) ($option['value'] ?? '');
+                if ($value === '') {
+                    continue;
+                }
+                $label = (string) ($option['label'] ?? $value);
+                ?>
+                <option value="<?= esc($value) ?>" <?= $role === $value ? 'selected' : '' ?>><?= esc($label) ?></option>
+            <?php endforeach; ?>
         </select>
     </div>
-    <?= view('layouts/partials/filter_limit') ?>
+    <?= view('layouts/partials/filter_limit', ['limitOptions' => $limitOptions ?? [10, 25, 50, 100]]) ?>
 </div>

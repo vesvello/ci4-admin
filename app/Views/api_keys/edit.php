@@ -22,8 +22,16 @@
                     <?php $currentActive = old('is_active', isset($apiKey['is_active']) ? ((int) ((bool) $apiKey['is_active'])) : 1); ?>
                     <select id="is_active" name="is_active"
                         class="mt-1 w-full rounded-lg border px-3 py-2 <?= has_field_error('is_active') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-brand-500 focus:ring-brand-500' ?>">
-                        <option value="1" <?= (string) $currentActive === '1' ? 'selected' : '' ?>><?= lang('ApiKeys.active') ?></option>
-                        <option value="0" <?= (string) $currentActive === '0' ? 'selected' : '' ?>><?= lang('ApiKeys.inactive') ?></option>
+                        <?php foreach (($statusOptions ?? []) as $option): ?>
+                            <?php
+                            $value = (string) ($option['value'] ?? '');
+                            if ($value === '') {
+                                continue;
+                            }
+                            $label = (string) ($option['label'] ?? $value);
+                            ?>
+                            <option value="<?= esc($value) ?>" <?= (string) $currentActive === $value ? 'selected' : '' ?>><?= esc($label) ?></option>
+                        <?php endforeach; ?>
                     </select>
                     <?= render_field_error('is_active') ?>
                 </div>

@@ -15,6 +15,8 @@ return [
     'date'             => 'Date',
     'actions'          => 'Actions',
     'view'             => 'View',
+    'approve'          => 'Approve',
+    'loading'          => 'Loading users...',
     'all_statuses'     => 'All statuses',
     'all_roles'        => 'All roles',
     'active'           => 'Active',

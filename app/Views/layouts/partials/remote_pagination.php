@@ -4,10 +4,9 @@
         <label class="flex items-center gap-2 text-xs text-gray-500">
             <span><?= lang('App.per_page') ?></span>
             <select class="rounded-md border border-gray-300 px-2 py-1 text-xs text-gray-700" :value="String(query.limit || pagination.limit || 25)" @change="onLimitChange($event.target.value)" :disabled="loading">
-                <option value="10">10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
+                <template x-for="option in paginationLimitOptions()" :key="'limit-' + option">
+                    <option :value="String(option)" x-text="String(option)"></option>
+                </template>
             </select>
         </label>
     </div>

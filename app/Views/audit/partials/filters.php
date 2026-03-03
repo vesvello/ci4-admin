@@ -9,16 +9,21 @@
         <select name="action" class="<?= esc(filter_input_class()) ?>">
             <option value=""><?= lang('Audit.all_actions') ?></option>
             <?php $action = (string) request()->getGet('action'); ?>
-            <option value="create" <?= $action === 'create' ? 'selected' : '' ?>><?= lang('Audit.action_create') ?></option>
-            <option value="update" <?= $action === 'update' ? 'selected' : '' ?>><?= lang('Audit.action_update') ?></option>
-            <option value="delete" <?= $action === 'delete' ? 'selected' : '' ?>><?= lang('Audit.action_delete') ?></option>
-            <option value="login" <?= $action === 'login' ? 'selected' : '' ?>><?= lang('Audit.action_login') ?></option>
-            <option value="logout" <?= $action === 'logout' ? 'selected' : '' ?>><?= lang('Audit.action_logout') ?></option>
+            <?php foreach (($actionOptions ?? []) as $option): ?>
+                <?php
+                $value = (string) ($option['value'] ?? '');
+                if ($value === '') {
+                    continue;
+                }
+                $label = (string) ($option['label'] ?? $value);
+                ?>
+                <option value="<?= esc($value) ?>" <?= $action === $value ? 'selected' : '' ?>><?= esc($label) ?></option>
+            <?php endforeach; ?>
         </select>
     </div>
     <div>
         <label class="<?= esc(filter_label_class()) ?>"><?= lang('Audit.user_id') ?></label>
         <input type="text" name="user_id" value="<?= esc((string) request()->getGet('user_id')) ?>" class="<?= esc(filter_input_class()) ?>">
     </div>
-    <?= view('layouts/partials/filter_limit') ?>
+    <?= view('layouts/partials/filter_limit', ['limitOptions' => $limitOptions ?? [10, 25, 50, 100]]) ?>
 </div>

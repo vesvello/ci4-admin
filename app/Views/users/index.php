@@ -6,7 +6,8 @@
         routes: {
             showBase: '<?= site_url('admin/users') ?>',
             editBase: '<?= site_url('admin/users') ?>'
-        }
+        },
+        limitOptions: <?= esc(json_encode(array_map('strval', $limitOptions ?? [10, 25, 50, 100]))) ?>
     })" x-init="init()">
     <?= view('layouts/partials/table_toolbar', [
         'title' => lang('Users.title'),
@@ -20,6 +21,11 @@
         'reactiveHasFilters' => true,
         'filterDefaults' => ['limit' => '25'],
         'fieldsView' => 'users/partials/filters',
+        'fieldsData' => [
+            'statusOptions' => $statusOptions ?? [],
+            'roleOptions' => $roleOptions ?? [],
+            'limitOptions' => $limitOptions ?? [10, 25, 50, 100],
+        ],
         'submitLabel' => lang('App.search'),
     ]) ?>
 

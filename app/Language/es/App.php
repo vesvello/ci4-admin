@@ -2,6 +2,8 @@
 
 return [
     'menu'            => 'Menú',
+    'panel'           => 'Panel de Administración',
+    'administration'  => 'Administración',
     'dashboard'       => 'Escritorio',
     'users'           => 'Usuarios',
     'audit'           => 'Auditoría',
@@ -50,6 +52,12 @@ return [
     'go_login'        => 'Ir al Ingreso',
     'go_back'         => 'Regresar',
     'status'          => 'Estado',
+    'pending'         => 'Pendiente',
     'id'              => 'ID',
     'close'           => 'Cerrar',
+    'confirm'         => 'Confirmar',
+    'error404Title'   => 'Página no encontrada',
+    'error404Body'    => 'La página que buscas no existe o fue movida.',
+    'error500Title'   => 'Error interno del servidor',
+    'error500Body'    => 'Ocurrió un error inesperado. Inténtalo de nuevo más tarde.',
 ];

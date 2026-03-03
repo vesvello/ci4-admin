@@ -2,6 +2,8 @@
 
 return [
     'menu'            => 'Menu',
+    'panel'           => 'Admin Panel',
+    'administration'  => 'Administration',
     'dashboard'       => 'Dashboard',
     'users'           => 'Users',
     'audit'           => 'Audit',
@@ -50,6 +52,12 @@ return [
     'go_login'        => 'Go to Login',
     'go_back'         => 'Go Back',
     'status'          => 'Status',
+    'pending'         => 'Pending',
     'id'              => 'ID',
     'close'           => 'Close',
+    'confirm'         => 'Confirm',
+    'error404Title'   => 'Page not found',
+    'error404Body'    => 'The page you are looking for does not exist or has been moved.',
+    'error500Title'   => 'Internal server error',
+    'error500Body'    => 'An unexpected error occurred. Please try again later.',
 ];

@@ -4,5 +4,5 @@
         <input type="text" name="search" value="<?= esc((string) request()->getGet('search')) ?>" placeholder="<?= lang('Files.search_placeholder') ?>"
             class="<?= esc(filter_input_class()) ?>" data-table-debounce="350">
     </div>
-    <?= view('layouts/partials/filter_limit') ?>
+    <?= view('layouts/partials/filter_limit', ['limitOptions' => $limitOptions ?? [10, 25, 50, 100]]) ?>
 </div>

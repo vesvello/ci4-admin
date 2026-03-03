@@ -9,7 +9,10 @@
         'hasFilters' => $hasFilters ?? false,
         'filterDefaults' => $defaultFilters ?? [],
         'fieldsView' => 'metrics/partials/filters',
-        'fieldsData' => ['filters' => $filters],
+        'fieldsData' => [
+            'filters' => $filters,
+            'periodOptions' => $periodOptions ?? [],
+        ],
         'submitLabel' => lang('Metrics.apply_filters'),
     ]) ?>
 </section>

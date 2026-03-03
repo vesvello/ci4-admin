@@ -114,8 +114,16 @@
         <div>
             <label class="block text-sm font-medium text-gray-700" for="visibility"><?= lang('Files.visibility') ?></label>
             <select id="visibility" name="visibility" class="mt-1 w-full md:w-56 rounded-lg border border-gray-300 px-3 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500" :disabled="uploading">
-                <option value="private"><?= lang('Files.private') ?></option>
-                <option value="public"><?= lang('Files.public') ?></option>
+                <?php foreach (($visibilityOptions ?? []) as $option): ?>
+                    <?php
+                    $value = (string) ($option['value'] ?? '');
+                    if ($value === '') {
+                        continue;
+                    }
+                    $label = (string) ($option['label'] ?? $value);
+                    ?>
+                    <option value="<?= esc($value) ?>"><?= esc($label) ?></option>
+                <?php endforeach; ?>
             </select>
         </div>
         <button type="submit" class="<?= esc(action_button_class('primary')) ?> disabled:opacity-50 disabled:cursor-not-allowed" :disabled="uploading || !selectedFileName">

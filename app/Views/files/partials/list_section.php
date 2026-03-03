@@ -13,7 +13,8 @@ $csrfHash = csrf_hash(); ?>
             name: '<?= esc($csrfName) ?>',
             hash: '<?= esc($csrfHash) ?>'
         },
-        confirmDelete: '<?= esc(lang('Files.confirm_delete')) ?>'
+        confirmDelete: '<?= esc(lang('Files.confirm_delete')) ?>',
+        limitOptions: <?= esc(json_encode(array_map('strval', $limitOptions ?? [10, 25, 50, 100]))) ?>
     })" x-init="init()">
     <?= view('layouts/partials/table_toolbar', [
         'title' => lang('Files.my_files'),
@@ -25,6 +26,7 @@ $csrfHash = csrf_hash(); ?>
         'reactiveHasFilters' => true,
         'filterDefaults' => ['limit' => '25'],
         'fieldsView' => 'files/partials/filters',
+        'fieldsData' => ['limitOptions' => $limitOptions ?? [10, 25, 50, 100]],
         'submitLabel' => lang('App.search'),
     ]) ?>
 
