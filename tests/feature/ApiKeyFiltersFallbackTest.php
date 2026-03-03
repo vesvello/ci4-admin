@@ -26,15 +26,15 @@ final class ApiKeyFiltersFallbackTest extends CIUnitTestCase
         $mock->expects($this->once())
             ->method('list')
             ->with($this->callback(static function (array $params): bool {
-                return (($params['filter']['isActive'] ?? null) === '1')
-                    && ! array_key_exists('isActive', $params);
+                return (($params['filter']['is_active'] ?? null) === '1')
+                    && ! array_key_exists('is_active', $params);
             }))
             ->willReturn([
                 'ok'          => true,
                 'status'      => 200,
                 'data'        => [
                     'data' => [
-                        ['id' => 1, 'name' => 'Key A', 'keyPrefix' => 'apk_123', 'isActive' => true],
+                        ['id' => 1, 'name' => 'Key A', 'key_prefix' => 'apk_123', 'is_active' => true],
                     ],
                 ],
                 'raw'         => '',
@@ -47,7 +47,7 @@ final class ApiKeyFiltersFallbackTest extends CIUnitTestCase
         $result = $this->withSession([
             'access_token' => 'token',
             'user'         => ['role' => 'admin'],
-        ])->get('/admin/api-keys/data?isActive=1');
+        ])->get('/admin/api-keys/data?is_active=1');
 
         $result->assertStatus(200);
         $this->assertStringContainsString('Key A', $result->getBody());
@@ -59,7 +59,7 @@ final class ApiKeyFiltersFallbackTest extends CIUnitTestCase
         $mock->expects($this->once())
             ->method('list')
             ->with($this->callback(static function (array $params): bool {
-                return ($params['sort'] ?? null) === '-createdAt';
+                return ($params['sort'] ?? null) === '-created_at';
             }))
             ->willReturn([
                 'ok'          => true,
@@ -75,7 +75,7 @@ final class ApiKeyFiltersFallbackTest extends CIUnitTestCase
         $result = $this->withSession([
             'access_token' => 'token',
             'user'         => ['role' => 'admin'],
-        ])->get('/admin/api-keys/data?sort=-createdAt');
+        ])->get('/admin/api-keys/data?sort=-created_at');
 
         $result->assertStatus(200);
     }

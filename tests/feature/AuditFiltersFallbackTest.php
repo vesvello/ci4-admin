@@ -34,7 +34,7 @@ final class AuditFiltersFallbackTest extends CIUnitTestCase
                 'status'      => 200,
                 'data'        => [
                     'data' => [
-                        ['id' => 1, 'action' => 'login', 'userEmail' => 'user1@example.com', 'entityType' => 'user', 'createdAt' => '2026-02-01 10:00:00'],
+                        ['id' => 1, 'action' => 'login', 'user_email' => 'user1@example.com', 'entity_type' => 'user', 'created_at' => '2026-02-01 10:00:00'],
                     ],
                     'meta' => [
                         'page'     => 1,

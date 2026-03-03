@@ -16,22 +16,22 @@ final class ApiKeyUpdateRequestTest extends CIUnitTestCase
     {
         $request = $this->createPostRequest([
             'name'              => '  Integration Key  ',
-            'isActive'          => '1',
-            'rateLimitRequests' => '100',
-            'rateLimitWindow'   => '60',
-            'userRateLimit'     => '10',
-            'ipRateLimit'       => '5',
+            'is_active'          => '1',
+            'rate_limit_requests' => '100',
+            'rate_limit_window'   => '60',
+            'user_rate_limit'     => '10',
+            'ip_rate_limit'       => '5',
         ]);
 
         $formRequest = new ApiKeyUpdateRequest($request, $this->createValidationMock());
         $payload = $formRequest->payload();
 
         $this->assertSame('Integration Key', $payload['name']);
-        $this->assertTrue($payload['isActive']);
-        $this->assertSame(100, $payload['rateLimitRequests']);
-        $this->assertSame(60, $payload['rateLimitWindow']);
-        $this->assertSame(10, $payload['userRateLimit']);
-        $this->assertSame(5, $payload['ipRateLimit']);
+        $this->assertTrue($payload['is_active']);
+        $this->assertSame(100, $payload['rate_limit_requests']);
+        $this->assertSame(60, $payload['rate_limit_window']);
+        $this->assertSame(10, $payload['user_rate_limit']);
+        $this->assertSame(5, $payload['ip_rate_limit']);
     }
 
     public function testPayloadReturnsEmptyArrayWhenNothingProvided(): void

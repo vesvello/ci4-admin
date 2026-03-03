@@ -37,7 +37,7 @@ final class FileUploadFlowTest extends CIUnitTestCase
         $body = $result->getBody();
         $this->assertStringContainsString('name="file"', $body);
         $this->assertStringContainsString('onFileChange(event)', $body);
-        $this->assertStringContainsString(lang('Files.fileReady'), $body);
+        $this->assertStringContainsString(lang('Files.file_ready'), $body);
     }
 
     public function testIndexRedirectsToLoginWithoutSession(): void
@@ -57,7 +57,7 @@ final class FileUploadFlowTest extends CIUnitTestCase
             ->willReturn([
                 'ok'          => true,
                 'status'      => 200,
-                'data'        => ['originalName' => 'test.pdf'],
+                'data'        => ['original_name' => 'test.pdf'],
                 'raw'         => '%PDF-1.7 content',
                 'headers'     => ['content-type' => 'application/pdf'],
                 'messages'    => [],

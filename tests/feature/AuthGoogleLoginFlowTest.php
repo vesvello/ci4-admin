@@ -41,17 +41,17 @@ final class AuthGoogleLoginFlowTest extends CIUnitTestCase
         $authService->expects($this->once())
             ->method('googleLogin')
             ->with($this->callback(static function (array $payload): bool {
-                return isset($payload['idToken'])
-                    && $payload['idToken'] === 'google.id.token';
+                return isset($payload['id_token'])
+                    && $payload['id_token'] === 'google.id.token';
             }))
             ->willReturn([
                 'ok' => true,
                 'status' => 200,
                 'data' => [
                     'data' => [
-                        'accessToken' => 'access-token',
-                        'refreshToken' => 'refresh-token',
-                        'expiresIn' => 3600,
+                        'access_token' => 'access-token',
+                        'refresh_token' => 'refresh-token',
+                        'expires_in' => 3600,
                         'user' => ['id' => 1, 'email' => 'google@example.com', 'role' => 'admin'],
                     ],
                 ],
@@ -66,7 +66,7 @@ final class AuthGoogleLoginFlowTest extends CIUnitTestCase
         $result = $this->withHeaders([
             'X-CSRF-TOKEN' => csrf_hash(),
         ])->post('/login/google', [
-            'idToken' => 'google.id.token',
+            'id_token' => 'google.id.token',
         ]);
 
         $result->assertRedirect();
@@ -101,7 +101,7 @@ final class AuthGoogleLoginFlowTest extends CIUnitTestCase
         $result = $this->withHeaders([
             'X-CSRF-TOKEN' => csrf_hash(),
         ])->post('/login/google', [
-            'idToken' => 'google.id.token',
+            'id_token' => 'google.id.token',
         ]);
 
         $result->assertRedirectTo(site_url('login'));
@@ -128,7 +128,7 @@ final class AuthGoogleLoginFlowTest extends CIUnitTestCase
         $result = $this->withHeaders([
             'X-CSRF-TOKEN' => csrf_hash(),
         ])->post('/login/google', [
-            'idToken' => 'google.id.token',
+            'id_token' => 'google.id.token',
         ]);
 
         $result->assertRedirectTo(site_url('login'));
@@ -145,7 +145,7 @@ final class AuthGoogleLoginFlowTest extends CIUnitTestCase
         $result = $this->withHeaders([
             'X-CSRF-TOKEN' => csrf_hash(),
         ])->post('/login/google', [
-            'idToken' => '',
+            'id_token' => '',
         ]);
 
         $result->assertRedirectTo(site_url('login'));
