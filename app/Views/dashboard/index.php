@@ -55,7 +55,8 @@
                                     <tr>
                                         <th class="<?= esc(table_th_class()) ?> w-16"><?= lang('App.preview') ?></th>
                                         <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.file_name') ?></th>
-                                        <th class="<?= esc(table_th_class()) ?>"><?= lang('App.status') ?></th>
+                                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.size') ?></th>
+                                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.type') ?></th>
                                         <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.date') ?></th>
                                     </tr>
                                 </thead>
@@ -79,10 +80,11 @@
                                             <td class="<?= esc(table_td_class('primary')) ?>">
                                                 <?= esc((string) ($file['original_name'] ?? $file['filename'] ?? '-')) ?>
                                             </td>
-                                            <td class="<?= esc(table_td_class()) ?>">
-                                                <span class="inline-flex rounded-full px-2 py-1 text-xs <?= status_badge($file['status'] ?? 'active') ?>">
-                                                    <?= esc(localized_status((string) ($file['status'] ?? 'active'))) ?>
-                                                </span>
+                                            <td class="<?= esc(table_td_class('muted')) ?>">
+                                                <?= esc((string) ($file['human_size'] ?? '-')) ?>
+                                            </td>
+                                            <td class="<?= esc(table_td_class('subtle')) ?> text-xs">
+                                                <?= esc(strtoupper(explode('/', (string)($file['mime_type'] ?? 'unk/'))[1] ?? '-')) ?>
                                             </td>
                                             <td class="<?= esc(table_td_class('muted')) ?>">
                                                 <?= esc(format_date($file['uploaded_at'] ?? null)) ?>

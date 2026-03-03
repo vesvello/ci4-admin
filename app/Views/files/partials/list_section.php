@@ -29,7 +29,7 @@ $csrfHash = csrf_hash(); ?>
     ]) ?>
 
     <div class="mt-6 rounded-lg border border-dashed border-gray-300 bg-gray-50 p-4 text-sm text-gray-600" x-show="loading">
-        <?= lang('Files.loading') ?>
+        <?= lang('App.loading') ?>
     </div>
     <div class="mt-6 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700" x-show="error" x-text="errorMessage"></div>
 
@@ -45,17 +45,19 @@ $csrfHash = csrf_hash(); ?>
             <table class="<?= esc(table_class()) ?>">
                 <thead class="<?= esc(table_head_class()) ?>">
                     <tr>
-                        <th class="<?= esc(table_th_class()) ?> w-16"><?= lang('App.preview') ?? 'Preview' ?></th>
-                        <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('originalName')">
-                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('originalName')" aria-label="<?= esc(lang('Files.sort_by_file_name')) ?>">
+                        <th class="<?= esc(table_th_class()) ?> w-16"><?= lang('App.preview') ?></th>
+                        <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('original_name')">
+                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('original_name')">
                                 <span><?= lang('Files.file_name') ?></span>
-                                <span aria-hidden="true" x-text="sortIcon('originalName')"></span>
+                                <span aria-hidden="true" x-text="sortIcon('original_name')"></span>
                             </button>
                         </th>
-                        <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('uploadedAt')">
-                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('uploadedAt')" aria-label="<?= esc(lang('Files.sort_by_date')) ?>">
+                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.size') ?></th>
+                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.type') ?></th>
+                        <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('created_at')">
+                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('created_at')">
                                 <span><?= lang('Files.date') ?></span>
-                                <span aria-hidden="true" x-text="sortIcon('uploadedAt')"></span>
+                                <span aria-hidden="true" x-text="sortIcon('created_at')"></span>
                             </button>
                         </th>
                         <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.actions') ?></th>
@@ -69,23 +71,30 @@ $csrfHash = csrf_hash(); ?>
                                     <button type="button" @click="$dispatch('open-preview', '<?= site_url('files') ?>/' + (row.id ?? '') + '/view')">
                                         <img :src="'<?= site_url('files') ?>/' + (row.id ?? '') + '/view'" 
                                              class="h-10 w-10 rounded-lg object-cover border border-gray-200 hover:scale-110 transition-transform shadow-sm" 
-                                             :alt="row.original_name || row.original_name">
+                                             :alt="row.original_name">
                                     </button>
                                 </template>
-                                <template x-if="!(row.is_image)">
+                                <template x-if="!row.is_image">
                                     <div class="h-10 w-10 flex items-center justify-center rounded-lg bg-gray-100 border border-gray-200">
                                         <?= ui_icon('file', 'h-5 w-5 text-gray-400') ?>
                                     </div>
                                 </template>
                             </td>
-                            <td class="<?= esc(table_td_class('primary')) ?>" x-text="String(row.original_name || row.original_name || '-')"></td>
-                            <td class="<?= esc(table_td_class('muted')) ?>" x-text="formatDate(row.uploaded_at || row.uploaded_at)"></td>
+                            <td class="<?= esc(table_td_class('primary')) ?>" x-text="String(row.original_name || '-')"></td>
+                            <td class="<?= esc(table_td_class('muted')) ?>" x-text="String(row.human_size || '-')"></td>
+                            <td class="<?= esc(table_td_class('subtle')) ?> text-xs uppercase" x-text="row.mime_type ? row.mime_type.split('/')[1] : '-'"></td>
+                            <td class="<?= esc(table_td_class('muted')) ?>" x-text="formatDate(row.uploaded_at)"></td>
                             <td class="<?= esc(table_td_class()) ?>">
                                 <div class="flex items-center gap-2">
-                                    <a :href="fileDownloadUrl(row.id)" class="<?= esc(action_button_class()) ?>"><?= lang('Files.download') ?></a>
+                                    <a :href="fileDownloadUrl(row.id)" class="<?= esc(action_button_class()) ?>" title="<?= lang('App.download') ?>">
+                                        <?= ui_icon('download', 'h-3.5 w-3.5') ?>
+                                        <span><?= lang('App.download') ?></span>
+                                    </a>
                                     <form method="post" :action="fileDeleteUrl(row.id)" @submit="return confirm(confirmDelete)">
                                         <input type="hidden" :name="csrf.name" :value="csrf.hash">
-                                        <button type="submit" class="<?= esc(action_button_class('danger')) ?>"><?= lang('Files.delete') ?></button>
+                                        <button type="submit" class="<?= esc(action_button_class('danger')) ?>" title="<?= lang('App.delete') ?>">
+                                            <?= ui_icon('trash', 'h-3.5 w-3.5') ?>
+                                        </button>
                                     </form>
                                 </div>
                             </td>
