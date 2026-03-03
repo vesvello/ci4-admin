@@ -64,8 +64,8 @@
                     </dd>
                 </div>
                 <div>
-                    <dt class="text-gray-500"><?= lang('Users.createdAt') ?></dt>
-                    <dd class="mt-1 text-gray-900"><?= esc(format_date($user['createdAt'] ?? null)) ?></dd>
+                    <dt class="text-gray-500"><?= lang('Users.created_at') ?></dt>
+                    <dd class="mt-1 text-gray-900"><?= esc(format_date($user['created_at'] ?? null)) ?></dd>
                 </div>
                 <div>
                     <dt class="text-gray-500"><?= lang('Users.updatedAt') ?></dt>

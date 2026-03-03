@@ -21,7 +21,7 @@ return [
     'superAdminRole'   => 'Superadmin',
     'userRole'         => 'User',
     'emailVerified'    => 'Email verified',
-    'createdAt'        => 'Created at',
+    'created_at'        => 'Created at',
     'updatedAt'        => 'Last updated',
     'quickActions'     => 'Quick actions',
     'viewAudit'        => 'View audit log',

@@ -61,10 +61,10 @@
                                 <span aria-hidden="true" x-text="sortIcon('status')"></span>
                             </button>
                         </th>
-                        <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('createdAt')">
-                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('createdAt')" aria-label="<?= esc(lang('Users.sortByDate')) ?>">
+                        <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('created_at')">
+                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('created_at')" aria-label="<?= esc(lang('Users.sortByDate')) ?>">
                                 <span><?= lang('Users.date') ?></span>
-                                <span aria-hidden="true" x-text="sortIcon('createdAt')"></span>
+                                <span aria-hidden="true" x-text="sortIcon('created_at')"></span>
                             </button>
                         </th>
                         <th class="<?= esc(table_th_class()) ?>"><?= lang('Users.actions') ?></th>
@@ -81,7 +81,7 @@
                             <td class="<?= esc(table_td_class()) ?>">
                                 <span class="inline-flex rounded-full px-2 py-1 text-xs" :class="statusBadgeClass(row.status)" x-text="statusLabel(row.status)"></span>
                             </td>
-                            <td class="<?= esc(table_td_class('muted')) ?>" x-text="formatDate(row.createdAt)"></td>
+                            <td class="<?= esc(table_td_class('muted')) ?>" x-text="formatDate(row.created_at)"></td>
                             <td class="<?= esc(table_td_class()) ?>">
                                 <div class="flex items-center gap-2">
                                     <a :href="userShowUrl(row.id)" class="<?= esc(action_button_class()) ?>"><?= lang('Users.view') ?></a>
