@@ -38,7 +38,7 @@ final class AuditFiltersFallbackTest extends CIUnitTestCase
                     ],
                     'meta' => [
                         'page'     => 1,
-                        'lastPage' => 1,
+                        'last_page' => 1,
                         'total'    => 1,
                     ],
                 ],
@@ -73,7 +73,7 @@ final class AuditFiltersFallbackTest extends CIUnitTestCase
                     'data' => [],
                     'meta' => [
                         'page'     => 1,
-                        'lastPage' => 1,
+                        'last_page' => 1,
                         'total'    => 0,
                     ],
                 ],
@@ -109,7 +109,7 @@ final class AuditFiltersFallbackTest extends CIUnitTestCase
                     'data' => [],
                     'meta' => [
                         'page'     => 2,
-                        'lastPage' => 3,
+                        'last_page' => 3,
                         'total'    => 250,
                     ],
                 ],

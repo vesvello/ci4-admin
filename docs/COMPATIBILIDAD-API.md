@@ -13,7 +13,7 @@ Definir reglas obligatorias para garantizar compatibilidad total entre este fron
 ## Reglas de compatibilidad obligatorias
 
 1. **Autenticación:** JWT en sesión server-side (`access_token`, `refresh_token`). El `ApiClient` maneja el refresco automático.
-2. **Standard de Nombres:** Usar siempre `camelCase` para llaves JSON (ej: `firstName`, `originalName`).
+2. **Standard de Nombres:** Usar siempre `snake_case` para llaves JSON (ej: `first_name`, `original_name`).
 3. **Flujo de Usuario:** La creación de usuarios por administrador dispara una **invitación obligatoria**. El frontend no debe intentar establecer contraseñas ni ofrecer un toggle para saltarse la invitación.
 4. **Respuestas:** El `ApiClient` normaliza todas las respuestas (éxito y error) para que el frontend no tenga que lidiar con variaciones del backend.
 

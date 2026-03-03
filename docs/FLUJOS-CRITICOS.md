@@ -28,5 +28,5 @@ Las imágenes y descargas pasan por un proxy en el Admin (`FileController::view`
 
 El API devuelve errores en `snake_case` (estándar de base de datos), pero el Admin utiliza formularios en `camelCase`.
 
-- **Lógica:** `BaseWebController::getFieldErrors()` utiliza `normalizeErrorKey()` para mappear errores del backend (ej: `first_name`) a los inputs correspondientes del frontend (ej: `firstName`).
+- **Lógica:** El backend y frontend ahora comparten el estándar `snake_case`, eliminando la necesidad de mapeo manual de llaves de error.
 - **Impacto:** Si se añade un nuevo campo al API, asegúrate de añadir su mapeo en `BaseWebController` para que los mensajes de error se muestren bajo el input correcto.

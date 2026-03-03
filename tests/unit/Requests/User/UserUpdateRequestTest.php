@@ -15,18 +15,18 @@ final class UserUpdateRequestTest extends CIUnitTestCase
     public function testPayloadOmitsEmailWhenOriginalEmailMatches(): void
     {
         $request = $this->createPostRequest([
-            'firstName'     => 'Jane',
-            'lastName'      => 'Doe',
+            'first_name'     => 'Jane',
+            'last_name'      => 'Doe',
             'role'          => 'admin',
             'email'         => 'Jane@Example.com',
-            'originalEmail' => 'jane@example.com',
+            'original_email' => 'jane@example.com',
         ]);
 
         $formRequest = new UserUpdateRequest($request, $this->createValidationMock());
         $payload = $formRequest->payload();
 
-        $this->assertSame('Jane', $payload['firstName']);
-        $this->assertSame('Doe', $payload['lastName']);
+        $this->assertSame('Jane', $payload['first_name']);
+        $this->assertSame('Doe', $payload['last_name']);
         $this->assertSame('admin', $payload['role']);
         $this->assertArrayNotHasKey('email', $payload);
     }
@@ -34,11 +34,11 @@ final class UserUpdateRequestTest extends CIUnitTestCase
     public function testPayloadIncludesEmailWhenOriginalEmailDiffers(): void
     {
         $request = $this->createPostRequest([
-            'firstName'     => 'Jane',
-            'lastName'      => 'Doe',
+            'first_name'     => 'Jane',
+            'last_name'      => 'Doe',
             'role'          => 'admin',
             'email'         => 'jane.new@example.com',
-            'originalEmail' => 'jane@example.com',
+            'original_email' => 'jane@example.com',
         ]);
 
         $formRequest = new UserUpdateRequest($request, $this->createValidationMock());
