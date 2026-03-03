@@ -4,7 +4,9 @@ namespace App\Controllers;
 
 use App\Requests\User\UserStoreRequest;
 use App\Requests\User\UserUpdateRequest;
+use App\Services\CatalogApiService;
 use App\Services\UserApiService;
+use App\Support\CatalogOptions;
 use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -13,17 +15,24 @@ use Psr\Log\LoggerInterface;
 class UserController extends BaseWebController
 {
     protected UserApiService $userService;
+    protected CatalogApiService $catalogService;
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
         $this->userService = service('userApiService');
+        $this->catalogService = service('catalogApiService');
     }
 
     public function index(): string
     {
+        $catalogs = $this->resolveCatalogs();
+
         return $this->render('users/index', [
-            'title'      => lang('Users.title'),
+            'title'         => lang('Users.title'),
+            'roleOptions'   => CatalogOptions::options($catalogs, 'users.roles', $this->defaultRoleOptions()),
+            'statusOptions' => CatalogOptions::options($catalogs, 'users.statuses', $this->defaultStatusOptions()),
+            'limitOptions'  => CatalogOptions::limitOptions($catalogs),
         ]);
     }
 
@@ -45,8 +54,11 @@ class UserController extends BaseWebController
 
     public function create(): string
     {
+        $catalogs = $this->resolveCatalogs();
+
         return $this->render('users/create', [
-            'title' => lang('Users.create'),
+            'title'       => lang('Users.create'),
+            'roleOptions' => CatalogOptions::options($catalogs, 'users.roles', $this->defaultRoleOptions()),
         ]);
     }
 
@@ -73,10 +85,12 @@ class UserController extends BaseWebController
     public function edit(string $id): string
     {
         $response = $this->safeApiCall(fn() => $this->userService->get($id));
+        $catalogs = $this->resolveCatalogs();
 
         return $this->render('users/edit', [
-            'title'    => lang('Users.edit_user'),
-            'editUser' => $this->extractData($response),
+            'title'       => lang('Users.edit_user'),
+            'editUser'    => $this->extractData($response),
+            'roleOptions' => CatalogOptions::options($catalogs, 'users.roles', $this->defaultRoleOptions()),
         ]);
     }
 
@@ -120,6 +134,42 @@ class UserController extends BaseWebController
         }
 
         return redirect()->to(site_url('admin/users/' . $id))->with('success', lang('Users.approve_success'));
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function resolveCatalogs(): array
+    {
+        $response = $this->safeApiCall(fn() => $this->catalogService->index());
+        $data = $this->extractData($response);
+
+        return is_array($data) ? $data : [];
+    }
+
+    /**
+     * @return array<int, array{value:string,label:string}>
+     */
+    private function defaultRoleOptions(): array
+    {
+        return [
+            ['value' => 'user', 'label' => lang('Users.user_role')],
+            ['value' => 'admin', 'label' => lang('Users.admin_role')],
+            ['value' => 'superadmin', 'label' => lang('Users.super_admin_role')],
+        ];
+    }
+
+    /**
+     * @return array<int, array{value:string,label:string}>
+     */
+    private function defaultStatusOptions(): array
+    {
+        return [
+            ['value' => 'active', 'label' => lang('App.yes')],
+            ['value' => 'inactive', 'label' => lang('App.no')],
+            ['value' => 'pending_approval', 'label' => lang('Users.pending_approval')],
+            ['value' => 'invited', 'label' => lang('Users.invited')],
+        ];
     }
 
 }

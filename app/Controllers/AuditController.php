@@ -2,7 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Services\CatalogApiService;
 use App\Services\AuditApiService;
+use App\Support\CatalogOptions;
 use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -11,17 +13,45 @@ use Psr\Log\LoggerInterface;
 class AuditController extends BaseWebController
 {
     protected AuditApiService $auditService;
+    protected CatalogApiService $catalogService;
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
         $this->auditService = service('auditApiService');
+        $this->catalogService = service('catalogApiService');
     }
 
     public function index(): string
     {
+        $catalogsResponse = $this->safeApiCall(fn() => $this->catalogService->index());
+        $catalogs = $this->extractData($catalogsResponse);
+        if (! is_array($catalogs)) {
+            $catalogs = [];
+        }
+
+        $facetsResponse = $this->safeApiCall(fn() => $this->catalogService->auditFacets());
+        $facets = $this->extractData($facetsResponse);
+        if (! is_array($facets)) {
+            $facets = [];
+        }
+
+        $actionOptions = CatalogOptions::options(
+            ['audit' => ['actions' => $facets['actions'] ?? []]],
+            'audit.actions',
+            [
+                ['value' => 'create', 'label' => lang('Audit.action_create')],
+                ['value' => 'update', 'label' => lang('Audit.action_update')],
+                ['value' => 'delete', 'label' => lang('Audit.action_delete')],
+                ['value' => 'login', 'label' => lang('Audit.action_login')],
+                ['value' => 'logout', 'label' => lang('Audit.action_logout')],
+            ]
+        );
+
         return $this->render('audit/index', [
-            'title'      => lang('Audit.title'),
+            'title'         => lang('Audit.title'),
+            'actionOptions' => $actionOptions,
+            'limitOptions'  => CatalogOptions::limitOptions($catalogs),
         ]);
     }
 

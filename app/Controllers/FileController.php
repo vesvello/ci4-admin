@@ -3,8 +3,10 @@
 namespace App\Controllers;
 
 use App\Requests\File\FileUploadRequest;
+use App\Services\CatalogApiService;
 use App\Services\FileApiService;
 use App\Support\FileSizeLimits;
+use App\Support\CatalogOptions;
 use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -13,17 +15,30 @@ use Psr\Log\LoggerInterface;
 class FileController extends BaseWebController
 {
     protected FileApiService $fileService;
+    protected CatalogApiService $catalogService;
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
         $this->fileService = service('fileApiService');
+        $this->catalogService = service('catalogApiService');
     }
 
     public function index(): string
     {
+        $catalogsResponse = $this->safeApiCall(fn() => $this->catalogService->index());
+        $catalogs = $this->extractData($catalogsResponse);
+        if (! is_array($catalogs)) {
+            $catalogs = [];
+        }
+
         return $this->render('files/index', [
-            'title' => lang('Files.title'),
+            'title'             => lang('Files.title'),
+            'visibilityOptions' => CatalogOptions::options($catalogs, 'files.visibility', [
+                ['value' => 'private', 'label' => lang('Files.private')],
+                ['value' => 'public', 'label' => lang('Files.public')],
+            ]),
+            'limitOptions'      => CatalogOptions::limitOptions($catalogs),
         ]);
     }
 

@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Requests\ApiKey\ApiKeyStoreRequest;
 use App\Requests\ApiKey\ApiKeyUpdateRequest;
 use App\Services\ApiKeyApiService;
+use App\Services\CatalogApiService;
+use App\Support\CatalogOptions;
 use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -13,17 +15,23 @@ use Psr\Log\LoggerInterface;
 class ApiKeyController extends BaseWebController
 {
     protected ApiKeyApiService $apiKeyService;
+    protected CatalogApiService $catalogService;
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
         $this->apiKeyService = service('apiKeyApiService');
+        $this->catalogService = service('catalogApiService');
     }
 
     public function index(): string
     {
+        $catalogs = $this->resolveCatalogs();
+
         return $this->render('api_keys/index', [
-            'title' => lang('ApiKeys.title'),
+            'title'         => lang('ApiKeys.title'),
+            'statusOptions' => CatalogOptions::options($catalogs, 'api_keys.statuses', $this->defaultStatusOptions()),
+            'limitOptions'  => CatalogOptions::limitOptions($catalogs),
         ]);
     }
 
@@ -72,7 +80,7 @@ class ApiKeyController extends BaseWebController
             ? site_url('admin/api-keys/' . rawurlencode($id))
             : site_url('admin/api-keys');
 
-        $redirect = redirect()->to($redirectTo)->with('success', lang('ApiKeys.create_success'));
+        $redirect = redirect()->to($redirectTo)->with('success', lang('ApiKeys.created_success'));
 
         $rawKey = (string) ($created['key'] ?? '');
         if ($rawKey !== '') {
@@ -87,10 +95,12 @@ class ApiKeyController extends BaseWebController
     public function edit(string $id): string
     {
         $response = $this->safeApiCall(fn() => $this->apiKeyService->get($id));
+        $catalogs = $this->resolveCatalogs();
 
         return $this->render('api_keys/edit', [
-            'title'  => lang('ApiKeys.edit'),
-            'apiKey' => $this->extractData($response),
+            'title'         => lang('ApiKeys.edit'),
+            'apiKey'        => $this->extractData($response),
+            'statusOptions' => CatalogOptions::options($catalogs, 'api_keys.statuses', $this->defaultStatusOptions()),
         ]);
     }
 
@@ -115,7 +125,7 @@ class ApiKeyController extends BaseWebController
             return $this->failApi($response, lang('ApiKeys.update_failed'));
         }
 
-        return redirect()->to(site_url('admin/api-keys/' . rawurlencode($id)))->with('success', lang('ApiKeys.update_success'));
+        return redirect()->to(site_url('admin/api-keys/' . rawurlencode($id)))->with('success', lang('ApiKeys.updated_success'));
     }
 
     public function delete(string $id): RedirectResponse
@@ -126,7 +136,29 @@ class ApiKeyController extends BaseWebController
             return $this->failApi($response, lang('ApiKeys.delete_failed'), site_url('admin/api-keys'), false);
         }
 
-        return redirect()->to(site_url('admin/api-keys'))->with('success', lang('ApiKeys.delete_success'));
+        return redirect()->to(site_url('admin/api-keys'))->with('success', lang('ApiKeys.deleted_success'));
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function resolveCatalogs(): array
+    {
+        $response = $this->safeApiCall(fn() => $this->catalogService->index());
+        $data = $this->extractData($response);
+
+        return is_array($data) ? $data : [];
+    }
+
+    /**
+     * @return array<int, array{value:string,label:string}>
+     */
+    private function defaultStatusOptions(): array
+    {
+        return [
+            ['value' => '1', 'label' => lang('ApiKeys.active')],
+            ['value' => '0', 'label' => lang('ApiKeys.inactive')],
+        ];
     }
 
 }

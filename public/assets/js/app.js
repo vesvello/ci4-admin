@@ -352,6 +352,7 @@ document.addEventListener('alpine:init', () => {
         mode: config.mode || 'generic',
         routes: config.routes || {},
         csrf: config.csrf || { name: '', hash: '' },
+        limitOptions: Array.isArray(config.limitOptions) && config.limitOptions.length > 0 ? config.limitOptions : ['10', '25', '50', '100'],
         confirmDelete: config.confirmDelete || text.confirm,
         loading: false,
         error: false,
@@ -753,6 +754,23 @@ document.addEventListener('alpine:init', () => {
             return `${labels.showing} ${this.pagination.from}-${this.pagination.to} ${labels.of} ${this.pagination.total}`;
         },
 
+        paginationLimitOptions() {
+            const options = [];
+            this.limitOptions.forEach((value) => {
+                const parsed = Number.parseInt(String(value ?? ''), 10);
+                if (!Number.isFinite(parsed) || parsed <= 0) {
+                    return;
+                }
+                options.push(parsed);
+            });
+
+            if (options.length === 0) {
+                return [10, 25, 50, 100];
+            }
+
+            return Array.from(new Set(options)).sort((a, b) => a - b);
+        },
+
         currentSort(field) {
             const sort = String(this.query.sort || '');
             if (sort === field) {
@@ -854,7 +872,8 @@ document.addEventListener('alpine:init', () => {
             if (!Number.isFinite(parsed) || parsed <= 0) {
                 delete this.query.limit;
             } else {
-                this.query.limit = String(Math.min(100, Math.max(1, parsed)));
+                const maxOption = Math.max(...this.paginationLimitOptions());
+                this.query.limit = String(Math.min(maxOption, Math.max(1, parsed)));
             }
 
             delete this.query.page;

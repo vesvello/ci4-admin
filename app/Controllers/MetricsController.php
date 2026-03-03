@@ -2,7 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Services\CatalogApiService;
 use App\Services\MetricsApiService;
+use App\Support\CatalogOptions;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -10,18 +12,34 @@ use Psr\Log\LoggerInterface;
 class MetricsController extends BaseWebController
 {
     protected MetricsApiService $metricsService;
+    protected CatalogApiService $catalogService;
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
         $this->metricsService = service('metricsApiService');
+        $this->catalogService = service('catalogApiService');
     }
 
     public function index(): string
     {
+        $catalogsResponse = $this->safeApiCall(fn() => $this->catalogService->index());
+        $catalogs = $this->extractData($catalogsResponse);
+        if (! is_array($catalogs)) {
+            $catalogs = [];
+        }
+
+        $periodOptions = CatalogOptions::options($catalogs, 'metrics.periods', [
+            ['value' => '1h', 'label' => '1h'],
+            ['value' => '24h', 'label' => '24h'],
+            ['value' => '7d', 'label' => '7d'],
+            ['value' => '30d', 'label' => '30d'],
+        ]);
+
         $defaultFilters = $this->defaultFilters();
         $period = trim((string) ($this->request->getGet('period') ?? '24h'));
-        if (! in_array($period, ['1h', '24h', '7d', '30d'], true)) {
+        $allowedPeriods = array_column($periodOptions, 'value');
+        if (! in_array($period, $allowedPeriods, true)) {
             $period = '24h';
         }
 
@@ -64,6 +82,7 @@ class MetricsController extends BaseWebController
             'filters'        => $viewFilters,
             'defaultFilters' => $defaultFilters,
             'hasFilters'     => has_active_filters($this->request->getGet(), $defaultFilters),
+            'periodOptions'  => $periodOptions,
         ]);
     }
 
