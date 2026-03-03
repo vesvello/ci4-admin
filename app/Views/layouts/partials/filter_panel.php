@@ -64,7 +64,7 @@ if (! is_string($ignoredJson) || $ignoredJson === '') {
                     x-cloak
                     x-show="hasActiveFilters()"
                 <?php endif; ?>
-            ><?= lang('App.clearFilters') ?></a>
+            ><?= lang('App.clear_filters') ?></a>
         <?php endif; ?>
     </div>
 

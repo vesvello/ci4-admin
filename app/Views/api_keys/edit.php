@@ -1,7 +1,7 @@
 <?php $id = (string) ($apiKey['id'] ?? ''); ?>
 
 <div class="mb-4">
-    <a href="<?= site_url('admin/api-keys/' . esc($id, 'url')) ?>" class="text-sm text-brand-600 hover:text-brand-700">&larr; <?= lang('ApiKeys.backToDetails') ?></a>
+    <a href="<?= site_url('admin/api-keys/' . esc($id, 'url')) ?>" class="text-sm text-brand-600 hover:text-brand-700">&larr; <?= lang('ApiKeys.back_to_details') ?></a>
 </div>
 
 <section class="bg-white border border-gray-200 rounded-xl shadow-sm p-5 max-w-3xl">

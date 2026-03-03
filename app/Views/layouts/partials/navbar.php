@@ -28,7 +28,7 @@
                 <span><?= esc(trim((string) (session('user.first_name') ?? '') . ' ' . (string) (session('user.last_name') ?? ''))) ?></span>
             </button>
             <div x-show="open" x-cloak class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden z-50">
-                <a href="<?= site_url('profile') ?>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"><?= lang('App.myProfile') ?></a>
+                <a href="<?= site_url('profile') ?>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"><?= lang('App.my_profile') ?></a>
                 <a href="<?= site_url('logout') ?>" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50"><?= lang('App.logout') ?></a>
             </div>
         </div>

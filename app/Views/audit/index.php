@@ -27,7 +27,7 @@
     <div class="mt-6 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700" x-show="error" x-text="errorMessage"></div>
 
     <template x-if="!loading && !error && rows.length === 0">
-        <p class="mt-6 text-sm text-gray-500"><?= lang('Audit.noLogs') ?></p>
+        <p class="mt-6 text-sm text-gray-500"><?= lang('Audit.no_logs') ?></p>
     </template>
     <template x-if="!loading && !error && rows.length > 0">
         <div class="<?= esc(table_wrapper_class()) ?>">
@@ -37,26 +37,26 @@
                     <tr>
                         <th class="<?= esc(table_th_class()) ?>"><?= lang('App.id') ?></th>
                         <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('user_id')">
-                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('user_id')" aria-label="<?= esc(lang('Audit.sortByUser')) ?>">
+                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('user_id')" aria-label="<?= esc(lang('Audit.sort_by_user')) ?>">
                                 <span><?= lang('Audit.user') ?></span>
                                 <span aria-hidden="true" x-text="sortIcon('user_id')"></span>
                             </button>
                         </th>
                         <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('action')">
-                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('action')" aria-label="<?= esc(lang('Audit.sortByAction')) ?>">
+                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('action')" aria-label="<?= esc(lang('Audit.sort_by_action')) ?>">
                                 <span><?= lang('Audit.action') ?></span>
                                 <span aria-hidden="true" x-text="sortIcon('action')"></span>
                             </button>
                         </th>
                         <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('entity_type')">
-                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('entity_type')" aria-label="<?= esc(lang('Audit.sortByEntity')) ?>">
+                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('entity_type')" aria-label="<?= esc(lang('Audit.sort_by_entity')) ?>">
                                 <span><?= lang('Audit.entity') ?></span>
                                 <span aria-hidden="true" x-text="sortIcon('entity_type')"></span>
                             </button>
                         </th>
-                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Audit.ipAddress') ?></th>
+                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Audit.ip_address') ?></th>
                         <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('created_at')">
-                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('created_at')" aria-label="<?= esc(lang('Audit.sortByDate')) ?>">
+                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('created_at')" aria-label="<?= esc(lang('Audit.sort_by_date')) ?>">
                                 <span><?= lang('Audit.date') ?></span>
                                 <span aria-hidden="true" x-text="sortIcon('created_at')"></span>
                             </button>
@@ -72,7 +72,7 @@
                                 <template x-if="row.user_id">
                                     <a :href="'<?= site_url('admin/users') ?>/' + row.user_id" class="flex items-center gap-1.5 hover:text-brand-600 transition-colors">
                                         <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-gray-100 text-[10px] font-bold text-gray-500" x-text="String(row.user_id)"></span>
-                                        <span x-text="row.user_email || '<?= lang('Audit.viewUser') ?>'"></span>
+                                        <span x-text="row.user_email || '<?= lang('Audit.view_user') ?>'"></span>
                                     </a>
                                 </template>
                                 <template x-if="!row.user_id">

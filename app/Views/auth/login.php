@@ -17,7 +17,7 @@ $googleClientId = (string) ($googleClientId ?? '');
             class="mt-1 w-full rounded-lg border px-3 py-2 focus-visible:outline-none focus-visible:ring-2 <?= has_field_error('password') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-brand-500 focus:ring-brand-500' ?>">
         <?= render_field_error('password') ?>
     </div>
-    <button type="submit" class="w-full rounded-lg bg-brand-600 text-white px-4 py-2 font-medium hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"><?= lang('Auth.loginButton') ?></button>
+    <button type="submit" class="w-full rounded-lg bg-brand-600 text-white px-4 py-2 font-medium hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"><?= lang('Auth.login_button') ?></button>
 </form>
 
 <?php if ($googleEnabled): ?>
@@ -26,7 +26,7 @@ $googleClientId = (string) ($googleClientId ?? '');
             <div class="w-full border-t border-gray-200"></div>
         </div>
         <div class="relative flex justify-center">
-            <span class="bg-white px-3 text-xs font-medium uppercase tracking-wide text-gray-500"><?= lang('Auth.googleOrDivider') ?></span>
+            <span class="bg-white px-3 text-xs font-medium uppercase tracking-wide text-gray-500"><?= lang('Auth.google_or_divider') ?></span>
         </div>
     </div>
 
@@ -75,6 +75,6 @@ $googleClientId = (string) ($googleClientId ?? '');
 <?php endif; ?>
 
 <div class="mt-4 text-sm text-gray-600 flex items-center justify-between">
-    <a href="<?= site_url('forgot-password') ?>" class="text-brand-600 hover:text-brand-700"><?= lang('Auth.forgotPassword') ?></a>
-    <a href="<?= site_url('register') ?>" class="text-brand-600 hover:text-brand-700"><?= lang('Auth.createAccount') ?></a>
+    <a href="<?= site_url('forgot-password') ?>" class="text-brand-600 hover:text-brand-700"><?= lang('Auth.forgot_password') ?></a>
+    <a href="<?= site_url('register') ?>" class="text-brand-600 hover:text-brand-700"><?= lang('Auth.create_account') ?></a>
 </div>

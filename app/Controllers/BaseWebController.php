@@ -246,26 +246,26 @@ abstract class BaseWebController extends BaseController
      */
     protected function resolveDateRange(int $defaultDays = 30): array
     {
-        $dateFrom = trim((string) $this->request->getGet('dateFrom'));
-        $dateTo = trim((string) $this->request->getGet('dateTo'));
+        $date_from = trim((string) $this->request->getGet('date_from'));
+        $date_to = trim((string) $this->request->getGet('date_to'));
 
         $today = new \DateTimeImmutable('today');
 
-        if ($dateTo === '' || ! $this->isValidDate($dateTo)) {
-            $dateTo = $today->format('Y-m-d');
+        if ($date_to === '' || ! $this->isValidDate($date_to)) {
+            $date_to = $today->format('Y-m-d');
         }
 
-        if ($dateFrom === '' || ! $this->isValidDate($dateFrom)) {
-            $dateFrom = $today->sub(new \DateInterval('P' . max(1, $defaultDays - 1) . 'D'))->format('Y-m-d');
+        if ($date_from === '' || ! $this->isValidDate($date_from)) {
+            $date_from = $today->sub(new \DateInterval('P' . max(1, $defaultDays - 1) . 'D'))->format('Y-m-d');
         }
 
-        if ($dateFrom > $dateTo) {
-            [$dateFrom, $dateTo] = [$dateTo, $dateFrom];
+        if ($date_from > $date_to) {
+            [$date_from, $date_to] = [$date_to, $date_from];
         }
 
         return [
-            'dateFrom' => $dateFrom,
-            'dateTo'   => $dateTo,
+            'date_from' => $date_from,
+            'date_to'   => $date_to,
         ];
     }
 
@@ -486,24 +486,24 @@ abstract class BaseWebController extends BaseController
             $meta = [];
         }
 
-        $nextCursor = (string) ($meta['nextCursor'] ?? $data['nextCursor'] ?? '');
-        $prevCursor = (string) ($meta['prevCursor'] ?? $data['prevCursor'] ?? '');
-        $hasMore = (bool) ($meta['hasMore'] ?? ($nextCursor !== ''));
+        $next_cursor = (string) ($meta['next_cursor'] ?? $data['next_cursor'] ?? '');
+        $prev_cursor = (string) ($meta['prev_cursor'] ?? $data['prev_cursor'] ?? '');
+        $has_more = (bool) ($meta['has_more'] ?? ($next_cursor !== ''));
 
-        $currentPage = (int) ($meta['page'] ?? $meta['currentPage'] ?? $data['page'] ?? $data['currentPage'] ?? ($state['page'] ?? 1));
-        $lastPage = (int) ($meta['lastPage'] ?? $data['lastPage'] ?? $currentPage);
-        $total = (int) ($meta['total'] ?? $data['total'] ?? $meta['totalEstimate'] ?? $visibleCount);
+        $current_page = (int) ($meta['page'] ?? $meta['current_page'] ?? $data['page'] ?? $data['current_page'] ?? ($state['page'] ?? 1));
+        $last_page = (int) ($meta['last_page'] ?? $data['last_page'] ?? $current_page);
+        $total = (int) ($meta['total'] ?? $data['total'] ?? $meta['total_estimate'] ?? $visibleCount);
 
-        $isCursorMode = $nextCursor !== '' || $prevCursor !== '' || ((string) ($state['cursor'] ?? '')) !== '';
+        $is_cursor_mode = $next_cursor !== '' || $prev_cursor !== '' || ((string) ($state['cursor'] ?? '')) !== '';
 
         return [
-            'mode'           => $isCursorMode ? 'cursor' : 'page',
-            'current_page'   => max(1, $currentPage),
-            'last_page'      => max(1, $lastPage),
+            'mode'           => $is_cursor_mode ? 'cursor' : 'page',
+            'current_page'   => max(1, $current_page),
+            'last_page'      => max(1, $last_page),
             'total'          => max(0, $total),
-            'next_cursor'    => $nextCursor,
-            'prev_cursor'    => $prevCursor,
-            'has_more'       => $hasMore,
+            'next_cursor'    => $next_cursor,
+            'prev_cursor'    => $prev_cursor,
+            'has_more'       => $has_more,
             'current_cursor' => (string) ($state['cursor'] ?? ''),
         ];
     }

@@ -29,7 +29,7 @@ class AuditController extends BaseWebController
     {
         return $this->tableDataResponse(
             ['action', 'user_id', 'entity_type', 'entity_id'],
-            ['created_at', 'action', 'user_id', 'entity_type', 'entity_id'],
+            ['created_at', 'action', 'user_id', 'entity_type', 'entity_id', 'ip_address', 'user_agent'],
             fn(array $params) => $this->auditService->list($params),
         );
     }

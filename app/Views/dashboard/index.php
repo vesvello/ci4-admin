@@ -1,12 +1,12 @@
 <header class="mb-8">
     <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-bold text-gray-900"><?= sprintf(lang('Dashboard.welcomeTitle'), esc($user['first_name'] ?? $user['username'] ?? 'User')) ?></h1>
+            <h1 class="text-2xl font-bold text-gray-900"><?= sprintf(lang('Dashboard.welcome_title'), esc($user['first_name'] ?? $user['username'] ?? 'User')) ?></h1>
             <p class="text-gray-500 mt-1">
-                <?= lang('Dashboard.welcomeSubtitle') ?> 
+                <?= lang('Dashboard.welcome_subtitle') ?> 
                 <a href="<?= site_url('profile') ?>" class="inline-flex items-center gap-1 text-brand-600 hover:text-brand-700 font-medium ml-1 transition-colors">
                     <?= ui_icon('edit', 'h-3.5 w-3.5') ?>
-                    <?= lang('Dashboard.editProfile') ?>
+                    <?= lang('Dashboard.edit_profile') ?>
                 </a>
             </p>
         </div>
@@ -32,8 +32,8 @@
         <!-- Tabla de Archivos Recientes -->
         <section class="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
             <div class="flex items-center justify-between mb-5">
-                <h3 class="text-lg font-semibold text-gray-900"><?= lang('Dashboard.latestFiles') ?></h3>
-                <a href="<?= site_url('files') ?>" class="text-sm font-medium text-brand-600 hover:text-brand-700"><?= lang('Dashboard.manageFiles') ?> &rarr;</a>
+                <h3 class="text-lg font-semibold text-gray-900"><?= lang('Dashboard.latest_files') ?></h3>
+                <a href="<?= site_url('files') ?>" class="text-sm font-medium text-brand-600 hover:text-brand-700"><?= lang('Dashboard.manage_files') ?> &rarr;</a>
             </div>
 
             <div x-data="{ previewShow: false, previewUrl: '' }">
@@ -42,9 +42,9 @@
                         <div class="mx-auto h-12 w-12 text-gray-400">
                             <?= ui_icon('file-plus', 'h-12 w-12') ?>
                         </div>
-                        <p class="mt-2 text-sm text-gray-600"><?= lang('Dashboard.noRecentFiles') ?></p>
+                        <p class="mt-2 text-sm text-gray-600"><?= lang('Dashboard.no_recent_files') ?></p>
                         <a href="<?= site_url('files') ?>" class="mt-4 inline-flex items-center rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">
-                            <?= lang('Dashboard.manageFiles') ?>
+                            <?= lang('Dashboard.manage_files') ?>
                         </a>
                     </div>
                 <?php else: ?>
@@ -54,7 +54,7 @@
                                 <thead class="<?= esc(table_head_class()) ?>">
                                     <tr>
                                         <th class="<?= esc(table_th_class()) ?> w-16"><?= lang('App.preview') ?></th>
-                                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.fileName') ?></th>
+                                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.file_name') ?></th>
                                         <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.status') ?></th>
                                         <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.date') ?></th>
                                     </tr>
@@ -68,7 +68,7 @@
                                                     <button type="button" @click="previewUrl = '<?= $viewUrl ?>'; previewShow = true">
                                                         <img src="<?= $viewUrl ?>" 
                                                              class="h-8 w-8 rounded-lg object-cover border border-gray-200 hover:scale-110 transition-transform shadow-sm" 
-                                                             alt="<?= esc((string) ($file['originalName'] ?? '')) ?>">
+                                                             alt="<?= esc((string) ($file['original_name'] ?? '')) ?>">
                                                     </button>
                                                 <?php else: ?>
                                                     <div class="h-8 w-8 flex items-center justify-center rounded-lg bg-gray-100 border border-gray-200">
@@ -77,7 +77,7 @@
                                                 <?php endif; ?>
                                             </td>
                                             <td class="<?= esc(table_td_class('primary')) ?>">
-                                                <?= esc((string) ($file['originalName'] ?? $file['filename'] ?? '-')) ?>
+                                                <?= esc((string) ($file['original_name'] ?? $file['filename'] ?? '-')) ?>
                                             </td>
                                             <td class="<?= esc(table_td_class()) ?>">
                                                 <span class="inline-flex rounded-full px-2 py-1 text-xs <?= status_badge($file['status'] ?? 'active') ?>">
@@ -85,7 +85,7 @@
                                                 </span>
                                             </td>
                                             <td class="<?= esc(table_td_class('muted')) ?>">
-                                                <?= esc(format_date($file['uploadedAt'] ?? null)) ?>
+                                                <?= esc(format_date($file['uploaded_at'] ?? null)) ?>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -110,7 +110,7 @@
     <div class="space-y-6">
         <!-- Widget: API Health -->
         <section class="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
-            <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4"><?= lang('Dashboard.systemStatus') ?></h3>
+            <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4"><?= lang('Dashboard.system_status') ?></h3>
             <?php
             $healthState = $apiHealth['state'] ?? 'down';
             $healthTone = match ($healthState) {
@@ -133,16 +133,16 @@
 
         <!-- Widget: Recent Activity -->
         <section class="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
-            <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-6"><?= lang('Dashboard.recentActivity') ?></h3>
+            <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-6"><?= lang('Dashboard.recent_activity') ?></h3>
             <div class="flow-root">
-                <?php if (empty($recentActivity)): ?>
+                <?php if (empty($recent_activity)): ?>
                     <p class="text-sm text-gray-500 text-center py-4 italic">No recent activity detected.</p>
                 <?php else: ?>
                     <ul role="list" class="-mb-8">
-                        <?php foreach ($recentActivity as $index => $item): ?>
+                        <?php foreach ($recent_activity as $index => $item): ?>
                             <?= view('dashboard/partials/activity_item', [
                                 'item' => $item,
-                                'isLast' => $index === count($recentActivity) - 1,
+                                'isLast' => $index === count($recent_activity) - 1,
                             ]) ?>
                         <?php endforeach; ?>
                     </ul>
@@ -152,8 +152,8 @@
 
         <!-- Widget: Quick Start -->
         <section class="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
-            <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2"><?= lang('Dashboard.quickStart') ?></h3>
-            <p class="text-xs text-gray-500 mb-4"><?= lang('Dashboard.quickStartDesc') ?></p>
+            <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2"><?= lang('Dashboard.quick_start') ?></h3>
+            <p class="text-xs text-gray-500 mb-4"><?= lang('Dashboard.quick_start_desc') ?></p>
             <div class="grid grid-cols-2 gap-2">
                 <?php if (has_admin_access((string) (session('user.role') ?? ''))): ?>
                     <a href="<?= site_url('admin/users') ?>" class="flex items-center justify-center gap-2 p-2 rounded-lg border border-gray-200 text-xs font-medium text-gray-700 hover:bg-gray-50 transition-colors">

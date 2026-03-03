@@ -14,7 +14,7 @@
     <?php $fieldErrors = session('fieldErrors'); ?>
     <?php if (is_array($fieldErrors) && count($fieldErrors) > 0): ?>
         <div role="alert" aria-live="assertive" class="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-800">
-            <?= esc(lang('App.errorsFound')) ?>
+            <?= esc(lang('App.errors_found')) ?>
         </div>
     <?php endif; ?>
 <?php endif; ?>

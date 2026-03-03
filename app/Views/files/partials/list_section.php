@@ -13,10 +13,10 @@ $csrfHash = csrf_hash(); ?>
             name: '<?= esc($csrfName) ?>',
             hash: '<?= esc($csrfHash) ?>'
         },
-        confirmDelete: '<?= esc(lang('Files.confirmDelete')) ?>'
+        confirmDelete: '<?= esc(lang('Files.confirm_delete')) ?>'
     })" x-init="init()">
     <?= view('layouts/partials/table_toolbar', [
-        'title' => lang('Files.myFiles'),
+        'title' => lang('Files.my_files'),
     ]) ?>
     <?= view('layouts/partials/filter_panel', [
         'actionUrl' => site_url('files'),
@@ -35,8 +35,8 @@ $csrfHash = csrf_hash(); ?>
 
     <template x-if="!loading && !error && rows.length === 0">
         <div class="mt-4 rounded-lg border border-dashed border-gray-300 bg-gray-50 p-4">
-            <p class="text-sm text-gray-600"><?= lang('Files.noFiles') ?></p>
-            <p class="mt-1 text-xs text-gray-500"><?= lang('Files.dragDrop') ?></p>
+            <p class="text-sm text-gray-600"><?= lang('Files.no_files') ?></p>
+            <p class="mt-1 text-xs text-gray-500"><?= lang('Files.drag_drop') ?></p>
         </div>
     </template>
     <template x-if="!loading && !error && rows.length > 0">
@@ -47,13 +47,13 @@ $csrfHash = csrf_hash(); ?>
                     <tr>
                         <th class="<?= esc(table_th_class()) ?> w-16"><?= lang('App.preview') ?? 'Preview' ?></th>
                         <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('originalName')">
-                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('originalName')" aria-label="<?= esc(lang('Files.sortByFileName')) ?>">
-                                <span><?= lang('Files.fileName') ?></span>
+                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('originalName')" aria-label="<?= esc(lang('Files.sort_by_file_name')) ?>">
+                                <span><?= lang('Files.file_name') ?></span>
                                 <span aria-hidden="true" x-text="sortIcon('originalName')"></span>
                             </button>
                         </th>
                         <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('uploadedAt')">
-                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('uploadedAt')" aria-label="<?= esc(lang('Files.sortByDate')) ?>">
+                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('uploadedAt')" aria-label="<?= esc(lang('Files.sort_by_date')) ?>">
                                 <span><?= lang('Files.date') ?></span>
                                 <span aria-hidden="true" x-text="sortIcon('uploadedAt')"></span>
                             </button>
@@ -65,21 +65,21 @@ $csrfHash = csrf_hash(); ?>
                     <template x-for="row in rows" :key="String(row.id ?? Math.random())">
                         <tr class="<?= esc(table_row_class()) ?>">
                             <td class="<?= esc(table_td_class()) ?>">
-                                <template x-if="row.isImage || row.is_image">
+                                <template x-if="row.is_image || row.is_image">
                                     <button type="button" @click="$dispatch('open-preview', '<?= site_url('files') ?>/' + (row.id ?? '') + '/view')">
                                         <img :src="'<?= site_url('files') ?>/' + (row.id ?? '') + '/view'" 
                                              class="h-10 w-10 rounded-lg object-cover border border-gray-200 hover:scale-110 transition-transform shadow-sm" 
-                                             :alt="row.originalName || row.original_name">
+                                             :alt="row.original_name || row.original_name">
                                     </button>
                                 </template>
-                                <template x-if="!(row.isImage || row.is_image)">
+                                <template x-if="!(row.is_image || row.is_image)">
                                     <div class="h-10 w-10 flex items-center justify-center rounded-lg bg-gray-100 border border-gray-200">
                                         <?= ui_icon('file', 'h-5 w-5 text-gray-400') ?>
                                     </div>
                                 </template>
                             </td>
-                            <td class="<?= esc(table_td_class('primary')) ?>" x-text="String(row.originalName || row.original_name || '-')"></td>
-                            <td class="<?= esc(table_td_class('muted')) ?>" x-text="formatDate(row.uploadedAt || row.uploaded_at)"></td>
+                            <td class="<?= esc(table_td_class('primary')) ?>" x-text="String(row.original_name || row.original_name || '-')"></td>
+                            <td class="<?= esc(table_td_class('muted')) ?>" x-text="formatDate(row.uploaded_at || row.uploaded_at)"></td>
                             <td class="<?= esc(table_td_class()) ?>">
                                 <div class="flex items-center gap-2">
                                     <a :href="fileDownloadUrl(row.id)" class="<?= esc(action_button_class()) ?>"><?= lang('Files.download') ?></a>

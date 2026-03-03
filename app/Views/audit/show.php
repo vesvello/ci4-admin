@@ -1,5 +1,5 @@
 <div class="mb-4">
-    <a href="<?= site_url('admin/audit') ?>" class="text-sm text-brand-600 hover:text-brand-700">&larr; <?= lang('Audit.backToList') ?></a>
+    <a href="<?= site_url('admin/audit') ?>" class="text-sm text-brand-600 hover:text-brand-700">&larr; <?= lang('Audit.back_to_list') ?></a>
 </div>
 
 <?php if (! empty($error)): ?>
@@ -21,7 +21,7 @@
                     <dd class="mt-1 text-gray-900">
                         <?= esc((string) ($log['user_email'] ?? '-')) ?>
                         <?php if (! empty($log['user_id'])): ?>
-                            <a href="<?= site_url('admin/users/' . esc((string) $log['user_id'], 'url')) ?>" class="ml-2 text-brand-600 hover:text-brand-700 text-xs"><?= lang('Audit.viewUser') ?></a>
+                            <a href="<?= site_url('admin/users/' . esc((string) $log['user_id'], 'url')) ?>" class="ml-2 text-brand-600 hover:text-brand-700 text-xs"><?= lang('Audit.view_user') ?></a>
                         <?php endif; ?>
                     </dd>
                 </div>
@@ -43,11 +43,11 @@
                     </dd>
                 </div>
                 <div>
-                    <dt class="text-gray-500"><?= lang('Audit.ipAddress') ?></dt>
+                    <dt class="text-gray-500"><?= lang('Audit.ip_address') ?></dt>
                     <dd class="mt-1 text-gray-900 font-mono text-xs"><?= esc((string) ($log['ip_address'] ?? '-')) ?></dd>
                 </div>
                 <div>
-                    <dt class="text-gray-500"><?= lang('Audit.userAgent') ?></dt>
+                    <dt class="text-gray-500"><?= lang('Audit.user_agent') ?></dt>
                     <dd class="mt-1 text-gray-900 text-xs break-all"><?= esc((string) ($log['user_agent'] ?? '-')) ?></dd>
                 </div>
                 <div>
@@ -60,7 +60,7 @@
         <div class="space-y-6">
             <?php if (! empty($log['old_values'])): ?>
                 <section class="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
-                    <h3 class="text-lg font-semibold text-gray-900"><?= lang('Audit.oldValues') ?></h3>
+                    <h3 class="text-lg font-semibold text-gray-900"><?= lang('Audit.old_values') ?></h3>
                     <pre class="mt-3 bg-gray-50 border border-gray-200 rounded-lg p-4 text-xs text-gray-700 overflow-x-auto"><?php
                         $old = $log['old_values'];
                 echo esc(is_string($old) ? $old : json_encode($old, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
@@ -70,7 +70,7 @@
 
             <?php if (! empty($log['new_values'])): ?>
                 <section class="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
-                    <h3 class="text-lg font-semibold text-gray-900"><?= lang('Audit.newValues') ?></h3>
+                    <h3 class="text-lg font-semibold text-gray-900"><?= lang('Audit.new_values') ?></h3>
                     <pre class="mt-3 bg-gray-50 border border-gray-200 rounded-lg p-4 text-xs text-gray-700 overflow-x-auto"><?php
                     $new = $log['new_values'];
                 echo esc(is_string($new) ? $new : json_encode($new, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));

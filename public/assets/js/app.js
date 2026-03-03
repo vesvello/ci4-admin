@@ -83,7 +83,7 @@ const tablePayloadRoot = (payload) => {
     }
 
     if (Array.isArray(nested.data) || isObject(nested.meta) || 
-        nested.currentPage !== undefined || nested.page !== undefined ||
+        nested.current_page !== undefined || nested.page !== undefined ||
         nested.last_page !== undefined ||
         nested.total !== undefined || isObject(nested.summary)) {
         return nested;
@@ -269,8 +269,8 @@ const toDateInput = (value) => {
         if (typeof value.datetime === 'string' || typeof value.datetime === 'number') {
             return value.datetime;
         }
-        if (typeof value.createdAt === 'string' || typeof value.createdAt === 'number') {
-            return value.createdAt;
+        if (typeof value.created_at === 'string' || typeof value.created_at === 'number') {
+            return value.created_at;
         }
         if (typeof value.value === 'string' || typeof value.value === 'number') {
             return value.value;
@@ -360,7 +360,7 @@ document.addEventListener('alpine:init', () => {
         summary: {},
         pagination: {
             mode: 'page',
-            currentPage: 1,
+            current_page: 1,
             last_page: 1,
             total: 0,
             limit: 25,
@@ -369,7 +369,7 @@ document.addEventListener('alpine:init', () => {
             next_cursor: '',
             prev_cursor: ''
         },
-        pageInput: '1',
+        page_input: '1',
         query: {},
         filterDefaults: {},
         filterFields: new Set(),
@@ -590,7 +590,7 @@ document.addEventListener('alpine:init', () => {
                     this.summary = {};
                     this.pagination = {
                         mode: 'page',
-                        currentPage: 1,
+                        current_page: 1,
                         last_page: 1,
                         total: 0,
                         limit: 25,
@@ -599,7 +599,7 @@ document.addEventListener('alpine:init', () => {
                         next_cursor: '',
                         prev_cursor: ''
                     };
-                    this.pageInput = '1';
+                    this.page_input = '1';
                     this.error = true;
                     this.errorMessage = this.resolveErrorMessage(payload, response.status);
                     return;
@@ -609,7 +609,7 @@ document.addEventListener('alpine:init', () => {
                 this.rows = this.extractRows(root);
                 this.summary = this.extractSummary(root);
                 this.pagination = this.extractPagination(root, this.rows.length);
-                this.pageInput = String(this.pagination.currentPage);
+                this.page_input = String(this.pagination.current_page);
 
                 if (pushHistory) {
                     window.history.pushState({}, '', pageUrl);
@@ -622,7 +622,7 @@ document.addEventListener('alpine:init', () => {
                 this.summary = {};
                 this.error = true;
                 this.errorMessage = text.loadRetry;
-                this.pageInput = '1';
+                this.page_input = '1';
             } finally {
                 if (requestId === this.requestId) {
                     this.loading = false;
@@ -669,12 +669,12 @@ document.addEventListener('alpine:init', () => {
             
             const total = Number(meta.total ?? root.total ?? meta.totalEstimate ?? visibleCount) || visibleCount;
             
-            const currentPage = Number(meta.page ?? meta.currentPage ?? root.page ?? root.currentPage ?? this.query.page ?? 1) || 1;
+            const current_page = Number(meta.page ?? meta.current_page ?? root.page ?? root.current_page ?? this.query.page ?? 1) || 1;
             
             const derivedLastPage = Math.max(1, Math.ceil(Math.max(0, total) / safeLimit));
             const last_page = Number(meta.last_page ?? root.last_page ?? derivedLastPage) || derivedLastPage;
             
-            const normalizedCurrentPage = Math.max(1, Math.min(currentPage, Math.max(1, last_page)));
+            const normalizedCurrentPage = Math.max(1, Math.min(current_page, Math.max(1, last_page)));
             const from = total <= 0 ? 0 : ((normalizedCurrentPage - 1) * safeLimit) + 1;
             let to = 0;
             if (total > 0) {
@@ -687,7 +687,7 @@ document.addEventListener('alpine:init', () => {
 
             return {
                 mode: hasCursor ? 'cursor' : 'page',
-                currentPage: normalizedCurrentPage,
+                current_page: normalizedCurrentPage,
                 last_page: Math.max(1, last_page),
                 total: Math.max(0, total),
                 limit: safeLimit,
@@ -725,8 +725,8 @@ document.addEventListener('alpine:init', () => {
         },
 
         pageWindow() {
-            const start = Math.max(1, this.pagination.currentPage - 2);
-            const end = Math.min(this.pagination.last_page, this.pagination.currentPage + 2);
+            const start = Math.max(1, this.pagination.current_page - 2);
+            const end = Math.min(this.pagination.last_page, this.pagination.current_page + 2);
             const pages = [];
             for (let page = start; page <= end; page += 1) {
                 pages.push(page);
@@ -804,19 +804,19 @@ document.addEventListener('alpine:init', () => {
             const boundedPage = Math.max(1, Math.min(this.pagination.last_page || 1, page));
             this.query.page = String(boundedPage);
             delete this.query.cursor;
-            this.pageInput = String(boundedPage);
+            this.page_input = String(boundedPage);
             this.fetchData(true);
         },
 
         goToFirstPage() {
-            if (this.isCursorMode() || this.pagination.currentPage <= 1) {
+            if (this.isCursorMode() || this.pagination.current_page <= 1) {
                 return;
             }
             this.goToPage(1);
         },
 
         goToLastPage() {
-            if (this.isCursorMode() || this.pagination.currentPage >= this.pagination.last_page) {
+            if (this.isCursorMode() || this.pagination.current_page >= this.pagination.last_page) {
                 return;
             }
             this.goToPage(this.pagination.last_page);
@@ -827,9 +827,9 @@ document.addEventListener('alpine:init', () => {
                 return;
             }
 
-            const page = Number.parseInt(String(this.pageInput || ''), 10);
+            const page = Number.parseInt(String(this.page_input || ''), 10);
             if (!Number.isFinite(page) || page <= 0) {
-                this.pageInput = String(this.pagination.currentPage);
+                this.page_input = String(this.pagination.current_page);
                 return;
             }
 
@@ -855,7 +855,7 @@ document.addEventListener('alpine:init', () => {
 
             delete this.query.page;
             delete this.query.cursor;
-            this.pageInput = '1';
+            this.page_input = '1';
             this.fetchData(true);
         },
 

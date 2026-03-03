@@ -1,11 +1,11 @@
 <?php $uid = (string) ($editUser['id'] ?? ''); ?>
 
 <div class="mb-4">
-    <a href="<?= site_url('admin/users/' . esc($uid, 'url')) ?>" class="text-sm text-brand-600 hover:text-brand-700">&larr; <?= lang('Users.backToDetails') ?></a>
+    <a href="<?= site_url('admin/users/' . esc($uid, 'url')) ?>" class="text-sm text-brand-600 hover:text-brand-700">&larr; <?= lang('Users.back_to_details') ?></a>
 </div>
 
 <section class="bg-white border border-gray-200 rounded-xl shadow-sm p-5 max-w-2xl">
-    <h3 class="text-lg font-semibold text-gray-900"><?= lang('Users.editUser') ?></h3>
+    <h3 class="text-lg font-semibold text-gray-900"><?= lang('Users.edit_user') ?></h3>
 
     <form method="post" action="<?= site_url('admin/users/' . esc($uid, 'url')) ?>" class="mt-4 space-y-4">
         <?= csrf_field() ?>
@@ -37,9 +37,9 @@
             <label class="block text-sm font-medium text-gray-700" for="role"><?= lang('Users.role') ?></label>
             <select id="role" name="role" required
                 class="mt-1 w-full rounded-lg border px-3 py-2 <?= has_field_error('role') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-brand-500 focus:ring-brand-500' ?>">
-                <option value="user" <?= old('role', $editUser['role'] ?? 'user') === 'user' ? 'selected' : '' ?>><?= lang('Users.userRole') ?></option>
-                <option value="admin" <?= old('role', $editUser['role'] ?? 'user') === 'admin' ? 'selected' : '' ?>><?= lang('Users.adminRole') ?></option>
-                <option value="superadmin" <?= old('role', $editUser['role'] ?? 'user') === 'superadmin' ? 'selected' : '' ?>><?= lang('Users.superAdminRole') ?></option>
+                <option value="user" <?= old('role', $editUser['role'] ?? 'user') === 'user' ? 'selected' : '' ?>><?= lang('Users.user_role') ?></option>
+                <option value="admin" <?= old('role', $editUser['role'] ?? 'user') === 'admin' ? 'selected' : '' ?>><?= lang('Users.admin_role') ?></option>
+                <option value="superadmin" <?= old('role', $editUser['role'] ?? 'user') === 'superadmin' ? 'selected' : '' ?>><?= lang('Users.super_admin_role') ?></option>
             </select>
             <?= render_field_error('role') ?>
         </div>

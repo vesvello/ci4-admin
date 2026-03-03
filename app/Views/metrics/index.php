@@ -10,7 +10,7 @@
         'filterDefaults' => $defaultFilters ?? [],
         'fieldsView' => 'metrics/partials/filters',
         'fieldsData' => ['filters' => $filters],
-        'submitLabel' => lang('Metrics.applyFilters'),
+        'submitLabel' => lang('Metrics.apply_filters'),
     ]) ?>
 </section>
 
@@ -18,11 +18,11 @@
     <?php if (isset($metrics['requestStats'])): ?>
         <?php $stats = $metrics['requestStats']; ?>
         <article class="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
-            <p class="text-sm text-gray-500"><?= lang('Metrics.totalRequests') ?></p>
+            <p class="text-sm text-gray-500"><?= lang('Metrics.total_requests') ?></p>
             <p class="mt-1 text-2xl font-semibold text-gray-900"><?= esc((string) ($stats['totalRequests'] ?? 0)) ?></p>
         </article>
         <article class="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
-            <p class="text-sm text-gray-500"><?= lang('Metrics.avgResponseTime') ?></p>
+            <p class="text-sm text-gray-500"><?= lang('Metrics.avg_response_time') ?></p>
             <p class="mt-1 text-2xl font-semibold text-gray-900"><?= esc((string) ($stats['avgResponseTimeMs'] ?? 0)) ?> ms</p>
         </article>
         <article class="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
@@ -30,24 +30,24 @@
             <p class="mt-1 text-2xl font-semibold text-gray-900"><?= esc((string) ($stats['availabilityPercent'] ?? 0)) ?>%</p>
         </article>
         <article class="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
-            <p class="text-sm text-gray-500"><?= lang('Metrics.successRequests') ?></p>
+            <p class="text-sm text-gray-500"><?= lang('Metrics.success_requests') ?></p>
             <p class="mt-1 text-2xl font-semibold text-gray-900"><?= esc((string) ($stats['successfulRequests'] ?? 0)) ?></p>
         </article>
     <?php else: ?>
         <article class="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
-            <p class="text-sm text-gray-500"><?= lang('Metrics.totalUsers') ?></p>
+            <p class="text-sm text-gray-500"><?= lang('Metrics.total_users') ?></p>
             <p class="mt-1 text-2xl font-semibold text-gray-900"><?= esc((string) ($metrics['totalUsers'] ?? 0)) ?></p>
         </article>
         <article class="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
-            <p class="text-sm text-gray-500"><?= lang('Metrics.activeUsers') ?></p>
+            <p class="text-sm text-gray-500"><?= lang('Metrics.active_users') ?></p>
             <p class="mt-1 text-2xl font-semibold text-gray-900"><?= esc((string) ($metrics['activeUsers'] ?? 0)) ?></p>
         </article>
         <article class="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
-            <p class="text-sm text-gray-500"><?= lang('Metrics.totalFiles') ?></p>
+            <p class="text-sm text-gray-500"><?= lang('Metrics.total_files') ?></p>
             <p class="mt-1 text-2xl font-semibold text-gray-900"><?= esc((string) ($metrics['totalFiles'] ?? 0)) ?></p>
         </article>
         <article class="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
-            <p class="text-sm text-gray-500"><?= lang('Metrics.storageUsed') ?></p>
+            <p class="text-sm text-gray-500"><?= lang('Metrics.storage_used') ?></p>
             <p class="mt-1 text-2xl font-semibold text-gray-900"><?= esc((string) ($metrics['storageUsed'] ?? '0 B')) ?></p>
         </article>
     <?php endif; ?>
@@ -55,7 +55,7 @@
 
 <?php if (! empty($metrics['slowRequests'])): ?>
     <section class="mt-6 bg-white border border-gray-200 rounded-xl shadow-sm p-5">
-        <h3 class="text-lg font-semibold text-gray-900"><?= lang('Metrics.slowRequests') ?></h3>
+        <h3 class="text-lg font-semibold text-gray-900"><?= lang('Metrics.slow_requests') ?></h3>
         <div class="<?= esc(table_wrapper_class()) ?>">
             <div class="<?= esc(table_scroll_class()) ?>">
             <table class="<?= esc(table_class()) ?>">
@@ -120,10 +120,10 @@
                                     <table class="<?= esc(table_class()) ?>">
                                         <thead class="<?= esc(table_head_class()) ?>">
                                             <tr>
-                                                <th class="<?= esc(table_th_class()) ?>"><?= lang('Metrics.sloMetric') ?></th>
-                                                <th class="<?= esc(table_th_class()) ?>"><?= lang('Metrics.sloTarget') ?></th>
-                                                <th class="<?= esc(table_th_class()) ?>"><?= lang('Metrics.sloCurrent') ?></th>
-                                                <th class="<?= esc(table_th_class()) ?>"><?= lang('Metrics.errorBudget') ?></th>
+                                                <th class="<?= esc(table_th_class()) ?>"><?= lang('Metrics.slo_metric') ?></th>
+                                                <th class="<?= esc(table_th_class()) ?>"><?= lang('Metrics.slo_target') ?></th>
+                                                <th class="<?= esc(table_th_class()) ?>"><?= lang('Metrics.slo_current') ?></th>
+                                                <th class="<?= esc(table_th_class()) ?>"><?= lang('Metrics.error_budget') ?></th>
                                             </tr>
                                         </thead>
                                         <tbody class="<?= esc(table_body_class()) ?>">
@@ -175,7 +175,7 @@
                         
 <?php if (! empty($metrics['usersByRole'])): ?>
     <section class="mt-6 bg-white border border-gray-200 rounded-xl shadow-sm p-5">
-        <h3 class="text-lg font-semibold text-gray-900"><?= lang('Metrics.usersByRole') ?></h3>
+        <h3 class="text-lg font-semibold text-gray-900"><?= lang('Metrics.users_by_role') ?></h3>
         <div class="<?= esc(table_wrapper_class()) ?>">
             <div class="<?= esc(table_scroll_class()) ?>">
             <table class="<?= esc(table_class()) ?>">
@@ -205,7 +205,7 @@
 
 <?php if (! empty($metrics['usersByStatus'])): ?>
     <section class="mt-6 bg-white border border-gray-200 rounded-xl shadow-sm p-5">
-        <h3 class="text-lg font-semibold text-gray-900"><?= lang('Metrics.usersByStatus') ?></h3>
+        <h3 class="text-lg font-semibold text-gray-900"><?= lang('Metrics.users_by_status') ?></h3>
         <div class="<?= esc(table_wrapper_class()) ?>">
             <div class="<?= esc(table_scroll_class()) ?>">
             <table class="<?= esc(table_class()) ?>">
@@ -233,9 +233,9 @@
     </section>
 <?php endif; ?>
 
-<?php if (! empty($metrics['recentActivity'])): ?>
+<?php if (! empty($metrics['recent_activity'])): ?>
     <section class="mt-6 bg-white border border-gray-200 rounded-xl shadow-sm p-5">
-        <h3 class="text-lg font-semibold text-gray-900"><?= lang('Metrics.recentActivity') ?></h3>
+        <h3 class="text-lg font-semibold text-gray-900"><?= lang('Metrics.recent_activity') ?></h3>
         <div class="<?= esc(table_wrapper_class()) ?>">
             <div class="<?= esc(table_scroll_class()) ?>">
             <table class="<?= esc(table_class()) ?>">
@@ -247,7 +247,7 @@
                     </tr>
                 </thead>
                 <tbody class="<?= esc(table_body_class()) ?>">
-                    <?php foreach ($metrics['recentActivity'] as $activity): ?>
+                    <?php foreach ($metrics['recent_activity'] as $activity): ?>
                         <tr class="<?= esc(table_row_class()) ?>">
                             <td class="<?= esc(table_td_class()) ?>">
                                 <span class="inline-flex rounded-full px-2 py-1 text-xs <?= audit_action_badge($activity['action'] ?? '') ?>">

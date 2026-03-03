@@ -1,5 +1,5 @@
 <div class="mb-4">
-    <a href="<?= site_url('admin/api-keys') ?>" class="text-sm text-brand-600 hover:text-brand-700">&larr; <?= lang('ApiKeys.backToList') ?></a>
+    <a href="<?= site_url('admin/api-keys') ?>" class="text-sm text-brand-600 hover:text-brand-700">&larr; <?= lang('ApiKeys.back_to_list') ?></a>
 </div>
 
 <?php if (! empty($error)): ?>
@@ -19,7 +19,7 @@
                 <h3 class="text-lg font-semibold text-gray-900"><?= lang('ApiKeys.details') ?></h3>
                 <div class="flex items-center gap-2">
                     <a href="<?= site_url('admin/api-keys/' . esc($id, 'url') . '/edit') ?>" class="rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"><?= lang('App.edit') ?></a>
-                    <form method="post" action="<?= site_url('admin/api-keys/' . esc($id, 'url') . '/delete') ?>" onsubmit="return confirm('<?= lang('ApiKeys.confirmDelete') ?>');">
+                    <form method="post" action="<?= site_url('admin/api-keys/' . esc($id, 'url') . '/delete') ?>" onsubmit="return confirm('<?= lang('ApiKeys.confirm_delete') ?>');">
                         <?= csrf_field() ?>
                         <button type="submit" class="rounded-lg bg-red-600 px-3 py-2 text-sm text-white hover:bg-red-700"><?= lang('App.delete') ?></button>
                     </form>
@@ -65,14 +65,14 @@
                     <dd class="mt-1 text-gray-900"><?= esc(format_date($apiKey['created_at'] ?? null)) ?></dd>
                 </div>
                 <div>
-                    <dt class="text-gray-500"><?= lang('ApiKeys.updatedAt') ?></dt>
-                    <dd class="mt-1 text-gray-900"><?= esc(format_date($apiKey['updatedAt'] ?? null)) ?></dd>
+                    <dt class="text-gray-500"><?= lang('ApiKeys.updated_at') ?></dt>
+                    <dd class="mt-1 text-gray-900"><?= esc(format_date($apiKey['updated_at'] ?? null)) ?></dd>
                 </div>
             </dl>
         </section>
 
         <section class="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
-            <h3 class="text-lg font-semibold text-gray-900"><?= lang('ApiKeys.quickActions') ?></h3>
+            <h3 class="text-lg font-semibold text-gray-900"><?= lang('ApiKeys.quick_actions') ?></h3>
             <div class="mt-4 space-y-3">
                 <a href="<?= site_url('admin/api-keys/' . esc($id, 'url') . '/edit') ?>" class="block w-full text-center rounded-lg border border-gray-300 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"><?= lang('App.edit') ?></a>
                 <a href="<?= site_url('admin/api-keys/create') ?>" class="block w-full text-center rounded-lg border border-gray-300 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"><?= lang('ApiKeys.create') ?></a>
@@ -84,20 +84,20 @@
         <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
             x-data="{ copied: false, revealed: false, key: '<?= esc($generatedApiKey, 'js') ?>' }">
             <div class="w-full max-w-2xl rounded-xl border border-gray-200 bg-white p-5 shadow-xl">
-                <h3 class="text-lg font-semibold text-gray-900"><?= lang('ApiKeys.rawKeyOneTimeTitle') ?></h3>
-                <p class="mt-2 text-sm text-gray-600"><?= lang('ApiKeys.rawKeyOneTimeBody') ?></p>
+                <h3 class="text-lg font-semibold text-gray-900"><?= lang('ApiKeys.raw_key_one_time_title') ?></h3>
+                <p class="mt-2 text-sm text-gray-600"><?= lang('ApiKeys.raw_key_one_time_body') ?></p>
                 <p class="mt-1 text-sm text-gray-500"><?= esc($generatedApiKeyName) ?></p>
 
                 <div class="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3">
-                    <label class="text-xs font-medium uppercase tracking-wide text-amber-700"><?= lang('ApiKeys.rawKey') ?></label>
+                    <label class="text-xs font-medium uppercase tracking-wide text-amber-700"><?= lang('ApiKeys.raw_key') ?></label>
                     <div class="mt-2 flex items-center gap-2">
                         <code class="flex-1 overflow-auto rounded-md bg-white px-3 py-2 text-xs text-gray-900" x-text="revealed ? key : '*****************************'"></code>
-                        <button type="button" class="rounded-md border border-gray-300 px-3 py-2 text-xs text-gray-700 hover:bg-gray-50" @click="revealed = !revealed" x-text="revealed ? '<?= esc(lang('ApiKeys.hideKey')) ?>' : '<?= esc(lang('ApiKeys.showKey')) ?>'"></button>
+                        <button type="button" class="rounded-md border border-gray-300 px-3 py-2 text-xs text-gray-700 hover:bg-gray-50" @click="revealed = !revealed" x-text="revealed ? '<?= esc(lang('ApiKeys.hide_key')) ?>' : '<?= esc(lang('ApiKeys.show_key')) ?>'"></button>
                     </div>
                 </div>
 
                 <div class="mt-4 flex items-center justify-end gap-2">
-                    <button type="button" class="rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50" @click="navigator.clipboard.writeText(key).then(() => { copied = true; setTimeout(() => copied = false, 2000); })" x-text="copied ? '<?= esc(lang('ApiKeys.copied')) ?>' : '<?= esc(lang('ApiKeys.copyKey')) ?>'"></button>
+                    <button type="button" class="rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50" @click="navigator.clipboard.writeText(key).then(() => { copied = true; setTimeout(() => copied = false, 2000); })" x-text="copied ? '<?= esc(lang('ApiKeys.copied')) ?>' : '<?= esc(lang('ApiKeys.copy_key')) ?>'"></button>
                     <a href="<?= site_url('admin/api-keys/' . esc($id, 'url')) ?>" class="rounded-lg bg-brand-600 px-3 py-2 text-sm text-white hover:bg-brand-700"><?= lang('App.close') ?></a>
                 </div>
             </div>

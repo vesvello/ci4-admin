@@ -1,7 +1,7 @@
 <?php
 $isAuthed = (string) session('access_token') !== '';
 $primaryUrl = $isAuthed ? site_url('dashboard') : site_url('login');
-$primaryLabel = $isAuthed ? lang('App.goDashboard') : lang('App.goLogin');
+$primaryLabel = $isAuthed ? lang('App.go_dashboard') : lang('App.go_login');
 ?>
 <!doctype html>
 <html lang="<?= esc(service('language')->getLocale()) ?>">
@@ -21,7 +21,7 @@ $primaryLabel = $isAuthed ? lang('App.goDashboard') : lang('App.goLogin');
 
         <div class="error-actions">
             <a class="btn btn-primary" href="<?= esc($primaryUrl) ?>"><?= esc($primaryLabel) ?></a>
-            <button class="btn btn-secondary" type="button" onclick="history.back()"><?= esc(lang('App.goBack')) ?></button>
+            <button class="btn btn-secondary" type="button" onclick="history.back()"><?= esc(lang('App.go_back')) ?></button>
         </div>
     </section>
 </main>

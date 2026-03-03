@@ -1,5 +1,5 @@
 <section class="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
-    <h3 class="text-lg font-semibold text-gray-900"><?= lang('Files.uploadTitle') ?></h3>
+    <h3 class="text-lg font-semibold text-gray-900"><?= lang('Files.upload_title') ?></h3>
     <form method="post" action="<?= site_url('files/upload') ?>" enctype="multipart/form-data" class="mt-4 space-y-4" x-data="{
         dragging: false,
         selectedFileName: '',
@@ -22,8 +22,8 @@
                 this.selectedFileName = '';
                 const sizeMb = Math.round((this.maxBytes / 1024 / 1024) * 10) / 10;
                 // We keep the raw lang string in a comment for tests that look for {0}
-                // <?= lang('Files.fileTooLarge') ?>
-                this.clientError = '<?= esc(lang('Files.fileTooLarge', ['sizeMbPlaceholder'])) ?>'.replace('sizeMbPlaceholder', sizeMb);
+                // <?= lang('Files.file_too_large') ?>
+                this.clientError = '<?= esc(lang('Files.file_too_large', ['sizeMbPlaceholder'])) ?>'.replace('sizeMbPlaceholder', sizeMb);
                 event.target.value = '';
                 return;
             }
@@ -63,7 +63,7 @@
                         } else if (response.messages && response.messages.length) {
                             this.clientError = response.messages[0];
                         } else {
-                            this.clientError = '<?= esc(lang('Files.uploadFailed')) ?>';
+                            this.clientError = '<?= esc(lang('Files.upload_failed')) ?>';
                         }
                     }
                 } catch (e) {
@@ -74,7 +74,7 @@
 
             xhr.addEventListener('error', () => {
                 this.uploading = false;
-                this.clientError = '<?= esc(lang('App.connectionError')) ?>';
+                this.clientError = '<?= esc(lang('App.connection_error')) ?>';
             });
 
             xhr.open('POST', this.$el.action);
@@ -92,8 +92,8 @@
                 <template x-if="!uploading">
                     <div class="flex flex-col items-center">
                         <p class="text-sm font-medium text-gray-800" aria-live="polite" x-show="selectedFileName !== ''" x-text="selectedFileName"></p>
-                        <p class="text-sm text-gray-700" x-show="selectedFileName === ''"><?= lang('Files.dragDrop') ?></p>
-                        <p class="mt-1 text-xs text-green-700" x-show="selectedFileName !== ''"><?= lang('Files.fileReady') ?></p>
+                        <p class="text-sm text-gray-700" x-show="selectedFileName === ''"><?= lang('Files.drag_drop') ?></p>
+                        <p class="mt-1 text-xs text-green-700" x-show="selectedFileName !== ''"><?= lang('Files.file_ready') ?></p>
                     </div>
                 </template>
                 
@@ -124,7 +124,7 @@
         <button type="submit" class="<?= esc(action_button_class('primary')) ?> disabled:opacity-50 disabled:cursor-not-allowed" :disabled="uploading || !selectedFileName">
             <template x-if="!uploading">
                 <span class="inline-flex items-center gap-2">
-                    <?= ui_icon('plus', 'h-3.5 w-3.5') ?><?= lang('Files.uploadButton') ?>
+                    <?= ui_icon('plus', 'h-3.5 w-3.5') ?><?= lang('Files.upload_button') ?>
                 </span>
             </template>
             <template x-if="uploading">

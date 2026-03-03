@@ -1,6 +1,6 @@
 <?php
 $mode        = (string) ($pagination['mode'] ?? 'page');
-$currentPage = (int) ($pagination['current_page'] ?? 1);
+$current_page = (int) ($pagination['current_page'] ?? 1);
 $lastPage    = (int) ($pagination['last_page'] ?? 1);
 $total       = (int) ($pagination['total'] ?? 0);
 $nextCursor  = (string) ($pagination['next_cursor'] ?? '');
@@ -34,9 +34,9 @@ $buildCursorUrl = static function (string $cursor) use ($baseUrl, $queryParams):
 <div class="mt-6 flex items-center justify-between border-t border-gray-200 pt-4 text-sm text-gray-600">
     <span>
         <?php if ($mode === 'cursor'): ?>
-            <?= esc(lang('App.visibleResults') . ': ' . $total) ?>
+            <?= esc(lang('App.visible_results') . ': ' . $total) ?>
         <?php else: ?>
-            <?= esc(lang('App.pageSummary', [$currentPage, $lastPage, $total])) ?>
+            <?= esc(lang('App.page_summary', [$current_page, $lastPage, $total])) ?>
         <?php endif; ?>
     </span>
     <nav class="flex items-center gap-1">
@@ -51,17 +51,17 @@ $buildCursorUrl = static function (string $cursor) use ($baseUrl, $queryParams):
                    class="rounded-lg border border-gray-300 px-3 py-1.5 text-xs hover:bg-gray-50"><?= lang('App.next') ?></a>
             <?php endif; ?>
         <?php else: ?>
-            <?php if ($currentPage > 1): ?>
-                <a href="<?= esc($buildPageUrl($currentPage - 1)) ?>" data-table-nav="1"
+            <?php if ($current_page > 1): ?>
+                <a href="<?= esc($buildPageUrl($current_page - 1)) ?>" data-table-nav="1"
                class="rounded-lg border border-gray-300 px-3 py-1.5 text-xs hover:bg-gray-50"><?= lang('App.previous') ?></a>
             <?php endif; ?>
 
             <?php
-            $start = max(1, $currentPage - 2);
-$end   = min($lastPage, $currentPage + 2);
+            $start = max(1, $current_page - 2);
+$end   = min($lastPage, $current_page + 2);
 ?>
             <?php for ($i = $start; $i <= $end; $i++): ?>
-                <?php if ($i === $currentPage): ?>
+                <?php if ($i === $current_page): ?>
                     <span class="rounded-lg bg-brand-600 px-3 py-1.5 text-xs text-white"><?= $i ?></span>
                 <?php else: ?>
                     <a href="<?= esc($buildPageUrl($i)) ?>" data-table-nav="1"
@@ -69,8 +69,8 @@ $end   = min($lastPage, $currentPage + 2);
                 <?php endif; ?>
             <?php endfor; ?>
 
-            <?php if ($currentPage < $lastPage): ?>
-                <a href="<?= esc($buildPageUrl($currentPage + 1)) ?>" data-table-nav="1"
+            <?php if ($current_page < $lastPage): ?>
+                <a href="<?= esc($buildPageUrl($current_page + 1)) ?>" data-table-nav="1"
                class="rounded-lg border border-gray-300 px-3 py-1.5 text-xs hover:bg-gray-50"><?= lang('App.next') ?></a>
             <?php endif; ?>
         <?php endif; ?>
