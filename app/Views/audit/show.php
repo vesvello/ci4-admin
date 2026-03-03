@@ -19,9 +19,9 @@
                 <div>
                     <dt class="text-gray-500"><?= lang('Audit.user') ?></dt>
                     <dd class="mt-1 text-gray-900">
-                        <?= esc((string) ($log['userEmail'] ?? '-')) ?>
-                        <?php if (! empty($log['userId'])): ?>
-                            <a href="<?= site_url('admin/users/' . esc((string) $log['userId'], 'url')) ?>" class="ml-2 text-brand-600 hover:text-brand-700 text-xs"><?= lang('Audit.viewUser') ?></a>
+                        <?= esc((string) ($log['user_email'] ?? '-')) ?>
+                        <?php if (! empty($log['user_id'])): ?>
+                            <a href="<?= site_url('admin/users/' . esc((string) $log['user_id'], 'url')) ?>" class="ml-2 text-brand-600 hover:text-brand-700 text-xs"><?= lang('Audit.viewUser') ?></a>
                         <?php endif; ?>
                     </dd>
                 </div>
@@ -36,9 +36,9 @@
                 <div>
                     <dt class="text-gray-500"><?= lang('Audit.entity') ?></dt>
                     <dd class="mt-1 text-gray-900">
-                        <?= esc((string) ($log['entityType'] ?? '-')) ?>
-                        <?php if (! empty($log['entityId'])): ?>
-                            <span class="text-gray-400">#<?= esc((string) $log['entityId']) ?></span>
+                        <?= esc((string) ($log['entity_type'] ?? '-')) ?>
+                        <?php if (! empty($log['entity_id'])): ?>
+                            <span class="text-gray-400">#<?= esc((string) $log['entity_id']) ?></span>
                         <?php endif; ?>
                     </dd>
                 </div>
@@ -52,7 +52,7 @@
                 </div>
                 <div>
                     <dt class="text-gray-500"><?= lang('Audit.date') ?></dt>
-                    <dd class="mt-1 text-gray-900"><?= esc(format_date($log['createdAt'] ?? null)) ?></dd>
+                    <dd class="mt-1 text-gray-900"><?= esc(format_date($log['created_at'] ?? null)) ?></dd>
                 </div>
             </dl>
         </section>

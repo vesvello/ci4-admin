@@ -254,8 +254,8 @@
                                     <?= esc((string) ($activity['action'] ?? '-')) ?>
                                 </span>
                             </td>
-                            <td class="<?= esc(table_td_class('primary')) ?>"><?= esc((string) ($activity['userEmail'] ?? $activity['userId'] ?? '-')) ?></td>
-                            <td class="<?= esc(table_td_class('muted')) ?>"><?= esc(format_date($activity['createdAt'] ?? null)) ?></td>
+                            <td class="<?= esc(table_td_class('primary')) ?>"><?= esc((string) ($activity['user_email'] ?? $activity['user_id'] ?? '-')) ?></td>
+                            <td class="<?= esc(table_td_class('muted')) ?>"><?= esc(format_date($activity['created_at'] ?? null)) ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

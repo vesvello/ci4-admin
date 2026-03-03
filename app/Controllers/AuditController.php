@@ -28,8 +28,8 @@ class AuditController extends BaseWebController
     public function data(): ResponseInterface
     {
         return $this->tableDataResponse(
-            ['action', 'userId', 'entityType', 'entityId'],
-            ['createdAt', 'action', 'userId', 'entityType', 'entityId'],
+            ['action', 'user_id', 'entity_type', 'entity_id'],
+            ['created_at', 'action', 'user_id', 'entity_type', 'entity_id'],
             fn(array $params) => $this->auditService->list($params),
         );
     }
