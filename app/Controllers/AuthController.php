@@ -87,7 +87,7 @@ class AuthController extends BaseWebController
         $data = $this->extractData($response);
         
         // Handle 202 Accepted (Pending approval)
-        if ($response['status'] === 202 || (! isset($data['accessToken']) && ! isset($data['access_token']))) {
+        if ($response['status'] === 202 || ! isset($data['access_token'])) {
             return redirect()->to(site_url('login'))
                 ->with('error', $this->firstMessage($response, lang('Auth.googleLoginPendingApproval')));
         }
@@ -218,9 +218,9 @@ class AuthController extends BaseWebController
 
     protected function persistAuthSession(array $data): void
     {
-        $this->session->set('access_token', $data['accessToken'] ?? $data['access_token'] ?? null);
-        $this->session->set('refresh_token', $data['refreshToken'] ?? $data['refresh_token'] ?? null);
-        $this->session->set('token_expires_at', time() + (int) ($data['expiresIn'] ?? $data['expires_in'] ?? 3600));
+        $this->session->set('access_token', $data['access_token'] ?? null);
+        $this->session->set('refresh_token', $data['refresh_token'] ?? null);
+        $this->session->set('token_expires_at', time() + (int) ($data['expires_in'] ?? 3600));
         $this->session->set('user', $data['user'] ?? []);
     }
 
