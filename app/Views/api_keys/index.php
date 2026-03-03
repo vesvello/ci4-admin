@@ -29,7 +29,7 @@
     <div class="mt-6 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700" x-show="error" x-text="errorMessage"></div>
 
     <template x-if="!loading && !error && rows.length === 0">
-        <p class="mt-6 text-sm text-gray-500"><?= lang('ApiKeys.noApiKeys') ?></p>
+        <p class="mt-6 text-sm text-gray-500"><?= lang('ApiKeys.no_api_keys') ?></p>
     </template>
     <template x-if="!loading && !error && rows.length > 0">
         <div class="<?= esc(table_wrapper_class()) ?>">
@@ -50,8 +50,8 @@
                                     <span aria-hidden="true" x-text="sortIcon('is_active')"></span>
                                 </button>
                             </th>
-                            <th class="<?= esc(table_th_class()) ?>"><?= lang('ApiKeys.rateLimitRequests') ?></th>
-                            <th class="<?= esc(table_th_class()) ?>"><?= lang('ApiKeys.rateLimitWindow') ?></th>
+                            <th class="<?= esc(table_th_class()) ?>"><?= lang('ApiKeys.rate_limit_requests') ?></th>
+                            <th class="<?= esc(table_th_class()) ?>"><?= lang('ApiKeys.rate_limit_window') ?></th>
                             <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('created_at')">
                                 <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('created_at')">
                                     <span><?= lang('ApiKeys.created_at') ?></span>
@@ -69,8 +69,8 @@
                                 <td class="<?= esc(table_td_class()) ?>">
                                     <span class="inline-flex rounded-full px-2 py-1 text-xs" :class="(row.is_active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-700')" x-text="row.is_active ? '<?= esc(lang('ApiKeys.active')) ?>' : '<?= esc(lang('ApiKeys.inactive')) ?>'"></span>
                                 </td>
-                                <td class="<?= esc(table_td_class('muted')) ?>" x-text="String(row.rateLimitRequests ?? '-')"></td>
-                                <td class="<?= esc(table_td_class('muted')) ?>" x-text="String(row.rateLimitWindow ?? '-')"></td>
+                                <td class="<?= esc(table_td_class('muted')) ?>" x-text="String(row.rate_limit_requests ?? '-')"></td>
+                                <td class="<?= esc(table_td_class('muted')) ?>" x-text="String(row.rate_limit_window ?? '-')"></td>
                                 <td class="<?= esc(table_td_class('muted')) ?>" x-text="formatDate(row.created_at)"></td>
                                 <td class="<?= esc(table_td_class()) ?>">
                                     <div class="flex items-center gap-2">

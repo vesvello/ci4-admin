@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'title'               => 'API Keys',
     'details'             => 'Detalle de API key',
     'name'                => 'Nombre',
     'key_prefix'           => 'Prefijo',
@@ -23,14 +24,16 @@ return [
     'created_success'      => 'API key creada correctamente. Asegúrate de copiar la clave ahora, no podrás verla después.',
     'updated_success'      => 'API key actualizada correctamente.',
     'deleted_success'      => 'API key eliminada.',
-    'rate_limit_requests'   => 'Límite global por ventana',
-    'rate_limit_window'     => 'Ventana (segundos)',
+    'create_failed'        => 'No se pudo crear la API key.',
+    'update_failed'        => 'No se pudo actualizar la API key.',
+    'delete_failed'        => 'No se pudo eliminar la API key.',
+    'not_found'            => 'API key no encontrada.',
+    'rate_limit_requests'   => 'Límite de peticiones',
+    'rate_limit_window'     => 'Ventana (seg)',
     'user_rate_limit'       => 'Límite por usuario',
     'ip_rate_limit'         => 'Límite por IP',
     'usage_limits'        => 'Límites de uso',
-    'view_user'            => 'Ver usuario',
-    'sort_by_user'          => 'Ordenar por usuario',
-    'sort_by_action'        => 'Ordenar por acción',
-    'sort_by_entity'        => 'Ordenar por entidad',
-    'sort_by_date'          => 'Ordenar por fecha',
+    'loading'             => 'Cargando claves...',
+    'no_api_keys'          => 'No se encontraron API keys.',
+    'at_least_one_field'   => 'Debe actualizar al menos un campo.',
 ];

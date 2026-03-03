@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'title'               => 'API Keys',
     'details'             => 'API key details',
     'name'                => 'Name',
     'key_prefix'           => 'Prefix',
@@ -23,14 +24,16 @@ return [
     'created_success'      => 'API key created successfully. Make sure to copy the key now, you will not be able to see it later.',
     'updated_success'      => 'API key updated successfully.',
     'deleted_success'      => 'API key deleted.',
-    'rate_limit_requests'   => 'Global limit per window',
-    'rate_limit_window'     => 'Window (seconds)',
+    'create_failed'        => 'Could not create API key.',
+    'update_failed'        => 'Could not update API key.',
+    'delete_failed'        => 'Could not delete API key.',
+    'not_found'            => 'API key not found.',
+    'rate_limit_requests'   => 'Request limit',
+    'rate_limit_window'     => 'Window (sec)',
     'user_rate_limit'       => 'Per-user limit',
     'ip_rate_limit'         => 'Per-IP limit',
     'usage_limits'        => 'Usage limits',
-    'view_user'            => 'View user',
-    'sort_by_user'          => 'Sort by user',
-    'sort_by_action'        => 'Sort by action',
-    'sort_by_entity'        => 'Sort by entity',
-    'sort_by_date'          => 'Sort by date',
+    'loading'             => 'Loading keys...',
+    'no_api_keys'          => 'No API keys found.',
+    'at_least_one_field'   => 'At least one field must be updated.',
 ];
