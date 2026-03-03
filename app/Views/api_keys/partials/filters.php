@@ -1,7 +1,7 @@
 <div class="mt-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-3">
     <div class="xl:col-span-2">
         <label class="<?= esc(filter_label_class()) ?>"><?= lang('App.search') ?></label>
-        <input type="text" name="search" value="<?= esc((string) request()->getGet('search')) ?>" placeholder="<?= lang('ApiKeys.searchPlaceholder') ?>"
+        <input type="text" name="search" value="<?= esc((string) request()->getGet('search')) ?>" placeholder="<?= lang('ApiKeys.search_placeholder') ?>"
             class="<?= esc(filter_input_class()) ?>" data-table-debounce="350">
     </div>
     <div>
@@ -10,9 +10,9 @@
     </div>
     <div>
         <label class="<?= esc(filter_label_class()) ?>"><?= lang('ApiKeys.status') ?></label>
-        <?php $active = (string) (request()->getGet('is_active') ?? request()->getGet('is_active')); ?>
+        <?php $active = (string) (request()->getGet('is_active') ?? ''); ?>
         <select name="is_active" class="<?= esc(filter_input_class()) ?>">
-            <option value=""><?= lang('ApiKeys.allStatuses') ?></option>
+            <option value=""><?= lang('ApiKeys.all_statuses') ?></option>
             <option value="1" <?= $active === '1' ? 'selected' : '' ?>><?= lang('ApiKeys.active') ?></option>
             <option value="0" <?= $active === '0' ? 'selected' : '' ?>><?= lang('ApiKeys.inactive') ?></option>
         </select>
