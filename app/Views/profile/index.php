@@ -6,16 +6,16 @@
                 <?= csrf_field() ?>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700" for="firstName"><?= lang('Profile.firstNameLabel') ?></label>
-                        <input id="firstName" name="firstName" type="text" value="<?= esc(old('firstName', $user['firstName'] ?? '')) ?>" autocomplete="given-name" required
-                            class="mt-1 w-full rounded-lg border px-3 py-2 focus-visible:outline-none focus-visible:ring-2 <?= has_field_error('firstName') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-brand-500 focus:ring-brand-500' ?>">
-                        <?= render_field_error('firstName') ?>
+                        <label class="block text-sm font-medium text-gray-700" for="first_name"><?= lang('Profile.first_nameLabel') ?></label>
+                        <input id="first_name" name="first_name" type="text" value="<?= esc(old('first_name', $user['first_name'] ?? '')) ?>" autocomplete="given-name" required
+                            class="mt-1 w-full rounded-lg border px-3 py-2 focus-visible:outline-none focus-visible:ring-2 <?= has_field_error('first_name') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-brand-500 focus:ring-brand-500' ?>">
+                        <?= render_field_error('first_name') ?>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700" for="lastName"><?= lang('Profile.lastNameLabel') ?></label>
-                        <input id="lastName" name="lastName" type="text" value="<?= esc(old('lastName', $user['lastName'] ?? '')) ?>" autocomplete="family-name" required
-                            class="mt-1 w-full rounded-lg border px-3 py-2 focus-visible:outline-none focus-visible:ring-2 <?= has_field_error('lastName') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-brand-500 focus:ring-brand-500' ?>">
-                        <?= render_field_error('lastName') ?>
+                        <label class="block text-sm font-medium text-gray-700" for="last_name"><?= lang('Profile.last_nameLabel') ?></label>
+                        <input id="last_name" name="last_name" type="text" value="<?= esc(old('last_name', $user['last_name'] ?? '')) ?>" autocomplete="family-name" required
+                            class="mt-1 w-full rounded-lg border px-3 py-2 focus-visible:outline-none focus-visible:ring-2 <?= has_field_error('last_name') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-brand-500 focus:ring-brand-500' ?>">
+                        <?= render_field_error('last_name') ?>
                     </div>
                 </div>
                 <button type="submit" class="rounded-lg bg-brand-600 text-white px-4 py-2 text-sm font-medium hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"><?= lang('Profile.saveChanges') ?></button>
@@ -24,12 +24,12 @@
             <p class="mt-3 text-sm text-gray-600"><?= lang('Profile.readonlyHelp') ?></p>
             <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700"><?= lang('Profile.firstNameLabel') ?></label>
-                    <p class="mt-1 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-800"><?= esc($user['firstName'] ?? '') ?></p>
+                    <label class="block text-sm font-medium text-gray-700"><?= lang('Profile.first_nameLabel') ?></label>
+                    <p class="mt-1 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-800"><?= esc($user['first_name'] ?? '') ?></p>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700"><?= lang('Profile.lastNameLabel') ?></label>
-                    <p class="mt-1 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-800"><?= esc($user['lastName'] ?? '') ?></p>
+                    <label class="block text-sm font-medium text-gray-700"><?= lang('Profile.last_nameLabel') ?></label>
+                    <p class="mt-1 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-800"><?= esc($user['last_name'] ?? '') ?></p>
                 </div>
             </div>
             <p class="mt-4 text-xs text-gray-500"><?= lang('Profile.editRequiresAdmin') ?></p>

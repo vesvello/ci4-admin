@@ -24,12 +24,12 @@
 
             <dl class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 text-sm">
                 <div>
-                    <dt class="text-gray-500"><?= lang('Users.firstName') ?></dt>
-                    <dd class="mt-1 text-gray-900"><?= esc((string) ($user['firstName'] ?? '-')) ?></dd>
+                    <dt class="text-gray-500"><?= lang('Users.first_name') ?></dt>
+                    <dd class="mt-1 text-gray-900"><?= esc((string) ($user['first_name'] ?? '-')) ?></dd>
                 </div>
                 <div>
-                    <dt class="text-gray-500"><?= lang('Users.lastName') ?></dt>
-                    <dd class="mt-1 text-gray-900"><?= esc((string) ($user['lastName'] ?? '-')) ?></dd>
+                    <dt class="text-gray-500"><?= lang('Users.last_name') ?></dt>
+                    <dd class="mt-1 text-gray-900"><?= esc((string) ($user['last_name'] ?? '-')) ?></dd>
                 </div>
                 <div>
                     <dt class="text-gray-500"><?= lang('Users.email') ?></dt>

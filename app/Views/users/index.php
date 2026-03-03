@@ -37,10 +37,10 @@
             <table class="<?= esc(table_class()) ?>">
                 <thead class="<?= esc(table_head_class()) ?>">
                     <tr>
-                        <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('firstName')">
-                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('firstName')" aria-label="<?= esc(lang('Users.sortByName')) ?>">
+                        <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('first_name')">
+                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('first_name')" aria-label="<?= esc(lang('Users.sortByName')) ?>">
                                 <span><?= lang('Users.name') ?></span>
-                                <span aria-hidden="true" x-text="sortIcon('firstName')"></span>
+                                <span aria-hidden="true" x-text="sortIcon('first_name')"></span>
                             </button>
                         </th>
                         <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('email')">
