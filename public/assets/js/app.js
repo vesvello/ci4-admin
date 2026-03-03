@@ -611,6 +611,10 @@ document.addEventListener('alpine:init', () => {
                 this.pagination = this.extractPagination(root, this.rows.length);
                 this.page_input = String(this.pagination.current_page);
 
+                this.$nextTick(() => {
+                    bootLucideIcons();
+                });
+
                 if (pushHistory) {
                     window.history.pushState({}, '', pageUrl);
                 }

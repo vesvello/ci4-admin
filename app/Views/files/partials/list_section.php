@@ -54,10 +54,10 @@ $csrfHash = csrf_hash(); ?>
                         </th>
                         <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.size') ?></th>
                         <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.type') ?></th>
-                        <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('created_at')">
-                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('created_at')">
+                        <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('uploaded_at')">
+                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('uploaded_at')">
                                 <span><?= lang('Files.date') ?></span>
-                                <span aria-hidden="true" x-text="sortIcon('created_at')"></span>
+                                <span aria-hidden="true" x-text="sortIcon('uploaded_at')"></span>
                             </button>
                         </th>
                         <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.actions') ?></th>
@@ -86,14 +86,15 @@ $csrfHash = csrf_hash(); ?>
                             <td class="<?= esc(table_td_class('muted')) ?>" x-text="formatDate(row.uploaded_at)"></td>
                             <td class="<?= esc(table_td_class()) ?>">
                                 <div class="flex items-center gap-2">
-                                    <a :href="fileDownloadUrl(row.id)" class="<?= esc(action_button_class()) ?>" title="<?= lang('App.download') ?>">
+                                    <a :href="fileDownloadUrl(row.id)" class="<?= esc(action_button_class()) ?>" :title="'<?= esc(lang('App.download')) ?>'">
                                         <?= ui_icon('download', 'h-3.5 w-3.5') ?>
-                                        <span><?= lang('App.download') ?></span>
+                                        <span class="hidden md:inline"><?= lang('App.download') ?></span>
                                     </a>
                                     <form method="post" :action="fileDeleteUrl(row.id)" @submit="return confirm(confirmDelete)">
                                         <input type="hidden" :name="csrf.name" :value="csrf.hash">
-                                        <button type="submit" class="<?= esc(action_button_class('danger')) ?>" title="<?= lang('App.delete') ?>">
+                                        <button type="submit" class="<?= esc(action_button_class('danger')) ?>" :title="'<?= esc(lang('App.delete')) ?>'">
                                             <?= ui_icon('trash', 'h-3.5 w-3.5') ?>
+                                            <span class="hidden md:inline"><?= lang('App.delete') ?></span>
                                         </button>
                                     </form>
                                 </div>
