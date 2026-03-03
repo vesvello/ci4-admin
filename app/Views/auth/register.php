@@ -16,14 +16,14 @@
     </div>
 
     <div>
-        <label class="block text-sm font-medium text-gray-700" for="email"><?= lang('Auth.emailLabel') ?></label>
+        <label class="block text-sm font-medium text-gray-700" for="email"><?= lang('Auth.email_label') ?></label>
         <input id="email" name="email" type="email" value="<?= old('email') ?>" autocomplete="email" required
             class="mt-1 w-full rounded-lg border px-3 py-2 focus-visible:outline-none focus-visible:ring-2 <?= has_field_error('email') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-brand-500 focus:ring-brand-500' ?>">
         <?= render_field_error('email') ?>
     </div>
 
     <div>
-        <label class="block text-sm font-medium text-gray-700" for="password"><?= lang('Auth.passwordLabel') ?></label>
+        <label class="block text-sm font-medium text-gray-700" for="password"><?= lang('Auth.password_label') ?></label>
         <input id="password" name="password" type="password" x-model="password" autocomplete="new-password" required
             class="mt-1 w-full rounded-lg border px-3 py-2 focus-visible:outline-none focus-visible:ring-2 <?= has_field_error('password') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-brand-500 focus:ring-brand-500' ?>">
         <?= render_field_error('password') ?>
