@@ -44,11 +44,11 @@
                 </div>
                 <div>
                     <dt class="text-gray-500"><?= lang('Audit.ipAddress') ?></dt>
-                    <dd class="mt-1 text-gray-900 font-mono text-xs"><?= esc((string) ($log['ipAddress'] ?? '-')) ?></dd>
+                    <dd class="mt-1 text-gray-900 font-mono text-xs"><?= esc((string) ($log['ip_address'] ?? '-')) ?></dd>
                 </div>
                 <div>
                     <dt class="text-gray-500"><?= lang('Audit.userAgent') ?></dt>
-                    <dd class="mt-1 text-gray-900 text-xs break-all"><?= esc((string) ($log['userAgent'] ?? '-')) ?></dd>
+                    <dd class="mt-1 text-gray-900 text-xs break-all"><?= esc((string) ($log['user_agent'] ?? '-')) ?></dd>
                 </div>
                 <div>
                     <dt class="text-gray-500"><?= lang('Audit.date') ?></dt>
@@ -58,21 +58,21 @@
         </section>
 
         <div class="space-y-6">
-            <?php if (! empty($log['oldValues'])): ?>
+            <?php if (! empty($log['old_values'])): ?>
                 <section class="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
                     <h3 class="text-lg font-semibold text-gray-900"><?= lang('Audit.oldValues') ?></h3>
                     <pre class="mt-3 bg-gray-50 border border-gray-200 rounded-lg p-4 text-xs text-gray-700 overflow-x-auto"><?php
-                        $old = $log['oldValues'];
+                        $old = $log['old_values'];
                 echo esc(is_string($old) ? $old : json_encode($old, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
                 ?></pre>
                 </section>
             <?php endif; ?>
 
-            <?php if (! empty($log['newValues'])): ?>
+            <?php if (! empty($log['new_values'])): ?>
                 <section class="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
                     <h3 class="text-lg font-semibold text-gray-900"><?= lang('Audit.newValues') ?></h3>
                     <pre class="mt-3 bg-gray-50 border border-gray-200 rounded-lg p-4 text-xs text-gray-700 overflow-x-auto"><?php
-                    $new = $log['newValues'];
+                    $new = $log['new_values'];
                 echo esc(is_string($new) ? $new : json_encode($new, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
                 ?></pre>
                 </section>

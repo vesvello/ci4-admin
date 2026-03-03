@@ -86,7 +86,7 @@
                                 <span x-text="String(row.entity_type ?? '-')"></span>
                                 <span class="text-gray-400" x-show="row.entity_id">#<span x-text="String(row.entity_id)"></span></span>
                             </td>
-                            <td class="<?= esc(table_td_class('subtle')) ?> font-mono text-xs" x-text="String(row.ipAddress ?? '-')"></td>
+                            <td class="<?= esc(table_td_class('subtle')) ?> font-mono text-xs" x-text="String(row.ip_address ?? '-')"></td>
                             <td class="<?= esc(table_td_class('muted')) ?>" x-text="formatDate(row.created_at)"></td>
                             <td class="<?= esc(table_td_class()) ?>">
                                 <a :href="auditShowUrl(row.id)" class="<?= esc(action_button_class()) ?>"><?= lang('Audit.view') ?></a>
