@@ -38,7 +38,7 @@ class AuditController extends BaseWebController
     {
         $response = $this->safeApiCall(fn() => $this->auditService->get($id));
 
-        return $this->renderResourceShow('audit/show', lang('Audit.details'), 'log', $response, lang('Audit.notFound'));
+        return $this->renderResourceShow('audit/show', lang('Audit.details'), 'log', $response, lang('Audit.not_found'));
     }
 
     public function byEntity(string $type, string $id): RedirectResponse

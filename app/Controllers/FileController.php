@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Requests\File\FileUploadRequest;
 use App\Services\FileApiService;
+use App\Support\FileSizeLimits;
 use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -29,8 +30,8 @@ class FileController extends BaseWebController
     public function data(): ResponseInterface
     {
         return $this->tableDataResponse(
-            ['status'],
-            ['uploadedAt', 'originalName', 'mimeType', 'size'],
+            ['original_name', 'mime_type'],
+            ['uploaded_at', 'original_name', 'mime_type', 'size'],
             fn(array $params) => $this->fileService->list($params),
         );
     }
@@ -50,11 +51,10 @@ class FileController extends BaseWebController
         $file = $this->request->getFile('file');
 
         if ($file === null || ! $file->isValid()) {
-            $maxBytes = config('Validation')->maxFileSizeBytes ?? 10485760;
-            $maxSizeMb = round($maxBytes / 1024 / 1024, 1);
+            $maxSizeMb = FileSizeLimits::bytesToMb(FileSizeLimits::effectiveMaxBytes());
             $error = ($file && $file->getError() === UPLOAD_ERR_INI_SIZE)
-                ? lang('Files.fileTooLarge', [$maxSizeMb])
-                : lang('Files.invalidFile');
+                ? lang('Files.file_too_large', [$maxSizeMb])
+                : lang('Files.invalid_file');
 
             if ($this->request->isAJAX()) {
                 return $this->response->setJSON(['ok' => false, 'messages' => [$error]]);
@@ -77,24 +77,24 @@ class FileController extends BaseWebController
             if ($this->request->isAJAX()) {
                 return $this->response->setJSON([
                     'ok'          => false,
-                    'messages'    => $response['messages'] ?? [lang('Files.uploadFailed')],
+                    'messages'    => $response['messages'] ?? [lang('Files.upload_failed')],
                     'fieldErrors' => $response['fieldErrors'] ?? [],
                 ]);
             }
 
-            return $this->failApi($response, lang('Files.uploadFailed'), site_url('files'), false);
+            return $this->failApi($response, lang('Files.upload_failed'), site_url('files'), false);
         }
 
         if ($this->request->isAJAX()) {
-            session()->setFlashdata('success', lang('Files.uploadSuccess'));
+            session()->setFlashdata('success', lang('Files.upload_success'));
             return $this->response->setJSON([
                 'ok'       => true,
-                'message'  => lang('Files.uploadSuccess'),
+                'message'  => lang('Files.upload_success'),
                 'redirect' => site_url('files'),
             ]);
         }
 
-        return redirect()->to(site_url('files'))->with('success', lang('Files.uploadSuccess'));
+        return redirect()->to(site_url('files'))->with('success', lang('Files.upload_success'));
     }
 
     public function download(string $id): ResponseInterface
@@ -124,7 +124,7 @@ class FileController extends BaseWebController
         $contentType = (string) ($headers['content-type'] ?? '');
 
         if ($raw !== '' && str_contains($contentType, '/')) {
-            $filename = $data['originalName'] ?? $data['original_name'] ?? $data['name'] ?? $data['filename'] ?? "file_{$id}";
+            $filename = $data['original_name'] ?? $data['name'] ?? $data['filename'] ?? "file_{$id}";
 
             return $this->response
                 ->setStatusCode(200)
@@ -144,9 +144,9 @@ class FileController extends BaseWebController
         $response = $this->safeApiCall(fn() => $this->fileService->delete($id));
 
         if (! $response['ok']) {
-            return $this->failApi($response, lang('Files.deleteFailed'), site_url('files'), false);
+            return $this->failApi($response, lang('Files.delete_failed'), site_url('files'), false);
         }
 
-        return redirect()->to(site_url('files'))->with('success', lang('Files.deleteSuccess'));
+        return redirect()->to(site_url('files'))->with('success', lang('Files.delete_success'));
     }
 }

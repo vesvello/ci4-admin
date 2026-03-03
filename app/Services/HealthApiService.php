@@ -33,7 +33,7 @@ class HealthApiService extends BaseApiService
             'status'     => 0,
             'path'       => $paths[0] ?? '/health',
             'latency_ms' => 0,
-            'message'    => lang('Dashboard.apiUnavailable'),
+            'message'    => lang('Dashboard.api_unavailable'),
         ];
 
         foreach ($paths as $path) {
@@ -50,7 +50,7 @@ class HealthApiService extends BaseApiService
                     'status'     => $status > 0 ? $status : 200,
                     'path'       => $path,
                     'latency_ms' => $latencyMs,
-                    'message'    => lang('Dashboard.apiAvailable'),
+                    'message'    => lang('Dashboard.api_available'),
                 ];
             }
 
@@ -88,7 +88,7 @@ class HealthApiService extends BaseApiService
     {
         $payload = $response['data'] ?? [];
         if (! is_array($payload)) {
-            return (string) ($response['messages'][0] ?? lang('Dashboard.apiUnavailable'));
+            return (string) ($response['messages'][0] ?? lang('Dashboard.api_unavailable'));
         }
 
         if (isset($payload['status']) && $payload['status'] === 'unhealthy') {
@@ -114,6 +114,6 @@ class HealthApiService extends BaseApiService
             }
         }
 
-        return (string) ($response['messages'][0] ?? lang('Dashboard.apiUnavailable'));
+        return (string) ($response['messages'][0] ?? lang('Dashboard.api_unavailable'));
     }
 }

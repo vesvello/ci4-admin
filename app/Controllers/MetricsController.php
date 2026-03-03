@@ -19,19 +19,16 @@ class MetricsController extends BaseWebController
 
     public function index(): string
     {
-        $dateRange = $this->resolveDateRange();
         $defaultFilters = $this->defaultFilters();
-        $groupBy = (string) ($this->request->getGet('groupBy') ?? $this->request->getGet('group_by') ?: 'day');
-        if (! in_array($groupBy, ['day', 'week', 'month'], true)) {
-            $groupBy = 'day';
+        $period = trim((string) ($this->request->getGet('period') ?? '24h'));
+        if (! in_array($period, ['1h', '24h', '7d', '30d'], true)) {
+            $period = '24h';
         }
 
-        $viewFilters = $dateRange + ['groupBy' => $groupBy, 'group_by' => $groupBy];
+        $viewFilters = ['period' => $period];
 
         $apiParams = [
-            'dateFrom' => $dateRange['dateFrom'],
-            'dateTo'   => $dateRange['dateTo'],
-            'period'   => $groupBy, // Use 'period' as specified in latest Swagger
+            'period' => $period,
         ];
 
         $summaryResponse = $this->safeApiCall(fn() => $this->metricsService->summary($apiParams));
@@ -52,7 +49,7 @@ class MetricsController extends BaseWebController
             foreach ($timeseries['dates'] as $i => $date) {
                 $points[] = [
                     'period' => $date,
-                    'value'  => $timeseries['requests'][$i] ?? 0,
+                    'value' => $timeseries['requests'][$i] ?? 0,
                     'errors' => $timeseries['errors'][$i] ?? 0,
                     'latency' => $timeseries['latency'][$i] ?? 0,
                 ];
@@ -75,17 +72,8 @@ class MetricsController extends BaseWebController
      */
     private function defaultFilters(): array
     {
-        $today = new \DateTimeImmutable('today');
-        $dateTo = $today->format('Y-m-d');
-        $dateFrom = $today->sub(new \DateInterval('P29D'))->format('Y-m-d');
-
         return [
-            'dateFrom' => $dateFrom,
-            'dateTo'   => $dateTo,
-            'groupBy'  => 'day',
-            'date_from' => $dateFrom,
-            'date_to'   => $dateTo,
-            'group_by'  => 'day',
+            'period' => '24h',
         ];
     }
 }

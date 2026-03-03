@@ -40,7 +40,7 @@ class UserController extends BaseWebController
     {
         $response = $this->safeApiCall(fn() => $this->userService->get($id));
 
-        return $this->renderResourceShow('users/show', lang('Users.details'), 'user', $response, lang('Users.notFound'));
+        return $this->renderResourceShow('users/show', lang('Users.details'), 'user', $response, lang('Users.not_found'));
     }
 
     public function create(): string
@@ -64,10 +64,10 @@ class UserController extends BaseWebController
         $response = $this->safeApiCall(fn() => $this->userService->create($payload));
 
         if (! $response['ok']) {
-            return $this->failApi($response, lang('Users.createFailed'));
+            return $this->failApi($response, lang('Users.create_failed'));
         }
 
-        return redirect()->to(site_url('admin/users'))->with('success', lang('Users.createSuccess'));
+        return redirect()->to(site_url('admin/users'))->with('success', lang('Users.create_success'));
     }
 
     public function edit(string $id): string
@@ -75,7 +75,7 @@ class UserController extends BaseWebController
         $response = $this->safeApiCall(fn() => $this->userService->get($id));
 
         return $this->render('users/edit', [
-            'title'    => lang('Users.editUser'),
+            'title'    => lang('Users.edit_user'),
             'editUser' => $this->extractData($response),
         ]);
     }
@@ -94,10 +94,10 @@ class UserController extends BaseWebController
         $response = $this->safeApiCall(fn() => $this->userService->update($id, $payload));
 
         if (! $response['ok']) {
-            return $this->failApi($response, lang('Users.updateFailed'));
+            return $this->failApi($response, lang('Users.update_failed'));
         }
 
-        return redirect()->to(site_url('admin/users/' . $id))->with('success', lang('Users.updateSuccess'));
+        return redirect()->to(site_url('admin/users/' . $id))->with('success', lang('Users.update_success'));
     }
 
     public function delete(string $id): RedirectResponse
@@ -105,10 +105,10 @@ class UserController extends BaseWebController
         $response = $this->safeApiCall(fn() => $this->userService->delete($id));
 
         if (! $response['ok']) {
-            return $this->failApi($response, lang('Users.deleteFailed'), site_url('admin/users'), false);
+            return $this->failApi($response, lang('Users.delete_failed'), site_url('admin/users'), false);
         }
 
-        return redirect()->to(site_url('admin/users'))->with('success', lang('Users.deleteSuccess'));
+        return redirect()->to(site_url('admin/users'))->with('success', lang('Users.delete_success'));
     }
 
     public function approve(string $id): RedirectResponse
@@ -116,10 +116,10 @@ class UserController extends BaseWebController
         $response = $this->safeApiCall(fn() => $this->userService->approve($id));
 
         if (! $response['ok']) {
-            return $this->failApi($response, lang('Users.approveFailed'), site_url('admin/users/' . $id), false);
+            return $this->failApi($response, lang('Users.approve_failed'), site_url('admin/users/' . $id), false);
         }
 
-        return redirect()->to(site_url('admin/users/' . $id))->with('success', lang('Users.approveSuccess'));
+        return redirect()->to(site_url('admin/users/' . $id))->with('success', lang('Users.approve_success'));
     }
 
 }

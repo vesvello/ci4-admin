@@ -184,7 +184,7 @@ abstract class BaseWebController extends BaseController
         $normalized = trim($message);
 
         $knownTranslations = [
-            'This email is already registered' => lang('Auth.emailAlreadyRegistered'),
+            'This email is already registered' => lang('Auth.email_already_registered'),
         ];
 
         return $knownTranslations[$normalized] ?? $message;
@@ -233,7 +233,7 @@ abstract class BaseWebController extends BaseController
                 'data'        => [],
                 'raw'         => '',
                 'headers'     => [],
-                'messages'    => [lang('App.connectionError')],
+                'messages'    => [lang('App.connection_error')],
                 'fieldErrors' => [],
             ];
         }
@@ -306,7 +306,7 @@ abstract class BaseWebController extends BaseController
 
         return $this->response
             ->setStatusCode($status)
-            ->setJSON(is_array($payload) ? $payload : ['message' => lang('App.connectionError')]);
+            ->setJSON(is_array($payload) ? $payload : ['message' => lang('App.connection_error')]);
     }
 
     /**

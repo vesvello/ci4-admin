@@ -40,7 +40,7 @@ class ApiKeyController extends BaseWebController
     {
         $response = $this->safeApiCall(fn() => $this->apiKeyService->get($id));
 
-        return $this->renderResourceShow('api_keys/show', lang('ApiKeys.details'), 'apiKey', $response, lang('ApiKeys.notFound'));
+        return $this->renderResourceShow('api_keys/show', lang('ApiKeys.details'), 'apiKey', $response, lang('ApiKeys.not_found'));
     }
 
     public function create(): string
@@ -63,7 +63,7 @@ class ApiKeyController extends BaseWebController
         $response = $this->safeApiCall(fn() => $this->apiKeyService->create($payload));
 
         if (! $response['ok']) {
-            return $this->failApi($response, lang('ApiKeys.createFailed'));
+            return $this->failApi($response, lang('ApiKeys.create_failed'));
         }
 
         $created = $this->extractData($response);
@@ -72,7 +72,7 @@ class ApiKeyController extends BaseWebController
             ? site_url('admin/api-keys/' . rawurlencode($id))
             : site_url('admin/api-keys');
 
-        $redirect = redirect()->to($redirectTo)->with('success', lang('ApiKeys.createSuccess'));
+        $redirect = redirect()->to($redirectTo)->with('success', lang('ApiKeys.create_success'));
 
         $rawKey = (string) ($created['key'] ?? '');
         if ($rawKey !== '') {
@@ -106,16 +106,16 @@ class ApiKeyController extends BaseWebController
         $payload = $request->payload();
 
         if ($payload === []) {
-            return redirect()->back()->withInput()->with('error', lang('ApiKeys.atLeastOneField'));
+            return redirect()->back()->withInput()->with('error', lang('ApiKeys.at_least_one_field'));
         }
 
         $response = $this->safeApiCall(fn() => $this->apiKeyService->update($id, $payload));
 
         if (! $response['ok']) {
-            return $this->failApi($response, lang('ApiKeys.updateFailed'));
+            return $this->failApi($response, lang('ApiKeys.update_failed'));
         }
 
-        return redirect()->to(site_url('admin/api-keys/' . rawurlencode($id)))->with('success', lang('ApiKeys.updateSuccess'));
+        return redirect()->to(site_url('admin/api-keys/' . rawurlencode($id)))->with('success', lang('ApiKeys.update_success'));
     }
 
     public function delete(string $id): RedirectResponse
@@ -123,10 +123,10 @@ class ApiKeyController extends BaseWebController
         $response = $this->safeApiCall(fn() => $this->apiKeyService->delete($id));
 
         if (! $response['ok']) {
-            return $this->failApi($response, lang('ApiKeys.deleteFailed'), site_url('admin/api-keys'), false);
+            return $this->failApi($response, lang('ApiKeys.delete_failed'), site_url('admin/api-keys'), false);
         }
 
-        return redirect()->to(site_url('admin/api-keys'))->with('success', lang('ApiKeys.deleteSuccess'));
+        return redirect()->to(site_url('admin/api-keys'))->with('success', lang('ApiKeys.delete_success'));
     }
 
 }

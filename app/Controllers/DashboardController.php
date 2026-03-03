@@ -64,26 +64,25 @@ class DashboardController extends BaseWebController
         // Definición de estadísticas basadas en información REAL y EXISTENTE
         $stats = [
             'users' => [
-                'label' => lang('Dashboard.totalUsers'),
+                'label' => lang('Dashboard.total_users'),
                 'value' => $totalUsers,
                 'icon'  => 'users',
             ],
             'files' => [
-                'label' => lang('Dashboard.totalFiles'),
+                'label' => lang('Dashboard.total_files'),
                 'value' => $totalFiles,
                 'icon'  => 'files',
             ],
         ];
 
         // Añadir métricas de red solo si el contrato o la respuesta las provee (con fallbacks robustos)
-        $uptime = $metrics['requestStats']['availabilityPercent']
-               ?? $metrics['slo']['availability']['current']
-               ?? $metrics['availabilityPercent']
+        $uptime = $metrics['request_stats']['availability_percent']
+               ?? $metrics['slo']['availability_percent']
                ?? null;
 
         if ($uptime !== null) {
             $stats['uptime'] = [
-                'label' => lang('Dashboard.apiUptime'),
+                'label' => lang('Dashboard.api_uptime'),
                 'value' => $uptime . '%',
                 'icon'  => 'activity',
             ];
@@ -94,7 +93,7 @@ class DashboardController extends BaseWebController
             'user'  => session('user') ?? [],
             'stats' => $stats,
             'recentFiles'    => $recentFiles,
-            'recentActivity' => $metrics['recentActivity'] ?? [],
+            'recentActivity' => $metrics['recent_activity'] ?? [],
             'apiHealth'      => $healthResponse,
         ]);
     }

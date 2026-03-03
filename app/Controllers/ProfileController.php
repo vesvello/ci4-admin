@@ -41,7 +41,7 @@ class ProfileController extends BaseWebController
         $isAdmin = has_admin_access(is_scalar($sessionUser['role'] ?? null) ? (string) $sessionUser['role'] : null);
 
         if (! $isAdmin) {
-            return redirect()->to(site_url('profile'))->with('error', lang('Profile.updateNotAllowed'));
+            return redirect()->to(site_url('profile'))->with('error', lang('Profile.update_not_allowed'));
         }
 
         /** @var ProfileUpdateRequest $request */
@@ -55,25 +55,25 @@ class ProfileController extends BaseWebController
 
         $userId = $sessionUser['id'] ?? null;
         if (! is_scalar($userId) || (string) $userId === '') {
-            return redirect()->to(site_url('profile'))->with('error', lang('Profile.updateFailed'));
+            return redirect()->to(site_url('profile'))->with('error', lang('Profile.update_failed'));
         }
 
         $response = $this->safeApiCall(fn() => $this->userService->update((string) $userId, $payload));
 
         if (! $response['ok']) {
-            return $this->failApi($response, lang('Profile.updateFailed'));
+            return $this->failApi($response, lang('Profile.update_failed'));
         }
 
         $this->refreshUserSession();
 
-        return redirect()->to(site_url('profile'))->with('success', lang('Profile.updateSuccess'));
+        return redirect()->to(site_url('profile'))->with('success', lang('Profile.update_success'));
     }
 
     public function requestPasswordReset(): RedirectResponse
     {
         $email = trim((string) (session('user.email') ?? ''));
         if ($email === '') {
-            return redirect()->to(site_url('profile'))->with('error', lang('Profile.passwordResetFailed'));
+            return redirect()->to(site_url('profile'))->with('error', lang('Profile.password_reset_failed'));
         }
 
         $response = $this->safeApiCall(fn() => $this->authService->forgotPassword(
@@ -82,10 +82,10 @@ class ProfileController extends BaseWebController
         ));
 
         if (! $response['ok']) {
-            return $this->failApi($response, lang('Profile.passwordResetFailed'), site_url('profile'), false);
+            return $this->failApi($response, lang('Profile.password_reset_failed'), site_url('profile'), false);
         }
 
-        return redirect()->to(site_url('profile'))->with('success', lang('Profile.passwordResetSent'));
+        return redirect()->to(site_url('profile'))->with('success', lang('Profile.password_reset_sent'));
     }
 
     public function resendVerification(): RedirectResponse
@@ -95,10 +95,10 @@ class ProfileController extends BaseWebController
         ]));
 
         if (! $response['ok']) {
-            return $this->failApi($response, lang('Profile.resendFailed'), site_url('profile'), false);
+            return $this->failApi($response, lang('Profile.resend_failed'), site_url('profile'), false);
         }
 
-        return redirect()->to(site_url('profile'))->with('success', lang('Profile.resendSuccess'));
+        return redirect()->to(site_url('profile'))->with('success', lang('Profile.resend_success'));
     }
 
     protected function refreshUserSession(): void

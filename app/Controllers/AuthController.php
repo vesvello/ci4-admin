@@ -30,8 +30,8 @@ class AuthController extends BaseWebController
         }
 
         return $this->renderAuth('auth/login', [
-            'title'          => lang('Auth.loginTitle'),
-            'subtitle'       => lang('Auth.loginSubtitle'),
+            'title'          => lang('Auth.login_title'),
+            'subtitle'       => lang('Auth.login_subtitle'),
             'googleEnabled'  => $this->isGoogleLoginEnabled(),
             'googleClientId' => trim((string) env('GOOGLE_CLIENT_ID', '')),
         ]);
@@ -49,7 +49,7 @@ class AuthController extends BaseWebController
         $response = $this->safeApiCall(fn() => $this->authService->login($request->payload()));
 
         if (! $response['ok']) {
-            return $this->failApi($response, lang('Auth.loginFailed'), null, true, ['email', 'password']);
+            return $this->failApi($response, lang('Auth.login_failed'), null, true, ['email', 'password']);
         }
 
         $this->persistAuthSession($this->extractData($response));
@@ -64,14 +64,14 @@ class AuthController extends BaseWebController
         }
 
         if (! $this->isGoogleLoginEnabled()) {
-            return redirect()->to(site_url('login'))->with('error', lang('Auth.googleLoginUnavailable'));
+            return redirect()->to(site_url('login'))->with('error', lang('Auth.google_login_unavailable'));
         }
 
         /** @var GoogleLoginRequest $request */
         $request = service('formRequest', GoogleLoginRequest::class, false);
         $invalid = $this->validateRequest($request);
         if ($invalid !== null) {
-            return redirect()->to(site_url('login'))->with('error', lang('Auth.googleLoginFailed'));
+            return redirect()->to(site_url('login'))->with('error', lang('Auth.google_login_failed'));
         }
 
         $payload = $request->payload();
@@ -81,7 +81,7 @@ class AuthController extends BaseWebController
 
         if (! $response['ok']) {
             return redirect()->to(site_url('login'))
-                ->with('error', $this->firstMessage($response, lang('Auth.googleLoginFailed')));
+                ->with('error', $this->firstMessage($response, lang('Auth.google_login_failed')));
         }
 
         $data = $this->extractData($response);
@@ -89,7 +89,7 @@ class AuthController extends BaseWebController
         // Handle 202 Accepted (Pending approval)
         if ($response['status'] === 202 || ! isset($data['access_token'])) {
             return redirect()->to(site_url('login'))
-                ->with('error', $this->firstMessage($response, lang('Auth.googleLoginPendingApproval')));
+                ->with('error', $this->firstMessage($response, lang('Auth.google_login_pending_approval')));
         }
 
         $this->persistAuthSession($data);
@@ -100,8 +100,8 @@ class AuthController extends BaseWebController
     public function register(): string
     {
         return $this->renderAuth('auth/register', [
-            'title'    => lang('Auth.registerTitle'),
-            'subtitle' => lang('Auth.registerSubtitle'),
+            'title'    => lang('Auth.register_title'),
+            'subtitle' => lang('Auth.register_subtitle'),
         ]);
     }
 
@@ -122,21 +122,21 @@ class AuthController extends BaseWebController
         if (! $response['ok']) {
             return $this->failApi(
                 $response,
-                lang('Auth.registerFailed'),
+                lang('Auth.register_failed'),
                 null,
                 true,
                 ['first_name', 'last_name', 'email', 'password', 'password_confirmation'],
             );
         }
 
-        return redirect()->to(site_url('login'))->with('success', lang('Auth.registerSuccess'));
+        return redirect()->to(site_url('login'))->with('success', lang('Auth.register_success'));
     }
 
     public function forgotPassword(): string
     {
         return $this->renderAuth('auth/forgot_password', [
-            'title'    => lang('Auth.forgotTitle'),
-            'subtitle' => lang('Auth.forgotSubtitle'),
+            'title'    => lang('Auth.forgot_title'),
+            'subtitle' => lang('Auth.forgot_subtitle'),
         ]);
     }
 
@@ -154,14 +154,14 @@ class AuthController extends BaseWebController
 
         $response = $this->safeApiCall(fn() => $this->authService->forgotPassword($payload['email'], $payload['client_base_url']));
 
-        return redirect()->to(site_url('login'))->with('success', lang('Auth.forgotSuccess'));
+        return redirect()->to(site_url('login'))->with('success', lang('Auth.forgot_success'));
     }
 
     public function resetPassword(): string
     {
         return $this->renderAuth('auth/reset_password', [
-            'title'    => lang('Auth.resetTitle'),
-            'subtitle' => lang('Auth.resetSubtitle'),
+            'title'    => lang('Auth.reset_title'),
+            'subtitle' => lang('Auth.reset_subtitle'),
             'token'    => $this->request->getGet('token'),
         ]);
     }
@@ -180,10 +180,10 @@ class AuthController extends BaseWebController
         $response = $this->safeApiCall(fn() => $this->authService->resetPassword($payload));
 
         if (! $response['ok']) {
-            return $this->failApi($response, lang('Auth.resetFailed'), null, true, ['token', 'password', 'password_confirmation']);
+            return $this->failApi($response, lang('Auth.reset_failed'), null, true, ['token', 'password', 'password_confirmation']);
         }
 
-        return redirect()->to(site_url('login'))->with('success', lang('Auth.resetSuccess'));
+        return redirect()->to(site_url('login'))->with('success', lang('Auth.reset_success'));
     }
 
     public function verifyEmail(): string
@@ -192,10 +192,10 @@ class AuthController extends BaseWebController
         $response = $this->safeApiCall(fn() => $this->authService->verifyEmail($token));
 
         return $this->renderAuth('auth/verify_email', [
-            'title'    => lang('Auth.verifyTitle'),
-            'subtitle' => lang('Auth.verifySubtitle'),
+            'title'    => lang('Auth.verify_title'),
+            'subtitle' => lang('Auth.verify_subtitle'),
             'verified' => $response['ok'],
-            'message'  => $this->firstMessage($response, $response['ok'] ? lang('Auth.verifySuccess') : lang('Auth.verifyFailed')),
+            'message'  => $this->firstMessage($response, $response['ok'] ? lang('Auth.verify_success') : lang('Auth.verify_failed')),
         ]);
     }
 
@@ -213,7 +213,7 @@ class AuthController extends BaseWebController
         ]);
         $this->session->destroy();
 
-        return redirect()->to(site_url('login'))->with('success', lang('Auth.logoutSuccess'));
+        return redirect()->to(site_url('login'))->with('success', lang('Auth.logout_success'));
     }
 
     protected function persistAuthSession(array $data): void
