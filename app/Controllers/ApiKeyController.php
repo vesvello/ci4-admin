@@ -31,7 +31,7 @@ class ApiKeyController extends BaseWebController
     {
         return $this->tableDataResponse(
             ['name', 'isActive'],
-            ['id', 'name', 'isActive', 'createdAt'],
+            ['id', 'name', 'is_active', 'created_at'],
             fn(array $params) => $this->apiKeyService->list($params),
         );
     }

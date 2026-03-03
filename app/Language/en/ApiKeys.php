@@ -9,7 +9,7 @@ return [
     'keyPrefix'           => 'Prefix',
     'rawKey'              => 'Raw key',
     'status'              => 'Status',
-    'createdAt'           => 'Created at',
+    'created_at'           => 'Created at',
     'updatedAt'           => 'Last updated',
     'actions'             => 'Actions',
     'view'                => 'View',

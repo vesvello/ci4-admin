@@ -52,10 +52,10 @@
                             </th>
                             <th class="<?= esc(table_th_class()) ?>"><?= lang('ApiKeys.rateLimitRequests') ?></th>
                             <th class="<?= esc(table_th_class()) ?>"><?= lang('ApiKeys.rateLimitWindow') ?></th>
-                            <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('createdAt')">
-                                <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('createdAt')">
-                                    <span><?= lang('ApiKeys.createdAt') ?></span>
-                                    <span aria-hidden="true" x-text="sortIcon('createdAt')"></span>
+                            <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('created_at')">
+                                <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('created_at')">
+                                    <span><?= lang('ApiKeys.created_at') ?></span>
+                                    <span aria-hidden="true" x-text="sortIcon('created_at')"></span>
                                 </button>
                             </th>
                             <th class="<?= esc(table_th_class()) ?>"><?= lang('ApiKeys.actions') ?></th>
@@ -71,7 +71,7 @@
                                 </td>
                                 <td class="<?= esc(table_td_class('muted')) ?>" x-text="String(row.rateLimitRequests ?? '-')"></td>
                                 <td class="<?= esc(table_td_class('muted')) ?>" x-text="String(row.rateLimitWindow ?? '-')"></td>
-                                <td class="<?= esc(table_td_class('muted')) ?>" x-text="formatDate(row.createdAt)"></td>
+                                <td class="<?= esc(table_td_class('muted')) ?>" x-text="formatDate(row.created_at)"></td>
                                 <td class="<?= esc(table_td_class()) ?>">
                                     <div class="flex items-center gap-2">
                                         <a :href="apiKeyShowUrl(row.id)" class="<?= esc(action_button_class()) ?>"><?= lang('ApiKeys.view') ?></a>

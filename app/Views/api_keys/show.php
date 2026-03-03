@@ -45,24 +45,24 @@
                     </dd>
                 </div>
                 <div>
-                    <dt class="text-gray-500"><?= lang('ApiKeys.rateLimitRequests') ?></dt>
-                    <dd class="mt-1 text-gray-900"><?= esc((string) ($apiKey['rateLimitRequests'] ?? '-')) ?></dd>
+                    <dt class="text-gray-500"><?= lang('ApiKeys.rate_limit_requests') ?></dt>
+                    <dd class="mt-1 text-gray-900"><?= esc((string) ($apiKey['rate_limit_requests'] ?? '-')) ?></dd>
                 </div>
                 <div>
-                    <dt class="text-gray-500"><?= lang('ApiKeys.rateLimitWindow') ?></dt>
-                    <dd class="mt-1 text-gray-900"><?= esc((string) ($apiKey['rateLimitWindow'] ?? '-')) ?></dd>
+                    <dt class="text-gray-500"><?= lang('ApiKeys.rate_limit_window') ?></dt>
+                    <dd class="mt-1 text-gray-900"><?= esc((string) ($apiKey['rate_limit_window'] ?? '-')) ?></dd>
                 </div>
                 <div>
-                    <dt class="text-gray-500"><?= lang('ApiKeys.userRateLimit') ?></dt>
-                    <dd class="mt-1 text-gray-900"><?= esc((string) ($apiKey['userRateLimit'] ?? '-')) ?></dd>
+                    <dt class="text-gray-500"><?= lang('ApiKeys.user_rate_limit') ?></dt>
+                    <dd class="mt-1 text-gray-900"><?= esc((string) ($apiKey['user_rate_limit'] ?? '-')) ?></dd>
                 </div>
                 <div>
-                    <dt class="text-gray-500"><?= lang('ApiKeys.ipRateLimit') ?></dt>
-                    <dd class="mt-1 text-gray-900"><?= esc((string) ($apiKey['ipRateLimit'] ?? '-')) ?></dd>
+                    <dt class="text-gray-500"><?= lang('ApiKeys.ip_rate_limit') ?></dt>
+                    <dd class="mt-1 text-gray-900"><?= esc((string) ($apiKey['ip_rate_limit'] ?? '-')) ?></dd>
                 </div>
                 <div>
-                    <dt class="text-gray-500"><?= lang('ApiKeys.createdAt') ?></dt>
-                    <dd class="mt-1 text-gray-900"><?= esc(format_date($apiKey['createdAt'] ?? null)) ?></dd>
+                    <dt class="text-gray-500"><?= lang('ApiKeys.created_at') ?></dt>
+                    <dd class="mt-1 text-gray-900"><?= esc(format_date($apiKey['created_at'] ?? null)) ?></dd>
                 </div>
                 <div>
                     <dt class="text-gray-500"><?= lang('ApiKeys.updatedAt') ?></dt>

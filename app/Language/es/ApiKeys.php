@@ -9,7 +9,7 @@ return [
     'keyPrefix'           => 'Prefijo',
     'rawKey'              => 'Clave completa',
     'status'              => 'Estado',
-    'createdAt'           => 'Fecha de creacion',
+    'created_at'           => 'Fecha de creación',
     'updatedAt'           => 'Ultima actualizacion',
     'actions'             => 'Acciones',
     'view'                => 'Ver',

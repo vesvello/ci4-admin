@@ -29,16 +29,16 @@
                 </div>
         
                 <?php $fieldMapping = [
-                    'rateLimitRequests' => $apiKey['rateLimitRequests'] ?? '',
-                    'rateLimitWindow'   => $apiKey['rateLimitWindow'] ?? '',
-                    'userRateLimit'     => $apiKey['userRateLimit'] ?? '',
-                    'ipRateLimit'       => $apiKey['ipRateLimit'] ?? '',
+                    'rate_limit_requests' => $apiKey['rate_limit_requests'] ?? '',
+                    'rate_limit_window'   => $apiKey['rate_limit_window'] ?? '',
+                    'user_rate_limit'     => $apiKey['user_rate_limit'] ?? '',
+                    'ip_rate_limit'       => $apiKey['ip_rate_limit'] ?? '',
                 ];
 $labels = [
-    'rateLimitRequests' => lang('ApiKeys.rateLimitRequests'),
-    'rateLimitWindow'   => lang('ApiKeys.rateLimitWindow'),
-    'userRateLimit'     => lang('ApiKeys.userRateLimit'),
-    'ipRateLimit'       => lang('ApiKeys.ipRateLimit'),
+    'rate_limit_requests' => lang('ApiKeys.rate_limit_requests'),
+    'rate_limit_window'   => lang('ApiKeys.rate_limit_window'),
+    'user_rate_limit'     => lang('ApiKeys.user_rate_limit'),
+    'ip_rate_limit'       => lang('ApiKeys.ip_rate_limit'),
 ]; ?>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <?php foreach ($labels as $field => $label): ?>
