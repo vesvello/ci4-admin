@@ -54,7 +54,7 @@ class AuthController extends BaseWebController
 
         $this->persistAuthSession($this->extractData($response));
 
-        return redirect()->to(site_url('dashboard'))->with('success', lang('Auth.loginSuccess'));
+        return redirect()->to(site_url('dashboard'))->with('success', lang('Auth.login_success'));
     }
 
     public function attemptGoogleLogin(): RedirectResponse
@@ -94,7 +94,7 @@ class AuthController extends BaseWebController
 
         $this->persistAuthSession($data);
 
-        return redirect()->to(site_url('dashboard'))->with('success', lang('Auth.loginSuccess'));
+        return redirect()->to(site_url('dashboard'))->with('success', lang('Auth.login_success'));
     }
 
     public function register(): string

@@ -65,14 +65,14 @@ $csrfHash = csrf_hash(); ?>
                     <template x-for="row in rows" :key="String(row.id ?? Math.random())">
                         <tr class="<?= esc(table_row_class()) ?>">
                             <td class="<?= esc(table_td_class()) ?>">
-                                <template x-if="row.is_image || row.is_image">
+                                <template x-if="row.is_image">
                                     <button type="button" @click="$dispatch('open-preview', '<?= site_url('files') ?>/' + (row.id ?? '') + '/view')">
                                         <img :src="'<?= site_url('files') ?>/' + (row.id ?? '') + '/view'" 
                                              class="h-10 w-10 rounded-lg object-cover border border-gray-200 hover:scale-110 transition-transform shadow-sm" 
                                              :alt="row.original_name || row.original_name">
                                     </button>
                                 </template>
-                                <template x-if="!(row.is_image || row.is_image)">
+                                <template x-if="!(row.is_image)">
                                     <div class="h-10 w-10 flex items-center justify-center rounded-lg bg-gray-100 border border-gray-200">
                                         <?= ui_icon('file', 'h-5 w-5 text-gray-400') ?>
                                     </div>

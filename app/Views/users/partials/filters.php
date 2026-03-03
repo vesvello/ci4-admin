@@ -9,7 +9,7 @@
         <select name="status" class="<?= esc(filter_input_class()) ?>">
             <option value=""><?= lang('Users.all_statuses') ?></option>
             <?php $status = (string) request()->getGet('status'); ?>
-            <option value="active" <?= $status === 'active' ? 'selected' : '' ?>><?= lang('App.active') ?></option>
+            <option value="active" <?= $status === 'active' ? 'selected' : '' ?>><?= lang('App.yes') ?></option>
             <option value="pending_approval" <?= $status === 'pending_approval' ? 'selected' : '' ?>><?= lang('Users.pending_approval') ?></option>
         </select>
     </div>

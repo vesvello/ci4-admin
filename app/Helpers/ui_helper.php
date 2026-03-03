@@ -34,11 +34,11 @@ if (! function_exists('is_email_verified')) {
      */
     function is_email_verified(array $user): bool
     {
-        if (! empty($user['emailVerifiedAt'])) {
+        if (! empty($user['email_verified_at'])) {
             return true;
         }
 
-        foreach (['emailVerified', 'isEmailVerified', 'verified'] as $key) {
+        foreach (['email_verified', 'is_email_verified', 'verified'] as $key) {
             if (! array_key_exists($key, $user)) {
                 continue;
             }
@@ -77,7 +77,7 @@ if (! function_exists('status_badge')) {
 
         return match ($status) {
             'active', 'approved', 'success' => 'bg-green-100 text-green-800',
-            'pending', 'processing' => 'bg-yellow-100 text-yellow-800',
+            'pending', 'pending_approval', 'processing' => 'bg-yellow-100 text-yellow-800',
             'suspended', 'rejected', 'failed' => 'bg-red-100 text-red-800',
             default => 'bg-gray-100 text-gray-800',
         };
@@ -91,16 +91,17 @@ if (! function_exists('localized_status')) {
         $status = strtolower($raw);
 
         return match ($status) {
-            'active'           => lang('App.active'),
-            'inactive'         => lang('App.inactive'),
+            'active'           => lang('App.yes'),
+            'inactive'         => lang('App.no'),
             'pending'          => lang('App.pending'),
-            'pending_approval' => lang('Users.pendingApproval'),
-            'processing'       => lang('App.processing'),
-            'approved'         => lang('App.approved'),
-            'rejected'         => lang('App.rejected'),
-            'suspended'        => lang('App.suspended'),
+            'pending_approval' => lang('Users.pending_approval'),
+            'invited'          => lang('Users.invited'),
+            'processing'       => lang('App.info'),
+            'approved'         => lang('App.success'),
+            'rejected'         => lang('App.error'),
+            'suspended'        => lang('App.warning'),
             'success'          => lang('App.success'),
-            'failed'           => lang('App.failed'),
+            'failed'           => lang('App.error'),
             default            => $raw,
         };
     }
@@ -130,12 +131,12 @@ if (! function_exists('localized_audit_action')) {
         $action = strtolower($raw);
 
         return match ($action) {
-            'create'  => lang('Audit.actionCreate'),
-            'update'  => lang('Audit.actionUpdate'),
-            'delete'  => lang('Audit.actionDelete'),
-            'login'   => lang('Audit.actionLogin'),
-            'logout'  => lang('Audit.actionLogout'),
-            'approve' => lang('Audit.actionApprove'),
+            'create'  => lang('Audit.action_create'),
+            'update'  => lang('Audit.action_update'),
+            'delete'  => lang('Audit.action_delete'),
+            'login'   => lang('Audit.action_login'),
+            'logout'  => lang('Audit.action_logout'),
+            'approve' => lang('Audit.action_approve'),
             default   => $raw,
         };
     }
@@ -164,9 +165,9 @@ if (! function_exists('localized_role')) {
         $role = strtolower($raw);
 
         return match ($role) {
-            'admin' => lang('Users.adminRole'),
-            'superadmin' => lang('Users.superAdminRole'),
-            'user'  => lang('Users.userRole'),
+            'admin' => lang('Users.admin_role'),
+            'superadmin' => lang('Users.super_admin_role'),
+            'user'  => lang('Users.user_role'),
             default => $raw,
         };
     }
@@ -367,7 +368,7 @@ if (! function_exists('ui_icon')) {
             'files'     => 'files',
             'users'     => 'users',
             'audit'     => 'clipboard-list',
-            'apiKeys'   => 'key-round',
+            'api_keys'   => 'key-round',
             'metrics'   => 'bar-chart-3',
             'user'      => 'user',
             'user-round' => 'user-round',
@@ -381,6 +382,8 @@ if (! function_exists('ui_icon')) {
             'download'  => 'download',
             'trash'     => 'trash-2',
             'x'         => 'x',
+            'file'      => 'file',
+            'file-plus' => 'file-plus',
         ];
 
         $icon = $icons[$name] ?? $icons['search'];

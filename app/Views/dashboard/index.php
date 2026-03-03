@@ -55,7 +55,7 @@
                                     <tr>
                                         <th class="<?= esc(table_th_class()) ?> w-16"><?= lang('App.preview') ?></th>
                                         <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.file_name') ?></th>
-                                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.status') ?></th>
+                                        <th class="<?= esc(table_th_class()) ?>"><?= lang('App.status') ?></th>
                                         <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.date') ?></th>
                                     </tr>
                                 </thead>
@@ -63,7 +63,7 @@
                                     <?php foreach ($recentFiles as $file): ?>
                                         <tr class="<?= esc(table_row_class()) ?>">
                                             <td class="<?= esc(table_td_class()) ?>">
-                                                <?php if (! empty($file['isImage'])): ?>
+                                                <?php if (! empty($file['is_image'])): ?>
                                                     <?php $viewUrl = site_url('files/' . ($file['id'] ?? '') . '/view'); ?>
                                                     <button type="button" @click="previewUrl = '<?= $viewUrl ?>'; previewShow = true">
                                                         <img src="<?= $viewUrl ?>" 
