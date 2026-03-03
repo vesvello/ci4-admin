@@ -84,7 +84,7 @@ const tablePayloadRoot = (payload) => {
 
     if (Array.isArray(nested.data) || isObject(nested.meta) || 
         nested.currentPage !== undefined || nested.page !== undefined ||
-        nested.lastPage !== undefined ||
+        nested.last_page !== undefined ||
         nested.total !== undefined || isObject(nested.summary)) {
         return nested;
     }
@@ -361,13 +361,13 @@ document.addEventListener('alpine:init', () => {
         pagination: {
             mode: 'page',
             currentPage: 1,
-            lastPage: 1,
+            last_page: 1,
             total: 0,
             limit: 25,
             from: 0,
             to: 0,
-            nextCursor: '',
-            prevCursor: ''
+            next_cursor: '',
+            prev_cursor: ''
         },
         pageInput: '1',
         query: {},
@@ -591,13 +591,13 @@ document.addEventListener('alpine:init', () => {
                     this.pagination = {
                         mode: 'page',
                         currentPage: 1,
-                        lastPage: 1,
+                        last_page: 1,
                         total: 0,
                         limit: 25,
                         from: 0,
                         to: 0,
-                        nextCursor: '',
-                        prevCursor: ''
+                        next_cursor: '',
+                        prev_cursor: ''
                     };
                     this.pageInput = '1';
                     this.error = true;
@@ -660,11 +660,11 @@ document.addEventListener('alpine:init', () => {
 
         extractPagination(root, visibleCount) {
             const meta = isObject(root.meta) ? root.meta : {};
-            const nextCursor = String(meta.nextCursor ?? root.nextCursor ?? '');
-            const prevCursor = String(meta.prevCursor ?? root.prevCursor ?? '');
-            const hasCursor = nextCursor !== '' || prevCursor !== '' || String(this.query.cursor || '') !== '';
+            const next_cursor = String(meta.next_cursor ?? root.next_cursor ?? '');
+            const prev_cursor = String(meta.prev_cursor ?? root.prev_cursor ?? '');
+            const hasCursor = next_cursor !== '' || prev_cursor !== '' || String(this.query.cursor || '') !== '';
             
-            const limit = Number(meta.perPage ?? root.perPage ?? meta.limit ?? this.query.limit ?? 25) || 25;
+            const limit = Number(meta.per_page ?? root.per_page ?? meta.limit ?? this.query.limit ?? 25) || 25;
             const safeLimit = Math.max(1, limit);
             
             const total = Number(meta.total ?? root.total ?? meta.totalEstimate ?? visibleCount) || visibleCount;
@@ -672,9 +672,9 @@ document.addEventListener('alpine:init', () => {
             const currentPage = Number(meta.page ?? meta.currentPage ?? root.page ?? root.currentPage ?? this.query.page ?? 1) || 1;
             
             const derivedLastPage = Math.max(1, Math.ceil(Math.max(0, total) / safeLimit));
-            const lastPage = Number(meta.lastPage ?? root.lastPage ?? derivedLastPage) || derivedLastPage;
+            const last_page = Number(meta.last_page ?? root.last_page ?? derivedLastPage) || derivedLastPage;
             
-            const normalizedCurrentPage = Math.max(1, Math.min(currentPage, Math.max(1, lastPage)));
+            const normalizedCurrentPage = Math.max(1, Math.min(currentPage, Math.max(1, last_page)));
             const from = total <= 0 ? 0 : ((normalizedCurrentPage - 1) * safeLimit) + 1;
             let to = 0;
             if (total > 0) {
@@ -688,13 +688,13 @@ document.addEventListener('alpine:init', () => {
             return {
                 mode: hasCursor ? 'cursor' : 'page',
                 currentPage: normalizedCurrentPage,
-                lastPage: Math.max(1, lastPage),
+                last_page: Math.max(1, last_page),
                 total: Math.max(0, total),
                 limit: safeLimit,
                 from: Math.max(0, from),
                 to: Math.max(0, to),
-                nextCursor,
-                prevCursor
+                next_cursor,
+                prev_cursor
             };
         },
 
@@ -718,15 +718,15 @@ document.addEventListener('alpine:init', () => {
 
         hasPagination() {
             if (this.isCursorMode()) {
-                return this.pagination.prevCursor !== '' || this.pagination.nextCursor !== '';
+                return this.pagination.prev_cursor !== '' || this.pagination.next_cursor !== '';
             }
 
-            return this.pagination.lastPage > 1;
+            return this.pagination.last_page > 1;
         },
 
         pageWindow() {
             const start = Math.max(1, this.pagination.currentPage - 2);
-            const end = Math.min(this.pagination.lastPage, this.pagination.currentPage + 2);
+            const end = Math.min(this.pagination.last_page, this.pagination.currentPage + 2);
             const pages = [];
             for (let page = start; page <= end; page += 1) {
                 pages.push(page);
@@ -801,7 +801,7 @@ document.addEventListener('alpine:init', () => {
         },
 
         goToPage(page) {
-            const boundedPage = Math.max(1, Math.min(this.pagination.lastPage || 1, page));
+            const boundedPage = Math.max(1, Math.min(this.pagination.last_page || 1, page));
             this.query.page = String(boundedPage);
             delete this.query.cursor;
             this.pageInput = String(boundedPage);
@@ -816,10 +816,10 @@ document.addEventListener('alpine:init', () => {
         },
 
         goToLastPage() {
-            if (this.isCursorMode() || this.pagination.currentPage >= this.pagination.lastPage) {
+            if (this.isCursorMode() || this.pagination.currentPage >= this.pagination.last_page) {
                 return;
             }
-            this.goToPage(this.pagination.lastPage);
+            this.goToPage(this.pagination.last_page);
         },
 
         goToPageFromInput() {
@@ -860,9 +860,9 @@ document.addEventListener('alpine:init', () => {
         },
 
         fullName(row) {
-            const firstName = String(row.firstName ?? '').trim();
-            const lastName = String(row.lastName ?? '').trim();
-            const fullName = `${firstName} ${lastName}`.trim();
+            const first_name = String(row.first_name ?? '').trim();
+            const last_name = String(row.last_name ?? '').trim();
+            const fullName = `${first_name} ${last_name}`.trim();
 
             return fullName === '' ? '-' : fullName;
         },
