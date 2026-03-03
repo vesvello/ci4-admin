@@ -8,7 +8,7 @@ Definir reglas obligatorias para garantizar compatibilidad total entre este fron
 
 - Este proyecto es un **frontend administrativo template**.
 - La base de datos y reglas de negocio pertenecen al backend.
-- **Contrato Estricto:** El API espera y devuelve datos en **`camelCase`**. El frontend debe respetar este estándar en todos sus payloads JSON.
+- **Contrato Estricto:** El API espera y devuelve datos en **`snake_case`**. El frontend debe respetar este estándar en todos sus payloads JSON.
 
 ## Reglas de compatibilidad obligatorias
 
@@ -23,6 +23,7 @@ Definir reglas obligatorias para garantizar compatibilidad total entre este fron
 Para maximizar la fiabilidad, el frontend convierte los archivos a Base64 y los envía mediante un `POST` JSON estándar:
 - Campo: `file` (Data URI Base64).
 - Campo: `filename` (Nombre original).
+- Límite de tamaño: `FILE_MAX_SIZE` (bytes), aplicado con límite efectivo `min(FILE_MAX_SIZE, upload_max_filesize, post_max_size)` en Admin.
 
 ### Descarga y Previsualización
 - El controlador del Admin **debe** usar `DownloadResponse` (`$this->response->download()`) para servir archivos binarios.
@@ -30,7 +31,7 @@ Para maximizar la fiabilidad, el frontend convierte los archivos a Base64 y los 
 
 ## Normalización de Errores
 
-El API suele devolver errores basados en nombres de columnas de DB (`snake_case`). El Admin mapea estos errores a `camelCase` mediante `BaseWebController::normalizeErrorKey()` para que coincidan con los IDs de los inputs del formulario.
+El API devuelve errores en `snake_case`. El Admin debe usar `name`/`id` de formularios en `snake_case` para que la asociación de errores sea directa, sin mapeos de compatibilidad.
 
 ## Criterios de Aceptación para Cambios
 

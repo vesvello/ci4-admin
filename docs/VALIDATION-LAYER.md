@@ -116,7 +116,8 @@ Request:
 
 Reglas clave:
 
-- `uploaded[file]` + `max_size[file,X]` (donde `X` se calcula desde `config('Validation')->maxFileSizeBytes`).
+- `uploaded[file]` + `max_size[file,X]` (donde `X` se calcula desde el límite efectivo).
+- Límite efectivo: `min(FILE_MAX_SIZE, upload_max_filesize, post_max_size)`.
 - Soporte para validación AJAX con respuesta JSON (`ok: false, fieldErrors: [...]`).
 
 Normalización clave:

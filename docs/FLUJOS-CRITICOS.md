@@ -26,7 +26,7 @@ Las imágenes y descargas pasan por un proxy en el Admin (`FileController::view`
 
 ## 4. Normalización de Errores de Validación
 
-El API devuelve errores en `snake_case` (estándar de base de datos), pero el Admin utiliza formularios en `camelCase`.
+El API y el Admin usan el mismo estándar `snake_case` para llaves de validación.
 
-- **Lógica:** El backend y frontend ahora comparten el estándar `snake_case`, eliminando la necesidad de mapeo manual de llaves de error.
-- **Impacto:** Si se añade un nuevo campo al API, asegúrate de añadir su mapeo en `BaseWebController` para que los mensajes de error se muestren bajo el input correcto.
+- **Lógica:** No se mantiene capa de compatibilidad `camelCase`.
+- **Impacto:** Si se añade un nuevo campo al API, debe usarse el mismo nombre `snake_case` en los formularios del Admin para conservar el mapeo directo de errores.

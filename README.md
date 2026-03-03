@@ -130,6 +130,7 @@ CI_ENVIRONMENT = development
 app.baseURL = 'http://localhost:8082/'
 apiClient.baseUrl = 'http://localhost:8080'
 GOOGLE_CLIENT_ID = 'your-google-oauth-client-id.apps.googleusercontent.com'
+FILE_MAX_SIZE = 10485760
 # Opcional: API key para rate limit elevado (600 req/min vs 60 req/min por IP)
 # Crear una via /admin/api-keys o POST /api/v1/api-keys
 # apiClient.appKey = apk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
