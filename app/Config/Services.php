@@ -7,6 +7,7 @@ use App\Libraries\ApiClientInterface;
 use App\Requests\FormRequestInterface;
 use App\Services\AuditApiService;
 use App\Services\AuthApiService;
+use App\Services\CatalogApiService;
 use App\Services\FileApiService;
 use App\Services\HealthApiService;
 use App\Services\ApiKeyApiService;
@@ -128,6 +129,16 @@ class Services extends BaseService
         }
 
         return new HealthApiService(static::apiClient());
+    }
+
+    public static function catalogApiService(bool $getShared = true): CatalogApiService
+    {
+        if ($getShared) {
+            /** @var CatalogApiService */
+            return static::getSharedInstance('catalogApiService');
+        }
+
+        return new CatalogApiService(static::apiClient());
     }
 
 }
