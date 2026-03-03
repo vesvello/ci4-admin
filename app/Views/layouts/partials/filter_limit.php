@@ -1,6 +1,6 @@
 <?php
 $limitFieldName ??= 'limit';
-$limitLabel ??= lang('App.perPage');
+$limitLabel ??= lang('App.per_page');
 $limitOptions ??= [10, 25, 50, 100];
 $currentLimit = (string) (request()->getGet($limitFieldName) ?: '25');
 ?>

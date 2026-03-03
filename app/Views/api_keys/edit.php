@@ -18,14 +18,14 @@
         </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700" for="isActive"><?= lang('ApiKeys.status') ?></label>
-                    <?php $currentActive = old('isActive', isset($apiKey['isActive']) ? ((int) ((bool) $apiKey['isActive'])) : 1); ?>
-                    <select id="isActive" name="isActive"
-                        class="mt-1 w-full rounded-lg border px-3 py-2 <?= has_field_error('isActive') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-brand-500 focus:ring-brand-500' ?>">
+                    <label class="block text-sm font-medium text-gray-700" for="is_active"><?= lang('ApiKeys.status') ?></label>
+                    <?php $currentActive = old('is_active', isset($apiKey['is_active']) ? ((int) ((bool) $apiKey['is_active'])) : 1); ?>
+                    <select id="is_active" name="is_active"
+                        class="mt-1 w-full rounded-lg border px-3 py-2 <?= has_field_error('is_active') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-brand-500 focus:ring-brand-500' ?>">
                         <option value="1" <?= (string) $currentActive === '1' ? 'selected' : '' ?>><?= lang('ApiKeys.active') ?></option>
                         <option value="0" <?= (string) $currentActive === '0' ? 'selected' : '' ?>><?= lang('ApiKeys.inactive') ?></option>
                     </select>
-                    <?= render_field_error('isActive') ?>
+                    <?= render_field_error('is_active') ?>
                 </div>
         
                 <?php $fieldMapping = [

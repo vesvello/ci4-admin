@@ -32,15 +32,15 @@
                     <dd class="mt-1 text-gray-900"><?= esc((string) ($apiKey['name'] ?? '-')) ?></dd>
                 </div>
                 <div>
-                    <dt class="text-gray-500"><?= lang('ApiKeys.keyPrefix') ?></dt>
-                    <dd class="mt-1 text-gray-900 font-mono text-xs"><?= esc((string) ($apiKey['keyPrefix'] ?? '-')) ?></dd>
+                    <dt class="text-gray-500"><?= lang('ApiKeys.key_prefix') ?></dt>
+                    <dd class="mt-1 text-gray-900 font-mono text-xs"><?= esc((string) ($apiKey['key_prefix'] ?? '-')) ?></dd>
                 </div>
                 <div>
                     <dt class="text-gray-500"><?= lang('ApiKeys.status') ?></dt>
                     <dd class="mt-1">
-                        <?php $isActive = ! empty($apiKey['isActive']); ?>
-                        <span class="inline-flex rounded-full px-2 py-1 text-xs <?= $isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-700' ?>">
-                            <?= $isActive ? lang('ApiKeys.active') : lang('ApiKeys.inactive') ?>
+                        <?php $is_active = ! empty($apiKey['is_active']); ?>
+                        <span class="inline-flex rounded-full px-2 py-1 text-xs <?= $is_active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-700' ?>">
+                            <?= $is_active ? lang('ApiKeys.active') : lang('ApiKeys.inactive') ?>
                         </span>
                     </dd>
                 </div>

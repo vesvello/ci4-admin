@@ -9,7 +9,7 @@ return [
     'search'         => 'Search',
     'filters'        => 'Filters',
     'clearFilters'   => 'Clear filters',
-    'perPage'        => 'Per page',
+    'per_page'        => 'Per page',
     'upload'         => 'Upload',
     'download'       => 'Download',
     'preview'        => 'Preview',

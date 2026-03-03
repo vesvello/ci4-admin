@@ -1,61 +1,38 @@
 <?php
 
 return [
-    // Login
+    'email_label'       => 'Email',
+    'password_label'    => 'Password',
+    'first_name_label'   => 'First name',
+    'last_name_label'    => 'Last name',
     'loginTitle'       => 'Sign in',
-    'loginSubtitle'    => 'Access your account',
-    'emailLabel'       => 'Email',
-    'passwordLabel'    => 'Password',
+    'loginSubtitle'    => 'Access the administration panel',
     'loginButton'      => 'Sign in',
-    'forgotPassword'   => 'Forgot my password',
-    'createAccount'    => 'Create account',
-    'loginSuccess'     => 'Session started successfully.',
+    'forgotPassword'   => 'Forgot your password?',
+    'createAccount'    => 'Create an account',
+    'orLoginWith'      => 'Or sign in with',
+    'loginSuccess'     => 'Welcome back.',
     'loginFailed'      => 'Invalid credentials.',
-    'googleOrDivider'  => 'or continue with',
-    'googleLoginFailed' => 'Could not sign in with Google.',
-    'googleLoginPendingApproval' => 'Google sign-in received. Your account is pending approval.',
-    'googleLoginUnavailable' => 'Google sign-in is not available in this environment.',
-
-    // Register
-    'registerTitle'    => 'Create account',
-    'registerSubtitle' => 'Complete your registration',
-    'firstNameLabel'   => 'First name',
-    'lastNameLabel'    => 'Last name',
-    'confirmPassword'  => 'Confirm password',
-    'registerButton'   => 'Create account',
-    'hasAccount'       => 'I already have an account',
-    'registerSuccess'  => 'Registration complete. Check your email to verify your account.',
+    'logoutSuccess'    => 'Logged out successfully.',
+    'googleLoginFailed' => 'Failed to authenticate with Google.',
+    'googleLoginPendingApproval' => 'Your Google account is pending administrator approval.',
+    'googleLoginUnavailable' => 'Google login is not configured.',
+    'registerTitle'    => 'Register',
+    'registerSubtitle' => 'Create your administrator account',
+    'registerButton'   => 'Sign up',
+    'registerSuccess'  => 'Account created. Please wait for administrator approval.',
     'registerFailed'   => 'Could not complete registration.',
-    'emailAlreadyRegistered' => 'This email is already registered',
-
-    // Password strength
-    'passwordStrong'   => 'Strong password',
-    'passwordMedium'   => 'Medium password',
-    'passwordWeak'     => 'Weak password',
-
-    // Forgot password
-    'forgotTitle'      => 'Recover password',
-    'forgotSubtitle'   => 'We will send you a link by email',
-    'sendLink'         => 'Send link',
-    'backToLogin'      => 'Back to login',
-    'forgotSuccess'    => 'We sent you instructions to recover your password.',
-    'forgotFailed'     => 'Could not process the request.',
-
-    // Reset password
-    'resetTitle'       => 'Reset password',
-    'resetSubtitle'    => 'Set a new password',
-    'newPassword'      => 'New password',
-    'resetButton'      => 'Update password',
-    'resetSuccess'     => 'Password updated successfully.',
-    'resetFailed'      => 'Could not change your password.',
-
-    // Verify email
+    'forgotTitle'      => 'Forgot password',
+    'forgotSubtitle'   => 'We will send you a link to reset it',
+    'forgotButton'     => 'Send link',
+    'forgotSuccess'    => 'If the email exists, you will receive a link soon.',
+    'resetTitle'       => 'New password',
+    'resetSubtitle'    => 'Set your new access key',
+    'resetButton'      => 'Reset password',
+    'resetSuccess'     => 'Password updated. You can now sign in.',
+    'resetFailed'      => 'The link is invalid or has expired.',
     'verifyTitle'      => 'Email verification',
-    'verifySubtitle'   => 'Verification result',
-    'verifySuccess'    => 'Your email has been verified.',
-    'verifyFailed'     => 'Could not verify your email.',
-    'goToLogin'        => 'Go to login',
-
-    // Logout
-    'logoutSuccess'    => 'Session ended.',
+    'verifySubtitle'   => 'Confirming your email address',
+    'verifySuccess'    => 'Email verified successfully.',
+    'verifyFailed'     => 'The verification token is invalid.',
 ];

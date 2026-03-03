@@ -9,7 +9,7 @@ return [
     'search'         => 'Buscar',
     'filters'        => 'Filtros',
     'clearFilters'   => 'Limpiar filtros',
-    'perPage'        => 'Por pagina',
+    'per_page'        => 'Por página',
     'upload'         => 'Subir',
     'download'       => 'Descargar',
     'preview'        => 'Vista previa',

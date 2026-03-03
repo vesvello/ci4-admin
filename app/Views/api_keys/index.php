@@ -43,11 +43,11 @@
                                     <span aria-hidden="true" x-text="sortIcon('name')"></span>
                                 </button>
                             </th>
-                            <th class="<?= esc(table_th_class()) ?>"><?= lang('ApiKeys.keyPrefix') ?></th>
-                            <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('isActive')">
-                                <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('isActive')">
+                            <th class="<?= esc(table_th_class()) ?>"><?= lang('ApiKeys.key_prefix') ?></th>
+                            <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('is_active')">
+                                <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('is_active')">
                                     <span><?= lang('ApiKeys.status') ?></span>
-                                    <span aria-hidden="true" x-text="sortIcon('isActive')"></span>
+                                    <span aria-hidden="true" x-text="sortIcon('is_active')"></span>
                                 </button>
                             </th>
                             <th class="<?= esc(table_th_class()) ?>"><?= lang('ApiKeys.rateLimitRequests') ?></th>
@@ -65,9 +65,9 @@
                         <template x-for="row in rows" :key="String(row.id ?? Math.random())">
                             <tr class="<?= esc(table_row_class()) ?>">
                                 <td class="<?= esc(table_td_class('primary')) ?>" x-text="String(row.name ?? '-')"></td>
-                                <td class="<?= esc(table_td_class('subtle')) ?> font-mono text-xs" x-text="String(row.keyPrefix ?? '-')"></td>
+                                <td class="<?= esc(table_td_class('subtle')) ?> font-mono text-xs" x-text="String(row.key_prefix ?? '-')"></td>
                                 <td class="<?= esc(table_td_class()) ?>">
-                                    <span class="inline-flex rounded-full px-2 py-1 text-xs" :class="(row.isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-700')" x-text="row.isActive ? '<?= esc(lang('ApiKeys.active')) ?>' : '<?= esc(lang('ApiKeys.inactive')) ?>'"></span>
+                                    <span class="inline-flex rounded-full px-2 py-1 text-xs" :class="(row.is_active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-700')" x-text="row.is_active ? '<?= esc(lang('ApiKeys.active')) ?>' : '<?= esc(lang('ApiKeys.inactive')) ?>'"></span>
                                 </td>
                                 <td class="<?= esc(table_td_class('muted')) ?>" x-text="String(row.rateLimitRequests ?? '-')"></td>
                                 <td class="<?= esc(table_td_class('muted')) ?>" x-text="String(row.rateLimitWindow ?? '-')"></td>

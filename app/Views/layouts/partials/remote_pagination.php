@@ -2,7 +2,7 @@
     <div class="flex flex-wrap items-center gap-3">
         <span x-text="paginationLabel()"></span>
         <label class="flex items-center gap-2 text-xs text-gray-500">
-            <span><?= lang('App.perPage') ?></span>
+            <span><?= lang('App.per_page') ?></span>
             <select class="rounded-md border border-gray-300 px-2 py-1 text-xs text-gray-700" :value="String(query.limit || pagination.limit || 25)" @change="onLimitChange($event.target.value)" :disabled="loading">
                 <option value="10">10</option>
                 <option value="25">25</option>
