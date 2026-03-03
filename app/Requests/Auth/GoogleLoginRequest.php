@@ -8,20 +8,20 @@ class GoogleLoginRequest extends BaseFormRequest
 {
     protected function fields(): array
     {
-        return ['idToken'];
+        return ['id_token'];
     }
 
     public function rules(): array
     {
         return [
-            'idToken' => 'required|string|max_length[4096]',
+            'id_token' => 'required|string|max_length[4096]',
         ];
     }
 
     public function payload(): array
     {
         return [
-            'idToken' => trim((string) $this->request->getPost('idToken')),
+            'id_token' => trim((string) $this->request->getPost('id_token')),
         ];
     }
 }
