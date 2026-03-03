@@ -45,4 +45,5 @@ return [
     'has_account'       => 'Already have an account',
     'new_password'      => 'New password',
     'go_to_login'       => 'Go to login',
+    'email_already_registered' => 'This email is already registered.',
 ];

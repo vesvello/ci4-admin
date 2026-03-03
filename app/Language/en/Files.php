@@ -18,7 +18,7 @@ return [
     'delete_success'     => 'File deleted successfully.',
     'delete_failed'      => 'Failed to delete file.',
     'confirm_delete'     => 'Are you sure you want to delete this file?',
-    'file_too_large'     => 'File is too large (Max {0}).',
+    'file_too_large'     => 'File is too large (Max {0} MB).',
     'search_placeholder' => 'Search by filename...',
     'sort_by_file_name'  => 'Sort by filename',
     'sort_by_date'       => 'Sort by date',
@@ -28,4 +28,5 @@ return [
     'private'            => 'Private',
     'delete'             => 'Delete',
     'download'           => 'Download',
+    'invalid_file'       => 'Invalid file.',
 ];

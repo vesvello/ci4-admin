@@ -54,10 +54,8 @@
                 <div>
                     <dt class="text-gray-500"><?= lang('Users.email_verified') ?></dt>
                     <dd class="mt-1 text-gray-900">
-                        <?php if (! empty($user['email_verifiedAt'])): ?>
-                            <?= esc(format_date($user['email_verifiedAt'])) ?>
-                        <?php elseif (! empty($user['verifiedAt'])): ?>
-                            <?= esc(format_date($user['verifiedAt'])) ?>
+                        <?php if (! empty($user['email_verified_at'])): ?>
+                            <?= esc(format_date($user['email_verified_at'])) ?>
                         <?php else: ?>
                             <?= is_email_verified($user) ? lang('App.yes') : lang('App.no') ?>
                         <?php endif; ?>

@@ -50,5 +50,6 @@ return [
     'go_login'        => 'Go to Login',
     'go_back'         => 'Go Back',
     'status'          => 'Status',
+    'id'              => 'ID',
     'close'           => 'Close',
 ];

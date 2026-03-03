@@ -30,18 +30,18 @@
                 </div>
             </template>
             <button type="button" class="rounded-lg border border-gray-300 px-3 py-1.5 text-xs hover:bg-gray-50 disabled:opacity-40"
-                x-show="isCursorMode() ? (pagination.next_cursor !== '') : (pagination.current_page < pagination.lastPage)"
+                x-show="isCursorMode() ? (pagination.next_cursor !== '') : (pagination.current_page < pagination.last_page)"
                 @click="isCursorMode() ? goToCursor(pagination.next_cursor) : goToPage(pagination.current_page + 1)" :disabled="loading"><?= lang('App.next') ?></button>
             <template x-if="!isCursorMode()">
                 <button type="button" class="rounded-lg border border-gray-300 px-3 py-1.5 text-xs hover:bg-gray-50 disabled:opacity-40"
-                    x-show="pagination.current_page < pagination.lastPage"
+                    x-show="pagination.current_page < pagination.last_page"
                     @click="goToLastPage()" :disabled="loading"><?= lang('App.last') ?></button>
             </template>
         </nav>
         <template x-if="!isCursorMode()">
             <div class="flex items-center gap-2">
                 <span class="text-xs text-gray-500"><?= lang('App.go_to_page') ?></span>
-                <input type="number" min="1" :max="pagination.lastPage" x-model="page_input" @keydown.enter.prevent="goToPageFromInput()"
+                <input type="number" min="1" :max="pagination.last_page" x-model="page_input" @keydown.enter.prevent="goToPageFromInput()"
                     class="w-20 rounded-md border border-gray-300 px-2 py-1 text-xs text-gray-700" :disabled="loading">
                 <button type="button" class="rounded-lg border border-gray-300 px-3 py-1 text-xs hover:bg-gray-50 disabled:opacity-40"
                     @click="goToPageFromInput()" :disabled="loading"><?= lang('App.go') ?></button>

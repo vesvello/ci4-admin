@@ -18,7 +18,7 @@ return [
     'delete_success'     => 'Archivo eliminado.',
     'delete_failed'      => 'Error al eliminar el archivo.',
     'confirm_delete'     => '¿Estás seguro de eliminar este archivo?',
-    'file_too_large'     => 'El archivo es demasiado grande (Máx {0}).',
+    'file_too_large'     => 'El archivo es demasiado grande (Máx {0} MB).',
     'search_placeholder' => 'Buscar por nombre...',
     'sort_by_file_name'  => 'Ordenar por nombre',
     'sort_by_date'       => 'Ordenar por fecha',
@@ -28,4 +28,5 @@ return [
     'private'            => 'Privado',
     'delete'             => 'Eliminar',
     'download'           => 'Descargar',
+    'invalid_file'       => 'El archivo no es válido.',
 ];

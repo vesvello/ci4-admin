@@ -45,4 +45,5 @@ return [
     'has_account'       => 'Ya tengo una cuenta',
     'new_password'      => 'Nueva contraseña',
     'go_to_login'       => 'Ir al ingreso',
+    'email_already_registered' => 'Este correo ya está registrado.',
 ];

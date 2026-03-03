@@ -128,7 +128,7 @@
                 </span>
                 <span class="text-sm font-medium <?= esc($healthTone['text']) ?>">
                     API: <?= esc((string) ($apiHealth['state'] ?? $apiHealth['status'] ?? 'unknown')) ?> 
-                    (<?= esc((string) ($apiHealth['latencyMs'] ?? $apiHealth['latency_ms'] ?? 0)) ?>ms)
+                    (<?= esc((string) ($apiHealth['latency_ms'] ?? 0)) ?>ms)
                 </span>
             </div>
         </section>
