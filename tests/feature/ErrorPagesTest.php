@@ -36,7 +36,7 @@ final class ErrorPagesTest extends CIUnitTestCase
 
         $result->assertStatus(404);
         $this->assertStringContainsString('data-error-page="404"', $body);
-        $this->assertStringContainsString(lang('App.error404Title'), $body);
+        $this->assertStringContainsString(htmlentities(lang('App.error404Title'), ENT_QUOTES, 'UTF-8'), $body);
         $this->assertStringContainsString(site_url('login'), $body);
     }
 
@@ -57,6 +57,6 @@ final class ErrorPagesTest extends CIUnitTestCase
 
         $result->assertStatus(500);
         $this->assertStringContainsString('data-error-page="500"', $body);
-        $this->assertStringContainsString(lang('App.error500Title'), $body);
+        $this->assertStringContainsString(htmlentities(lang('App.error500Title'), ENT_QUOTES, 'UTF-8'), $body);
     }
 }
