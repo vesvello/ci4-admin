@@ -8,14 +8,14 @@ class UserStoreRequest extends BaseFormRequest
 {
     protected function fields(): array
     {
-        return ['firstName', 'lastName', 'email', 'role'];
+        return ['first_name', 'last_name', 'email', 'role'];
     }
 
     public function rules(): array
     {
         return [
-            'firstName' => 'required|min_length[2]|max_length[100]',
-            'lastName'  => 'required|min_length[2]|max_length[100]',
+            'first_name' => 'required|min_length[2]|max_length[100]',
+            'last_name'  => 'required|min_length[2]|max_length[100]',
             'email'     => 'required|valid_email',
             'role'      => 'required|in_list[user,admin,superadmin]',
         ];
@@ -24,8 +24,8 @@ class UserStoreRequest extends BaseFormRequest
     public function payload(): array
     {
         return [
-            'firstName' => (string) $this->request->getPost('firstName'),
-            'lastName'  => (string) $this->request->getPost('lastName'),
+            'first_name' => (string) $this->request->getPost('first_name'),
+            'last_name'  => (string) $this->request->getPost('last_name'),
             'email'     => (string) $this->request->getPost('email'),
             'role'      => (string) $this->request->getPost('role'),
         ];
