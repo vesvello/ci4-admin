@@ -5,7 +5,7 @@
         selectedFileName: '',
         clientError: '',
         hasServerError: <?= has_field_error('file') ? 'true' : 'false' ?>,
-        maxBytes: <?= config('Validation')->maxFileSizeBytes ?? 10485760 ?>,
+        maxBytes: <?= \App\Support\FileSizeLimits::effectiveMaxBytes() ?>,
         uploading: false,
         progress: 0,
         onFileChange(event) {

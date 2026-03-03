@@ -3,6 +3,7 @@
 namespace App\Requests\File;
 
 use App\Requests\BaseFormRequest;
+use App\Support\FileSizeLimits;
 
 class FileUploadRequest extends BaseFormRequest
 {
@@ -16,12 +17,12 @@ class FileUploadRequest extends BaseFormRequest
      */
     public function rules(): array
     {
-        $maxBytes = config('Validation')->maxFileSizeBytes ?? 10485760;
-        $maxKb = (int) round($maxBytes / 1024);
+        $maxBytes = FileSizeLimits::effectiveMaxBytes();
+        $maxKb = max(1, (int) floor($maxBytes / 1024));
 
         return [
             'file' => [
-                'label' => lang('Files.fileName'),
+                'label' => lang('Files.file_name'),
                 'rules' => [
                     // Usamos una regla que no dispare el validador si el objeto ya es UploadedFile
                     // o simplemente confiamos en la validación manual del controlador para el objeto.
@@ -34,9 +35,11 @@ class FileUploadRequest extends BaseFormRequest
 
     public function messages(): array
     {
+        $maxMb = FileSizeLimits::bytesToMb(FileSizeLimits::effectiveMaxBytes());
+
         return [
             'file' => [
-                'max_size' => lang('Files.fileTooLarge', [round((config('Validation')->maxFileSizeBytes ?? 10485760) / 1024 / 1024, 1)]),
+                'max_size' => lang('Files.file_too_large', [$maxMb]),
             ],
         ];
     }
