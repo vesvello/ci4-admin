@@ -26,10 +26,6 @@ return [
     'action_approve'      => 'Aprobar',
     'user_id'             => 'ID de usuario',
     'loading'             => 'Cargando auditoría...',
-    'sort_by_user'        => 'Ordenar por usuario',
-    'sort_by_action'      => 'Ordenar por acción',
-    'sort_by_entity'      => 'Ordenar por entidad',
-    'sort_by_date'        => 'Ordenar por fecha',
     'no_logs'             => 'No se encontraron registros de auditoría.',
     'not_found'           => 'Registro de auditoría no encontrado.',
 ];

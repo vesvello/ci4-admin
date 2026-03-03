@@ -20,8 +20,6 @@ return [
     'confirm_delete'     => 'Are you sure you want to delete this file?',
     'file_too_large'     => 'File is too large (Max {0} MB).',
     'search_placeholder' => 'Search by filename...',
-    'sort_by_file_name'  => 'Sort by filename',
-    'sort_by_date'       => 'Sort by date',
     'not_found'          => 'File not found.',
     'visibility'         => 'Visibility',
     'public'             => 'Public',

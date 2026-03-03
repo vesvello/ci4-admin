@@ -64,9 +64,9 @@
             <table class="<?= esc(table_class()) ?>">
                 <thead class="<?= esc(table_head_class()) ?>">
                     <tr>
-                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Metrics.method') ?></th>
-                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Metrics.path') ?></th>
-                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Metrics.duration') ?></th>
+                        <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.method') ?></th>
+                        <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.path') ?></th>
+                        <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.duration_ms') ?></th>
                     </tr>
                 </thead>
                 <tbody class="<?= esc(table_body_class()) ?>">
@@ -93,8 +93,8 @@
         <table class="<?= esc(table_class()) ?>">
             <thead class="<?= esc(table_head_class()) ?>">
                 <tr>
-                    <th class="<?= esc(table_th_class()) ?>"><?= lang('Metrics.period') ?></th>
-                    <th class="<?= esc(table_th_class()) ?>"><?= lang('Metrics.value') ?></th>
+                    <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.period') ?></th>
+                    <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.value') ?></th>
                 </tr>
             </thead>
             <tbody class="<?= esc(table_body_class()) ?>">
@@ -123,10 +123,10 @@
                                     <table class="<?= esc(table_class()) ?>">
                                         <thead class="<?= esc(table_head_class()) ?>">
                                             <tr>
-                                                <th class="<?= esc(table_th_class()) ?>"><?= lang('Metrics.slo_metric') ?></th>
-                                                <th class="<?= esc(table_th_class()) ?>"><?= lang('Metrics.slo_target') ?></th>
-                                                <th class="<?= esc(table_th_class()) ?>"><?= lang('Metrics.slo_current') ?></th>
-                                                <th class="<?= esc(table_th_class()) ?>"><?= lang('Metrics.error_budget') ?></th>
+                                                <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.slo_metric') ?></th>
+                                                <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.slo_target') ?></th>
+                                                <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.slo_current') ?></th>
+                                                <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.error_budget') ?></th>
                                             </tr>
                                         </thead>
                                         <tbody class="<?= esc(table_body_class()) ?>">
@@ -184,8 +184,8 @@
             <table class="<?= esc(table_class()) ?>">
                 <thead class="<?= esc(table_head_class()) ?>">
                     <tr>
-                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Metrics.role') ?></th>
-                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Metrics.count') ?></th>
+                        <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.role') ?></th>
+                        <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.count') ?></th>
                     </tr>
                 </thead>
                 <tbody class="<?= esc(table_body_class()) ?>">
@@ -214,8 +214,8 @@
             <table class="<?= esc(table_class()) ?>">
                 <thead class="<?= esc(table_head_class()) ?>">
                     <tr>
-                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Metrics.status') ?></th>
-                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Metrics.count') ?></th>
+                        <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.status') ?></th>
+                        <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.count') ?></th>
                     </tr>
                 </thead>
                 <tbody class="<?= esc(table_body_class()) ?>">
@@ -244,9 +244,9 @@
             <table class="<?= esc(table_class()) ?>">
                 <thead class="<?= esc(table_head_class()) ?>">
                     <tr>
-                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Audit.action') ?></th>
-                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Audit.user') ?></th>
-                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Audit.date') ?></th>
+                        <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.action') ?></th>
+                        <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.user') ?></th>
+                        <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.date') ?></th>
                     </tr>
                 </thead>
                 <tbody class="<?= esc(table_body_class()) ?>">

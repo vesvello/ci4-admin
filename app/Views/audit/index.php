@@ -40,33 +40,33 @@
             <table class="<?= esc(table_class()) ?>">
                 <thead class="<?= esc(table_head_class()) ?>">
                     <tr>
-                        <th class="<?= esc(table_th_class()) ?>"><?= lang('App.id') ?></th>
+                        <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.id') ?></th>
                         <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('user_id')">
-                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('user_id')" aria-label="<?= esc(lang('Audit.sort_by_user')) ?>">
-                                <span><?= lang('Audit.user') ?></span>
+                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('user_id')" aria-label="<?= esc(lang('TableA11y.sort_by', [lang('TableColumns.user')])) ?>">
+                                <span><?= lang('TableColumns.user') ?></span>
                                 <span aria-hidden="true" x-text="sortIcon('user_id')"></span>
                             </button>
                         </th>
                         <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('action')">
-                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('action')" aria-label="<?= esc(lang('Audit.sort_by_action')) ?>">
-                                <span><?= lang('Audit.action') ?></span>
+                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('action')" aria-label="<?= esc(lang('TableA11y.sort_by', [lang('TableColumns.action')])) ?>">
+                                <span><?= lang('TableColumns.action') ?></span>
                                 <span aria-hidden="true" x-text="sortIcon('action')"></span>
                             </button>
                         </th>
                         <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('entity_type')">
-                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('entity_type')" aria-label="<?= esc(lang('Audit.sort_by_entity')) ?>">
-                                <span><?= lang('Audit.entity') ?></span>
+                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('entity_type')" aria-label="<?= esc(lang('TableA11y.sort_by', [lang('TableColumns.entity')])) ?>">
+                                <span><?= lang('TableColumns.entity') ?></span>
                                 <span aria-hidden="true" x-text="sortIcon('entity_type')"></span>
                             </button>
                         </th>
-                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Audit.ip_address') ?></th>
+                        <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.ip_address') ?></th>
                         <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('created_at')">
-                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('created_at')" aria-label="<?= esc(lang('Audit.sort_by_date')) ?>">
-                                <span><?= lang('Audit.date') ?></span>
+                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('created_at')" aria-label="<?= esc(lang('TableA11y.sort_by', [lang('TableColumns.date')])) ?>">
+                                <span><?= lang('TableColumns.date') ?></span>
                                 <span aria-hidden="true" x-text="sortIcon('created_at')"></span>
                             </button>
                         </th>
-                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Audit.actions') ?></th>
+                        <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.actions') ?></th>
                     </tr>
                 </thead>
                 <tbody class="<?= esc(table_body_class()) ?>">

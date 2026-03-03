@@ -29,7 +29,7 @@ return [
     'delete_failed'        => 'Could not delete API key.',
     'not_found'            => 'API key not found.',
     'rate_limit_requests'   => 'Request limit',
-    'rate_limit_window'     => 'Window (sec)',
+    'rate_limit_window'     => 'Window (s)',
     'user_rate_limit'       => 'Per-user limit',
     'ip_rate_limit'         => 'Per-IP limit',
     'usage_limits'        => 'Usage limits',

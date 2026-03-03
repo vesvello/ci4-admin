@@ -44,9 +44,4 @@ return [
     'not_found'        => 'User not found.',
     'search_placeholder' => 'Search by name or email...',
     'no_users'         => 'No users found.',
-    'sort_by_name'     => 'Sort by name',
-    'sort_by_email'    => 'Sort by email',
-    'sort_by_role'     => 'Sort by role',
-    'sort_by_status'   => 'Sort by status',
-    'sort_by_date'     => 'Sort by date',
 ];

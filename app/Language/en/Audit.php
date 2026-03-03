@@ -26,10 +26,6 @@ return [
     'action_approve'      => 'Approve',
     'user_id'             => 'User ID',
     'loading'             => 'Loading audit logs...',
-    'sort_by_user'        => 'Sort by user',
-    'sort_by_action'      => 'Sort by action',
-    'sort_by_entity'      => 'Sort by entity',
-    'sort_by_date'        => 'Sort by date',
     'no_logs'             => 'No audit logs found.',
     'not_found'           => 'Audit log not found.',
 ];

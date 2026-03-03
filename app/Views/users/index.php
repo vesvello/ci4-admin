@@ -44,36 +44,36 @@
                 <thead class="<?= esc(table_head_class()) ?>">
                     <tr>
                         <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('first_name')">
-                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('first_name')" aria-label="<?= esc(lang('Users.sort_by_name')) ?>">
-                                <span><?= lang('Users.name') ?></span>
+                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('first_name')" aria-label="<?= esc(lang('TableA11y.sort_by', [lang('TableColumns.name')])) ?>">
+                                <span><?= lang('TableColumns.name') ?></span>
                                 <span aria-hidden="true" x-text="sortIcon('first_name')"></span>
                             </button>
                         </th>
                         <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('email')">
-                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('email')" aria-label="<?= esc(lang('Users.sort_by_email')) ?>">
-                                <span><?= lang('Users.email') ?></span>
+                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('email')" aria-label="<?= esc(lang('TableA11y.sort_by', [lang('TableColumns.email')])) ?>">
+                                <span><?= lang('TableColumns.email') ?></span>
                                 <span aria-hidden="true" x-text="sortIcon('email')"></span>
                             </button>
                         </th>
                         <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('role')">
-                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('role')" aria-label="<?= esc(lang('Users.sort_by_role')) ?>">
-                                <span><?= lang('Users.role') ?></span>
+                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('role')" aria-label="<?= esc(lang('TableA11y.sort_by', [lang('TableColumns.role')])) ?>">
+                                <span><?= lang('TableColumns.role') ?></span>
                                 <span aria-hidden="true" x-text="sortIcon('role')"></span>
                             </button>
                         </th>
                         <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('status')">
-                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('status')" aria-label="<?= esc(lang('Users.sort_by_status')) ?>">
-                                <span><?= lang('Users.status') ?></span>
+                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('status')" aria-label="<?= esc(lang('TableA11y.sort_by', [lang('TableColumns.status')])) ?>">
+                                <span><?= lang('TableColumns.status') ?></span>
                                 <span aria-hidden="true" x-text="sortIcon('status')"></span>
                             </button>
                         </th>
                         <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('created_at')">
-                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('created_at')" aria-label="<?= esc(lang('Users.sort_by_date')) ?>">
-                                <span><?= lang('Users.date') ?></span>
+                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('created_at')" aria-label="<?= esc(lang('TableA11y.sort_by', [lang('TableColumns.created_at')])) ?>">
+                                <span><?= lang('TableColumns.created_at') ?></span>
                                 <span aria-hidden="true" x-text="sortIcon('created_at')"></span>
                             </button>
                         </th>
-                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Users.actions') ?></th>
+                        <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.actions') ?></th>
                     </tr>
                 </thead>
                 <tbody class="<?= esc(table_body_class()) ?>">

@@ -44,9 +44,4 @@ return [
     'not_found'        => 'Usuario no encontrado.',
     'search_placeholder' => 'Buscar por nombre o email...',
     'no_users'         => 'No se encontraron usuarios.',
-    'sort_by_name'     => 'Ordenar por nombre',
-    'sort_by_email'    => 'Ordenar por email',
-    'sort_by_role'     => 'Ordenar por rol',
-    'sort_by_status'   => 'Ordenar por estado',
-    'sort_by_date'     => 'Ordenar por fecha',
 ];

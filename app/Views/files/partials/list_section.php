@@ -47,22 +47,22 @@ $csrfHash = csrf_hash(); ?>
             <table class="<?= esc(table_class()) ?>">
                 <thead class="<?= esc(table_head_class()) ?>">
                     <tr>
-                        <th class="<?= esc(table_th_class()) ?> w-16"><?= lang('App.preview') ?></th>
+                        <th class="<?= esc(table_th_class()) ?> w-16"><?= lang('TableColumns.preview') ?></th>
                         <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('original_name')">
-                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('original_name')">
-                                <span><?= lang('Files.file_name') ?></span>
+                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('original_name')" aria-label="<?= esc(lang('TableA11y.sort_by', [lang('TableColumns.file_name')])) ?>">
+                                <span><?= lang('TableColumns.file_name') ?></span>
                                 <span aria-hidden="true" x-text="sortIcon('original_name')"></span>
                             </button>
                         </th>
-                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.size') ?></th>
-                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.type') ?></th>
+                        <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.size') ?></th>
+                        <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.type') ?></th>
                         <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('uploaded_at')">
-                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('uploaded_at')">
-                                <span><?= lang('Files.date') ?></span>
+                            <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('uploaded_at')" aria-label="<?= esc(lang('TableA11y.sort_by', [lang('TableColumns.date')])) ?>">
+                                <span><?= lang('TableColumns.date') ?></span>
                                 <span aria-hidden="true" x-text="sortIcon('uploaded_at')"></span>
                             </button>
                         </th>
-                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.actions') ?></th>
+                        <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.actions') ?></th>
                     </tr>
                 </thead>
                 <tbody class="<?= esc(table_body_class()) ?>">

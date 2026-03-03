@@ -20,8 +20,6 @@ return [
     'confirm_delete'     => '¿Estás seguro de eliminar este archivo?',
     'file_too_large'     => 'El archivo es demasiado grande (Máx {0} MB).',
     'search_placeholder' => 'Buscar por nombre...',
-    'sort_by_file_name'  => 'Ordenar por nombre',
-    'sort_by_date'       => 'Ordenar por fecha',
     'not_found'          => 'Archivo no encontrado.',
     'visibility'         => 'Visibilidad',
     'public'             => 'Público',

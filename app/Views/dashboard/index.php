@@ -53,11 +53,11 @@
                             <table class="<?= esc(table_class()) ?>">
                                 <thead class="<?= esc(table_head_class()) ?>">
                                     <tr>
-                                        <th class="<?= esc(table_th_class()) ?> w-16"><?= lang('App.preview') ?></th>
-                                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.file_name') ?></th>
-                                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.size') ?></th>
-                                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.type') ?></th>
-                                        <th class="<?= esc(table_th_class()) ?>"><?= lang('Files.date') ?></th>
+                                        <th class="<?= esc(table_th_class()) ?> w-16"><?= lang('TableColumns.preview') ?></th>
+                                        <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.file_name') ?></th>
+                                        <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.size') ?></th>
+                                        <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.type') ?></th>
+                                        <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.date') ?></th>
                                     </tr>
                                 </thead>
                                 <tbody class="<?= esc(table_body_class()) ?>">

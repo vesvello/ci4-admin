@@ -43,27 +43,27 @@
                     <thead class="<?= esc(table_head_class()) ?>">
                         <tr>
                             <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('name')">
-                                <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('name')">
-                                    <span><?= lang('ApiKeys.name') ?></span>
+                                <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('name')" aria-label="<?= esc(lang('TableA11y.sort_by', [lang('TableColumns.name')])) ?>">
+                                    <span><?= lang('TableColumns.name') ?></span>
                                     <span aria-hidden="true" x-text="sortIcon('name')"></span>
                                 </button>
                             </th>
-                            <th class="<?= esc(table_th_class()) ?>"><?= lang('ApiKeys.key_prefix') ?></th>
+                            <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.key_prefix') ?></th>
                             <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('is_active')">
-                                <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('is_active')">
-                                    <span><?= lang('ApiKeys.status') ?></span>
+                                <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('is_active')" aria-label="<?= esc(lang('TableA11y.sort_by', [lang('TableColumns.status')])) ?>">
+                                    <span><?= lang('TableColumns.status') ?></span>
                                     <span aria-hidden="true" x-text="sortIcon('is_active')"></span>
                                 </button>
                             </th>
                             <th class="<?= esc(table_th_class()) ?>"><?= lang('ApiKeys.rate_limit_requests') ?></th>
                             <th class="<?= esc(table_th_class()) ?>"><?= lang('ApiKeys.rate_limit_window') ?></th>
                             <th class="<?= esc(table_th_class()) ?>" :aria-sort="sortAria('created_at')">
-                                <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('created_at')">
-                                    <span><?= lang('ApiKeys.created_at') ?></span>
+                                <button type="button" class="inline-flex items-center gap-1 hover:text-gray-700" @click="toggleSort('created_at')" aria-label="<?= esc(lang('TableA11y.sort_by', [lang('TableColumns.created_at')])) ?>">
+                                    <span><?= lang('TableColumns.created_at') ?></span>
                                     <span aria-hidden="true" x-text="sortIcon('created_at')"></span>
                                 </button>
                             </th>
-                            <th class="<?= esc(table_th_class()) ?>"><?= lang('ApiKeys.actions') ?></th>
+                            <th class="<?= esc(table_th_class()) ?>"><?= lang('TableColumns.actions') ?></th>
                         </tr>
                     </thead>
                     <tbody class="<?= esc(table_body_class()) ?>">
