@@ -21,8 +21,6 @@
             if (file.size > this.maxBytes) {
                 this.selectedFileName = '';
                 const sizeMb = Math.round((this.maxBytes / 1024 / 1024) * 10) / 10;
-                // We keep the raw lang string in a comment for tests that look for {0}
-                // <?= lang('Files.file_too_large') ?>
                 this.clientError = '<?= esc(lang('Files.file_too_large', ['sizeMbPlaceholder'])) ?>'.replace('sizeMbPlaceholder', sizeMb);
                 event.target.value = '';
                 return;
@@ -67,7 +65,6 @@
                         }
                     }
                 } catch (e) {
-                    // If not JSON, it might be a redirect or error page
                     window.location.reload();
                 }
             });

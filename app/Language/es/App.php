@@ -49,4 +49,6 @@ return [
     'go_dashboard'    => 'Ir al Escritorio',
     'go_login'        => 'Ir al Ingreso',
     'go_back'         => 'Regresar',
+    'status'          => 'Estado',
+    'close'           => 'Cerrar',
 ];

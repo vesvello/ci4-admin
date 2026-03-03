@@ -23,4 +23,9 @@ return [
     'sort_by_file_name'  => 'Ordenar por nombre',
     'sort_by_date'       => 'Ordenar por fecha',
     'not_found'          => 'Archivo no encontrado.',
+    'visibility'         => 'Visibilidad',
+    'public'             => 'Público',
+    'private'            => 'Privado',
+    'delete'             => 'Eliminar',
+    'download'           => 'Descargar',
 ];

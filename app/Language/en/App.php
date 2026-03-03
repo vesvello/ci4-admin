@@ -49,4 +49,6 @@ return [
     'go_dashboard'    => 'Go to Dashboard',
     'go_login'        => 'Go to Login',
     'go_back'         => 'Go Back',
+    'status'          => 'Status',
+    'close'           => 'Close',
 ];
