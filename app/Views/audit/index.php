@@ -85,9 +85,18 @@
                                 </template>
                             </td>
                             <td class="<?= esc(table_td_class()) ?>">
-                                <span class="inline-flex rounded-full px-2 py-1 text-xs" :class="auditActionBadgeClass(row.action)" x-text="auditActionLabel(row.action)"></span>
-                            </td>
-                            <td class="<?= esc(table_td_class('muted')) ?>">
+                                <div class="flex flex-col gap-1">
+                                    <span class="inline-flex rounded-full px-2 py-1 text-xs w-fit" :class="auditActionBadgeClass(row.action)" x-text="auditActionLabel(row.action)"></span>
+                                    <div class="flex gap-1">
+                                        <template x-if="row.result && row.result !== 'success'">
+                                            <span class="inline-flex rounded-full px-1.5 py-0.5 text-[10px]" :class="auditResultBadgeClass(row.result)" x-text="auditResultLabel(row.result)"></span>
+                                        </template>
+                                        <template x-if="row.severity && row.severity !== 'info'">
+                                            <span class="inline-flex rounded-full px-1.5 py-0.5 text-[10px]" :class="auditSeverityBadgeClass(row.severity)" x-text="auditSeverityLabel(row.severity)"></span>
+                                        </template>
+                                    </div>
+                                </div>
+                            </td>                            <td class="<?= esc(table_td_class('muted')) ?>">
                                 <span x-text="String(row.entity_type ?? '-')"></span>
                                 <span class="text-gray-400" x-show="row.entity_id">#<span x-text="String(row.entity_id)"></span></span>
                             </td>

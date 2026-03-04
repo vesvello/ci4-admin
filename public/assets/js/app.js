@@ -118,11 +118,32 @@ const auditActionBadgeClass = (action) => {
     if (val === 'create') return 'bg-green-100 text-green-800';
     if (val === 'update') return 'bg-blue-100 text-blue-800';
     if (val === 'delete') return 'bg-red-100 text-red-800';
-    if (val === 'login') return 'bg-brand-100 text-brand-800';
+    if (['login', 'login_success'].includes(val)) return 'bg-brand-100 text-brand-800';
+    if (val === 'login_failure') return 'bg-red-100 text-red-800';
     if (val === 'logout') return 'bg-gray-100 text-gray-800';
     if (val === 'approve') return 'bg-emerald-100 text-emerald-800';
 
     return 'bg-gray-100 text-gray-700';
+};
+
+const auditResultBadgeClass = (result) => {
+    const val = String(result || '').toLowerCase();
+
+    if (val === 'success') return 'bg-green-100 text-green-800';
+    if (val === 'failure') return 'bg-red-100 text-red-800';
+    if (val === 'denied') return 'bg-orange-100 text-orange-800';
+
+    return 'bg-gray-100 text-gray-700';
+};
+
+const auditSeverityBadgeClass = (severity) => {
+    const val = String(severity || '').toLowerCase();
+
+    if (val === 'info') return 'bg-blue-50 text-blue-700 border border-blue-200';
+    if (val === 'warning') return 'bg-amber-50 text-amber-700 border border-amber-200';
+    if (val === 'critical') return 'bg-red-100 text-red-700 border border-red-300 font-bold';
+
+    return 'bg-gray-100 text-gray-600 border border-gray-200';
 };
 
 const localePrefix = () => String(document.documentElement?.lang || 'es').toLowerCase().startsWith('en') ? 'en' : 'es';
@@ -187,6 +208,8 @@ const auditActionLabels = {
         update: 'Actualizar',
         delete: 'Eliminar',
         login: 'Iniciar sesion',
+        login_success: 'Inicio de sesion exitoso',
+        login_failure: 'Inicio de sesion fallido',
         logout: 'Cerrar sesion',
         approve: 'Aprobar'
     },
@@ -195,8 +218,36 @@ const auditActionLabels = {
         update: 'Update',
         delete: 'Delete',
         login: 'Login',
+        login_success: 'Login Success',
+        login_failure: 'Login Failure',
         logout: 'Logout',
         approve: 'Approve'
+    }
+};
+
+const auditResultLabels = {
+    es: {
+        success: 'Exito',
+        failure: 'Fallo',
+        denied: 'Denegado'
+    },
+    en: {
+        success: 'Success',
+        failure: 'Failure',
+        denied: 'Denied'
+    }
+};
+
+const auditSeverityLabels = {
+    es: {
+        info: 'Info',
+        warning: 'Advertencia',
+        critical: 'Critico'
+    },
+    en: {
+        info: 'Info',
+        warning: 'Warning',
+        critical: 'Critical'
     }
 };
 
@@ -247,6 +298,30 @@ const auditActionLabel = (action) => {
     const locale = localePrefix();
 
     return auditActionLabels[locale]?.[key] || value;
+};
+
+const auditResultLabel = (result) => {
+    const value = String(result || '').trim();
+    if (value === '') {
+        return '-';
+    }
+
+    const key = value.toLowerCase();
+    const locale = localePrefix();
+
+    return auditResultLabels[locale]?.[key] || value;
+};
+
+const auditSeverityLabel = (severity) => {
+    const value = String(severity || '').trim();
+    if (value === '') {
+        return '-';
+    }
+
+    const key = value.toLowerCase();
+    const locale = localePrefix();
+
+    return auditSeverityLabels[locale]?.[key] || value;
 };
 
 const toDateInput = (value) => {
@@ -896,6 +971,10 @@ document.addEventListener('alpine:init', () => {
         roleBadgeClass,
         auditActionBadgeClass,
         auditActionLabel,
+        auditResultBadgeClass,
+        auditResultLabel,
+        auditSeverityBadgeClass,
+        auditSeverityLabel,
         formatDate,
 
         userShowUrl(id) {

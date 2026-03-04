@@ -44,7 +44,10 @@ class AuditController extends BaseWebController
                 ['value' => 'update', 'label' => lang('Audit.action_update')],
                 ['value' => 'delete', 'label' => lang('Audit.action_delete')],
                 ['value' => 'login', 'label' => lang('Audit.action_login')],
+                ['value' => 'login_success', 'label' => lang('Audit.action_login_success')],
+                ['value' => 'login_failure', 'label' => lang('Audit.action_login_failure')],
                 ['value' => 'logout', 'label' => lang('Audit.action_logout')],
+                ['value' => 'approve', 'label' => lang('Audit.action_approve')],
             ]
         );
 
@@ -58,8 +61,8 @@ class AuditController extends BaseWebController
     public function data(): ResponseInterface
     {
         return $this->tableDataResponse(
-            ['action', 'user_id', 'entity_type', 'entity_id'],
-            ['created_at', 'action', 'user_id', 'entity_type', 'entity_id', 'ip_address', 'user_agent'],
+            ['action', 'user_id', 'entity_type', 'entity_id', 'result', 'severity'],
+            ['created_at', 'action', 'user_id', 'entity_type', 'entity_id', 'ip_address', 'user_agent', 'result', 'severity'],
             fn(array $params) => $this->auditService->list($params),
         );
     }
