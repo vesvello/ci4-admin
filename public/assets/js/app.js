@@ -85,7 +85,7 @@ const tablePayloadRoot = (payload) => {
     if (Array.isArray(nested.data) || isObject(nested.meta) || 
         nested.current_page !== undefined || nested.page !== undefined ||
         nested.last_page !== undefined ||
-        nested.total !== undefined || isObject(nested.summary)) {
+        nested.total_items !== undefined || isObject(nested.summary)) {
         return nested;
     }
 
@@ -438,8 +438,8 @@ document.addEventListener('alpine:init', () => {
             mode: 'page',
             current_page: 1,
             last_page: 1,
-            total: 0,
-            limit: 25,
+            total_items: 0,
+            per_page: 25,
             from: 0,
             to: 0,
             next_cursor: '',
@@ -449,7 +449,7 @@ document.addEventListener('alpine:init', () => {
         query: {},
         filterDefaults: {},
         filterFields: new Set(),
-        ignoredFilterKeys: new Set(['sort', 'page', 'cursor']),
+        ignoredFilterKeys: new Set(['sort', 'page', 'cursor', 'order_by', 'order_dir', 'per_page']),
         requestId: 0,
         debounceTimers: new WeakMap(),
         form: null,
@@ -668,8 +668,8 @@ document.addEventListener('alpine:init', () => {
                         mode: 'page',
                         current_page: 1,
                         last_page: 1,
-                        total: 0,
-                        limit: 25,
+                        total_items: 0,
+                        per_page: 25,
                         from: 0,
                         to: 0,
                         next_cursor: '',
@@ -744,12 +744,12 @@ document.addEventListener('alpine:init', () => {
             const prev_cursor = String(meta.prev_cursor ?? root.prev_cursor ?? '');
             const hasCursor = next_cursor !== '' || prev_cursor !== '' || String(this.query.cursor || '') !== '';
             
-            const limit = Number(meta.per_page ?? root.per_page ?? meta.limit ?? this.query.limit ?? 25) || 25;
-            const safeLimit = Math.max(1, limit);
+            const per_page = Number(meta.per_page ?? root.per_page ?? this.query.per_page ?? 25) || 25;
+            const safeLimit = Math.max(1, per_page);
             
-            const total = Number(meta.total ?? root.total ?? meta.totalEstimate ?? visibleCount) || visibleCount;
+            const total = Number(meta.total_items ?? root.total_items ?? visibleCount) || visibleCount;
             
-            const current_page = Number(meta.page ?? meta.current_page ?? root.page ?? root.current_page ?? this.query.page ?? 1) || 1;
+            const current_page = Number(meta.current_page ?? root.current_page ?? this.query.page ?? 1) || 1;
             
             const derivedLastPage = Math.max(1, Math.ceil(Math.max(0, total) / safeLimit));
             const last_page = Number(meta.last_page ?? root.last_page ?? derivedLastPage) || derivedLastPage;
@@ -769,8 +769,8 @@ document.addEventListener('alpine:init', () => {
                 mode: hasCursor ? 'cursor' : 'page',
                 current_page: normalizedCurrentPage,
                 last_page: Math.max(1, last_page),
-                total: Math.max(0, total),
-                limit: safeLimit,
+                total_items: Math.max(0, total),
+                per_page: safeLimit,
                 from: Math.max(0, from),
                 to: Math.max(0, to),
                 next_cursor,
@@ -819,14 +819,14 @@ document.addEventListener('alpine:init', () => {
             const locale = localePrefix();
             const labels = paginationLabels[locale] || paginationLabels.es;
             if (this.isCursorMode()) {
-                return `${labels.visibleResults}: ${this.pagination.total}`;
+                return `${labels.visibleResults}: ${this.pagination.total_items}`;
             }
 
-            if (this.pagination.total <= 0 || this.pagination.from <= 0) {
-                return `${labels.showing} 0 ${labels.of} ${this.pagination.total}`;
+            if (this.pagination.total_items <= 0 || this.pagination.from <= 0) {
+                return `${labels.showing} 0 ${labels.of} ${this.pagination.total_items}`;
             }
 
-            return `${labels.showing} ${this.pagination.from}-${this.pagination.to} ${labels.of} ${this.pagination.total}`;
+            return `${labels.showing} ${this.pagination.from}-${this.pagination.to} ${labels.of} ${this.pagination.total_items}`;
         },
 
         paginationLimitOptions() {
@@ -945,10 +945,10 @@ document.addEventListener('alpine:init', () => {
         onLimitChange(limit) {
             const parsed = Number.parseInt(String(limit || ''), 10);
             if (!Number.isFinite(parsed) || parsed <= 0) {
-                delete this.query.limit;
+                delete this.query.per_page;
             } else {
                 const maxOption = Math.max(...this.paginationLimitOptions());
-                this.query.limit = String(Math.min(maxOption, Math.max(1, parsed)));
+                this.query.per_page = String(Math.min(maxOption, Math.max(1, parsed)));
             }
 
             delete this.query.page;

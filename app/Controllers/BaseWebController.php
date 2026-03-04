@@ -365,7 +365,7 @@ abstract class BaseWebController extends BaseController
      *   search: string,
      *   filters: array<string, string>,
      *   sort: string,
-     *   limit: int,
+     *   per_page: int,
      *   cursor: string,
      *   page: int
      * }
@@ -395,22 +395,22 @@ abstract class BaseWebController extends BaseController
             }
         }
 
-        $limit = (int) $this->request->getGet('limit');
-        if ($limit <= 0) {
-            $limit = $defaultLimit;
+        $per_page = (int) $this->request->getGet('per_page');
+        if ($per_page <= 0) {
+            $per_page = $defaultLimit;
         }
-        $limit = min($limit, $maxLimit);
+        $per_page = min($per_page, $maxLimit);
 
         $cursor = trim((string) ($this->request->getGet('cursor') ?? ''));
         $page = $this->positiveIntFromQuery('page', 1);
 
         return [
-            'search'  => $search,
-            'filters' => $filters,
-            'sort'    => $sort,
-            'limit'   => $limit,
-            'cursor'  => $cursor,
-            'page'    => $page,
+            'search'   => $search,
+            'filters'  => $filters,
+            'sort'     => $sort,
+            'per_page' => $per_page,
+            'cursor'   => $cursor,
+            'page'     => $page,
         ];
     }
 
@@ -421,7 +421,7 @@ abstract class BaseWebController extends BaseController
      *   search?: string,
      *   filters?: array<string, string>,
      *   sort?: string,
-     *   limit?: int,
+     *   per_page?: int,
      *   cursor?: string,
      *   page?: int
      * } $state
@@ -444,12 +444,18 @@ abstract class BaseWebController extends BaseController
 
         $sort = trim((string) ($state['sort'] ?? ''));
         if ($sort !== '') {
-            $params['sort'] = $sort;
+            if (str_starts_with($sort, '-')) {
+                $params['order_by'] = ltrim($sort, '-');
+                $params['order_dir'] = 'desc';
+            } else {
+                $params['order_by'] = $sort;
+                $params['order_dir'] = 'asc';
+            }
         }
 
-        $limit = (int) ($state['limit'] ?? 25);
-        if ($limit > 0) {
-            $params['limit'] = $limit;
+        $per_page = (int) ($state['per_page'] ?? 25);
+        if ($per_page > 0) {
+            $params['per_page'] = $per_page;
         }
 
         $cursor = trim((string) ($state['cursor'] ?? ''));
@@ -490,9 +496,10 @@ abstract class BaseWebController extends BaseController
         $prev_cursor = (string) ($meta['prev_cursor'] ?? $data['prev_cursor'] ?? '');
         $has_more = (bool) ($meta['has_more'] ?? ($next_cursor !== ''));
 
-        $current_page = (int) ($meta['page'] ?? $meta['current_page'] ?? $data['page'] ?? $data['current_page'] ?? ($state['page'] ?? 1));
+        $current_page = (int) ($meta['current_page'] ?? $data['current_page'] ?? ($state['page'] ?? 1));
         $last_page = (int) ($meta['last_page'] ?? $data['last_page'] ?? $current_page);
-        $total = (int) ($meta['total'] ?? $data['total'] ?? $meta['total_estimate'] ?? $visibleCount);
+        $per_page = (int) ($meta['per_page'] ?? $data['per_page'] ?? ($state['per_page'] ?? 25));
+        $total_items = (int) ($meta['total_items'] ?? $data['total_items'] ?? $visibleCount);
 
         $is_cursor_mode = $next_cursor !== '' || $prev_cursor !== '' || ((string) ($state['cursor'] ?? '')) !== '';
 
@@ -500,7 +507,8 @@ abstract class BaseWebController extends BaseController
             'mode'           => $is_cursor_mode ? 'cursor' : 'page',
             'current_page'   => max(1, $current_page),
             'last_page'      => max(1, $last_page),
-            'total'          => max(0, $total),
+            'per_page'       => max(1, $per_page),
+            'total_items'    => max(0, $total_items),
             'next_cursor'    => $next_cursor,
             'prev_cursor'    => $prev_cursor,
             'has_more'       => $has_more,
