@@ -23,10 +23,10 @@ class AuthController extends BaseWebController
         $this->authService = service('authApiService');
     }
 
-    public function login(): string
+    public function login(): ResponseInterface|string
     {
         if ($this->session->has('access_token')) {
-            return (string) redirect()->to(site_url('dashboard'));
+            return redirect()->to(site_url('dashboard'));
         }
 
         return $this->renderAuth('auth/login', [
