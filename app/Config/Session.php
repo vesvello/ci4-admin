@@ -30,7 +30,7 @@ class Session extends BaseConfig
      *
      * The session cookie name, must contain only [0-9a-z_-] characters
      */
-    public string $cookieName = 'ci_session';
+    public string $cookieName = 'ci4_admin_session';
 
     /**
      * --------------------------------------------------------------------------
@@ -57,7 +57,7 @@ class Session extends BaseConfig
      *
      * IMPORTANT: You are REQUIRED to set a valid save path!
      */
-    public string $savePath = WRITEPATH . 'session';
+    public string $savePath = '/Users/davidcardenas/Developer/PHP/ci4-admin-starter/writable/session';
 
     /**
      * --------------------------------------------------------------------------

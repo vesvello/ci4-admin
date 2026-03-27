@@ -25,6 +25,7 @@
 # app_baseURL = ''
 # app.forceGlobalSecureRequests = false
 # app.CSPEnabled = false
+# GOOGLE_CLIENT_ID = ''
 
 #--------------------------------------------------------------------
 # DATABASE
@@ -67,3 +68,13 @@
 #--------------------------------------------------------------------
 
 # logger.threshold = 4
+
+#--------------------------------------------------------------------
+# API CLIENT
+#--------------------------------------------------------------------
+
+# apiClient.baseUrl = 'http://localhost:8080'
+# apiClient.logRequests = false
+
+# Maximum file upload size in bytes (applies to frontend validation + server rules)
+# FILE_MAX_SIZE = 10485760

@@ -1,21 +1,109 @@
-# CI4 Admin Starter
+# CI4 Admin Starter Template
 
-Aplicacion web (frontend server-rendered) basada en CodeIgniter 4 para consumir [`ci4-api-starter`](https://github.com/dcardenasl/ci4-api-starter).
+Template base en CodeIgniter 4 para levantar nuevos proyectos de **frontend administrativo** server-rendered.
 
-## Objetivo
+Este repositorio **no implementa reglas de negocio ni acceso directo a base de datos**.
+Su funcion es consumir un backend API y representar vistas, formularios y flujos de administracion.
 
-Este repositorio sirve como base para un panel administrativo web que consume un API CI4 externo (autenticacion, perfil, archivos, usuarios, auditoria y metricas).
+## Proposito del template
+
+Este proyecto existe para estandarizar nuevos frontends administrativos con la misma arquitectura, convenciones y contrato de integracion.
 
 Arquitectura objetivo:
 
-`Browser -> CI4 Admin Starter (este repo) -> ci4-api-starter`
+`Browser -> CI4 Admin Starter (este repo) -> Backend API`
 
-## Estado actual del repositorio
+## Backend oficial y responsabilidad de capas
 
-- Base de proyecto CI4 inicial (scaffold).
-- Ruta activa por defecto: `/` (vista `welcome_message`).
-- Aun no estan implementados los modulos funcionales del panel (auth/dashboard/perfil/archivos/admin).
-- El plan de implementacion vive en `docs/plan/PLAN-CI4-CLIENT.md`.
+Regla obligatoria para cualquier proyecto nuevo creado desde este template:
+
+- El backend de datos y reglas de negocio vive en **`ci-api-tester`**.
+- La estructura y contrato de endpoints deben mantenerse alineados con **`ci4-api-starter`**.
+- Este repositorio es solo la capa web/admin (UI + orquestacion de requests + manejo de sesion JWT).
+
+En otras palabras:
+
+- `ci-api-tester` / `ci4-api-starter` = fuente de verdad de negocio y persistencia.
+- `ci4-admin-starter` = cliente web administrativo, sin logica de dominio persistente.
+
+## Compatibilidad obligatoria con `ci4-api-starter`
+
+Todo proyecto derivado de este template debe conservar compatibilidad total con el contrato API:
+
+- Prefix API: `/api/v1`.
+- Autenticacion por `Bearer JWT`.
+- Refresh token con endpoint de refresh.
+- Soporte completo para respuestas JSON exitosas y de error de todos los endpoints.
+- No modificar unilateralmente nombres de campos JSON, codigos HTTP ni envelopes de respuesta sin coordinar backend.
+
+Documento de referencia: `docs/COMPATIBILIDAD-API.md`.
+Incluye contrato explicito de `search`, `filter[...]`, `sort`, `limit`, `page/cursor` y estructura de respuesta para listados.
+
+## Manejo JSON estandar en este template
+
+El cliente HTTP (`app/Libraries/ApiClient.php`) normaliza cada respuesta en esta estructura:
+
+```php
+[
+    'ok'          => bool,
+    'status'      => int,
+    'data'        => array,
+    'raw'         => string,
+    'messages'    => array,
+    'fieldErrors' => array,
+]
+```
+
+Reglas clave:
+
+- `messages` se extrae desde `message`, `messages[]` o `errors.general`.
+- `fieldErrors` se extrae desde `errors.<campo>`.
+- En endpoints `data` para tablas/listados (`/files/data`, `/admin/users/data`, etc.), el frontend puede reenviar el JSON crudo del backend para mantener contrato intacto.
+
+## Capa de validaciones (FormRequest)
+
+La validacion web se centraliza en `app/Requests` para mantener controladores delgados y consistentes.
+
+Objetivo de esta capa:
+
+- Evitar reglas inline en controladores.
+- Reutilizar reglas y normalizacion de payload por caso de uso.
+- Mantener separacion de responsabilidades: validacion UI/sintaxis en frontend, reglas de negocio en backend.
+
+Componentes:
+
+- `app/Requests/FormRequestInterface.php`: contrato comun (`rules()`, `data()`, `payload()`, `validate()`, `errors()`).
+- `app/Requests/BaseFormRequest.php`: implementacion base con integracion a `ValidationInterface`.
+- `app/Config/Services.php`: `formRequest(string $class, bool $getShared = true)` para instanciar requests tipados.
+- `app/Controllers/BaseWebController.php`: helper `validateRequest()` para respuesta de error uniforme.
+
+Flujo estandar en controladores:
+
+1. Resolver request class via `service('formRequest', <RequestClass>::class, false)`.
+2. Validar con `validateRequest()` o `request->validate()`.
+3. Construir payload final con `request->payload()`.
+4. Delegar llamada HTTP en `app/Services/*ApiService.php`.
+5. Resolver errores del backend con `failApi()` y errores de formulario con `fieldErrors`.
+
+Ejemplo corto:
+
+```php
+/** @var \App\Requests\Auth\LoginRequest $request */
+$request = service('formRequest', \App\Requests\Auth\LoginRequest::class, false);
+$invalid = $this->validateRequest($request);
+if ($invalid !== null) {
+    return $invalid;
+}
+
+$response = $this->safeApiCall(fn() => $this->authService->login($request->payload()));
+```
+
+Convenciones importantes:
+
+- `rules()` define solo validaciones sintacticas/UI (`required`, `valid_email`, `max_length`, `in_list`, etc.).
+- `payload()` debe normalizar tipos y omitir campos vacios cuando aplique.
+- Los mensajes de UI deben usar `lang('...')`.
+- No duplicar validaciones de dominio que pertenecen al backend.
 
 ## Requisitos
 
@@ -24,50 +112,47 @@ Arquitectura objetivo:
 - Extensiones PHP minimas:
   - `intl`
   - `mbstring`
-- Extensiones recomendadas segun uso:
-  - `curl` (cliente HTTP hacia API)
-  - `json` (normalmente habilitada)
+- Recomendadas:
+  - `curl`
+  - `json`
 
 ## Instalacion
 
 ```bash
 composer install
-```
-
-## Configuracion local
-
-1. Crear archivo de entorno:
-
-```bash
 cp env .env
 ```
 
-2. Ajustar valores clave en `.env`:
+Configurar en `.env`:
 
 ```dotenv
 CI_ENVIRONMENT = development
-app.baseURL = 'http://localhost:8081/'
+app.baseURL = 'http://localhost:8082/'
+apiClient.baseUrl = 'http://localhost:8080'
+GOOGLE_CLIENT_ID = 'your-google-oauth-client-id.apps.googleusercontent.com'
+FILE_MAX_SIZE = 10485760
+# Opcional: API key para rate limit elevado (600 req/min vs 60 req/min por IP)
+# Crear una via /admin/api-keys o POST /api/v1/api-keys
+# apiClient.appKey = apk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
-3. Si vas a conectar contra [`ci4-api-starter`](https://github.com/dcardenasl/ci4-api-starter), define tambien su URL base en el punto donde implementes el cliente API (segun el plan de `docs/plan/PLAN-CI4-CLIENT.md`).
+`GOOGLE_CLIENT_ID` habilita el boton "Continuar con Google" en la pantalla de login y debe coincidir con el client ID configurado en `ci4-api-starter`.
 
-## Ejecutar en desarrollo
+## Desarrollo
 
 ```bash
-php spark serve --port 8081
+php spark serve --port 8082
 ```
 
-App disponible en: `http://localhost:8081`
+Aplicacion disponible en `http://localhost:8082`.
 
 ## Pruebas
-
-Ejecutar suite:
 
 ```bash
 vendor/bin/phpunit
 ```
 
-Con cobertura (opcional):
+Cobertura (opcional):
 
 ```bash
 vendor/bin/phpunit --colors --coverage-text=tests/coverage.txt --coverage-html=tests/coverage/
@@ -75,33 +160,41 @@ vendor/bin/phpunit --colors --coverage-text=tests/coverage.txt --coverage-html=t
 
 ## Estructura relevante
 
-- `app/` codigo de aplicacion (controladores, config, vistas, filtros).
-- `public/` front controller y assets publicos.
-- `writable/` logs, cache, sesiones y archivos temporales.
-- `tests/` pruebas unitarias e infraestructura de test.
-- `docs/plan/PLAN-CI4-CLIENT.md` roadmap funcional del admin starter.
+- `app/Controllers`: flujo web y coordinacion de llamadas al API.
+- `app/Requests`: validacion de formularios y normalizacion de payload por caso de uso.
+- `app/Services`: servicios por dominio para encapsular endpoints (extienden `BaseApiService`).
+- `app/Libraries/ApiClient.php`: cliente HTTP con auth/refresh, header `X-App-Key` y normalizacion de respuestas JSON.
+- `app/Libraries/ApiClientInterface.php`: contrato del cliente HTTP.
+- `app/Filters`: `AuthFilter`, `AdminFilter`, `LocaleFilter`.
+- `app/Helpers`: `ui_helper.php` (utilidades de vista), `form_helper.php` (errores de campo).
+- `app/Language/en/`, `app/Language/es/`: archivos de idioma (i18n).
+- `app/Views`: interfaz administrativa server-rendered.
+- `app/Config/ApiClient.php`: configuracion del backend API (baseUrl, timeouts, apiPrefix, appKey).
+- `app/Config/Services.php`: factory de servicios compartidos y constructor de `FormRequest`.
+- `docs/plan/PLAN-CI4-CLIENT.md`: historial de implementacion y referencia de arquitectura.
+- `docs/COMPATIBILIDAD-API.md`: lineamientos de compatibilidad backend/frontend.
+- `docs/VALIDATION-LAYER.md`: guia de la capa de validaciones (`FormRequest`) y convenciones.
+- `docs/GOOGLE-LOGIN-SETUP.md`: pasos de Google Cloud + `.env` para activar login con Google.
 
-## Roadmap funcional
+## Regla para nuevos proyectos basados en este template
 
-El alcance definido incluye:
+Si creas un nuevo proyecto desde este repositorio:
 
-1. Infraestructura core (ApiClient, filtros auth/admin, helpers UI).
-2. Modulo de autenticacion.
-3. Dashboard inicial.
-4. Perfil de usuario.
-5. Gestion de archivos.
-6. Modulos admin (usuarios, auditoria, metricas).
+1. Mantener el frontend desacoplado de DB y reglas de negocio.
+2. Implementar funcionalidades consumiendo endpoints existentes del backend.
+3. Conservar y validar compatibilidad JSON/HTTP con `ci4-api-starter`.
+4. Mantener validaciones de formularios en `app/Requests` (no inline en controllers).
+5. Evitar cambios que rompan contratos sin versionamiento coordinado.
 
-Detalle completo: `docs/plan/PLAN-CI4-CLIENT.md`.
+## Seguridad y despliegue
 
-## Notas de seguridad y despliegue
-
-- El `DocumentRoot` del servidor debe apuntar a `public/`, nunca a la raiz del repositorio.
-- No subir secretos (`.env`, tokens, credenciales).
-- `writable/` debe ser escribible por el usuario del servidor web.
+- `DocumentRoot` debe apuntar a `public/`.
+- Nunca commitear secretos (`.env`, tokens, credenciales).
+- `writable/` es solo runtime (logs, cache, sesiones, uploads).
 
 ## Referencias
 
 - CodeIgniter 4 User Guide: <https://codeigniter.com/user_guide/>
 - CI4 API Starter: <https://github.com/dcardenasl/ci4-api-starter>
-- Testing en CI4: `tests/README.md`
+- Plan del cliente admin: `docs/plan/PLAN-CI4-CLIENT.md`
+- Guia de validaciones: `docs/VALIDATION-LAYER.md`
